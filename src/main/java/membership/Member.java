@@ -7,16 +7,23 @@ public class Member {
     private int memberID;
     private String name;
     private int phoneNumber;
-    private LocalDate birthday;
+    private static LocalDate birthday;
     private Membership membership;
     private PlayPreference playPreference;
 
     public Member(String name, int phoneNumber, LocalDate birthday, Membership membership, PlayPreference playPreference) {
         this.name = name;
         this.phoneNumber = phoneNumber;
-        this.birthday = birthday;
+        Member.birthday = birthday;
         this.membership = membership;
         this.playPreference = playPreference;
+    }
+
+    public Member(String name, int phoneNumber, LocalDate birthday, Membership membership) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        Member.birthday = birthday;
+        this.membership = membership;
     }
 
     //getters
@@ -24,10 +31,10 @@ public class Member {
 
     public String getName() { return name; }
 
-    public LocalDate getBirthday() { return birthday; }
+    public static LocalDate getBirthday() { return birthday; }
 
-    public int getAge() {
-        return Period.between(birthday, LocalDate.now()).getYears();
+    public static int getAge() {
+        return Period.between(getBirthday(), LocalDate.now()).getYears();
     }
 
     public Membership getMembership() { return membership; }
@@ -40,7 +47,7 @@ public class Member {
     public void setPhoneNumber(int phoneNumber) { this.phoneNumber = phoneNumber; }
 
     //ingen setBirthday? Bør ikke kunne ændres, når brugeren først er oprettet??
-    public void setBirthday(int LocalDate) { this.birthday = birthday; }
+    public void setBirthday(LocalDate birthday) { Member.birthday = birthday; }
 
     public void setMembership( Membership membership) { this.membership = membership; }
 
