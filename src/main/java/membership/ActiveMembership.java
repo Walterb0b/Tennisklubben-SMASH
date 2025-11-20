@@ -1,4 +1,4 @@
 package main.java.membership;
 
-public class BasicMembership {
+public class ActiveMembership {
 }
