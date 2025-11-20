@@ -4,14 +4,17 @@ import java.time.LocalDate;
 import java.time.Period;
 
 public class Member {
-    private int memberID;
+    private static int nextID = 1;
+    private final int memberID;
     private String name;
     private int phoneNumber;
     private static LocalDate birthday;
     private Membership membership;
     private PlayPreference playPreference;
 
-    public Member(String name, int phoneNumber, LocalDate birthday, Membership membership, PlayPreference playPreference) {
+    public Member(String name, int phoneNumber, LocalDate birthday, Membership membership,
+                  PlayPreference playPreference) {
+        this.memberID = nextID++;
         this.name = name;
         this.phoneNumber = phoneNumber;
         Member.birthday = birthday;
@@ -20,6 +23,7 @@ public class Member {
     }
 
     public Member(String name, int phoneNumber, LocalDate birthday, Membership membership) {
+        this.memberID = nextID++;
         this.name = name;
         this.phoneNumber = phoneNumber;
         Member.birthday = birthday;
@@ -27,6 +31,8 @@ public class Member {
     }
 
     //getters
+    public int getNextID() { return nextID; }
+
     public int getMemberID() { return memberID; }
 
     public String getName() { return name; }
@@ -83,6 +89,13 @@ public class Member {
         }
 
 
+    }
+
+    @Override
+    public String toString() {
+        return "MedlemsID: " + memberID + ", Navn: " + name + ", Telefonnummer: " + phoneNumber +
+                ", Fødselsdag: " + birthday + ", Alder: " + getAge() + ", AldersKategori: " + getAgeCategory() +
+                ", Medlemsskab: " + getMembership() + ", SpillerPræferencer: " + playPreference;
     }
 
 
