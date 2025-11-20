@@ -13,9 +13,9 @@ public class ActiveMembership implements Membership{
 
     @Override
     public double calculateYearlyFee() {
-        if(Member.getName() < 18){
+        if(Member.getAge() < 18){
             return 800;
-        } else if (Member.getName() >= 60) {
+        } else if (Member.getAge() >= 60) {
             return 1500 * 0.75; //25 % rabat til folk 60+
         } else {
             return 1500;
