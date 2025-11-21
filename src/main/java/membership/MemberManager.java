@@ -17,6 +17,10 @@ public class MemberManager {
         return members.get(ID);
     }
 
+    public void removeMember(int ID) {
+        members.remove(ID);
+    }
+
     public void printAllMembers() {
         for (Member i : members.values()) {
             System.out.println(i);
