@@ -1,5 +1,6 @@
 package main.java.util;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class ScannerHelper {
@@ -50,7 +51,6 @@ public class ScannerHelper {
     public int askNumber(int intMax) {
         boolean numCorrect = false;
         int selectInt = 0;
-        int selectIntMax = intMax;
 
 
         while (!numCorrect) {
@@ -63,8 +63,8 @@ public class ScannerHelper {
                     System.out.println("Du har indtastet et negativt tal. Prøv igen.");
                 } else if (selectInt == 0) {
                     System.out.println("Du kan ikke indtaste 0. Prøv igen.");
-                } else if (selectInt > selectIntMax) {
-                    System.out.println("Du kan ikke indtaste tal som er større end " + selectIntMax + ". Prøv igen.");
+                } else if (selectInt > intMax) {
+                    System.out.println("Du kan ikke indtaste tal som er større end " + intMax + ". Prøv igen.");
                 } else {
                     numCorrect = true;
                 }
@@ -86,4 +86,41 @@ public class ScannerHelper {
         }
         return answer;
     }
+
+    //Metode til at navigere i menuen
+    public int navigateMenu(int intMax) {
+        String abort = "HMENU";
+        boolean numCorrect = false;
+        int selectInt = 0;
+
+
+        while (!numCorrect) {
+            System.out.print("Indtast tal (1-" + intMax + "): ");
+
+            if (sc.hasNextInt()) {
+                selectInt = sc.nextInt();
+                sc.nextLine();
+
+                if (selectInt < 0) {
+                    System.out.println("Du har indtastet et negativt tal. Prøv igen.");
+                } else if (selectInt > intMax) {
+                    System.out.println("Du kan ikke indtaste tal som er større end " + intMax + ". Prøv igen.");
+                } else if (selectInt == 0) {
+                    System.out.println("Afbryder nuværende handling og går tilbage til tidligere menu.");
+                    numCorrect = true;
+                } else {
+                    numCorrect = true;
+                }
+            } else if (sc.hasNextLine() && sc.nextLine().equals(abort)) {
+                System.out.println("Afbryder nuværende handling og går tilbage til hovedmenuen");
+                selectInt = -1;
+                numCorrect = true;
+            } else {
+                System.out.println("Du har ikke indtastet et tal. Prøv igen.");
+                //sc.nextLine(); // rydder forkert input
+            }
+        }
+        return selectInt;
+    }
+
 }
