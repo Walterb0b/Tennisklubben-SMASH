@@ -51,4 +51,38 @@ public class ScannerHelper {
         }
         return answer;
     }
+
+    //Metode til at navigere i menuen
+    public int navigateMenu(int intMax) {
+        String abort = "HMENU";
+        boolean numCorrect = false;
+        int selectInt = 0;
+        int selectIntMax = intMax;
+
+
+        while (!numCorrect) {
+
+            if (sc.hasNextInt()) {
+                selectInt = sc.nextInt();
+                sc.nextLine();
+
+                if (selectInt < 0) {
+                    System.out.println("Du har indtastet et negativt tal. Prøv igen.");
+                } else if (selectInt > selectIntMax) {
+                    System.out.println("Du kan ikke indtaste tal som er større end " + selectIntMax + ". Prøv igen.");
+                } else {
+                    numCorrect = true;
+                }
+            } else if (sc.hasNextLine() && sc.nextLine().equals(abort)) {
+                System.out.println("Du har afbrudt den aktuelle handling. Går tilbage til hovedmenuen");
+                selectInt = -1;
+                sc.nextLine();
+            } else {
+                System.out.println("Du har ikke indtastet et tal. Prøv igen.");
+                sc.nextLine(); // rydder forkert input
+            }
+        }
+        return selectInt;
+    }
+
 }
