@@ -7,12 +7,12 @@ public class Member {
     private static int nextID = 1;
     private final int memberID;
     private String name;
-    private int phoneNumber;
+    private String phoneNumber;
     private static LocalDate birthday;
     private Membership membership;
     private PlayPreference playPreference;
 
-    public Member(String name, int phoneNumber, LocalDate birthday, Membership membership,
+    public Member(String name, String phoneNumber, LocalDate birthday, Membership membership,
                   PlayPreference playPreference) {
         this.memberID = nextID++;
         this.name = name;
@@ -22,7 +22,7 @@ public class Member {
         this.playPreference = playPreference;
     }
 
-    public Member(String name, int phoneNumber, LocalDate birthday, Membership membership) {
+    public Member(String name, String phoneNumber, LocalDate birthday, Membership membership) {
         this.memberID = nextID++;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -50,7 +50,7 @@ public class Member {
     //setters
     public void setName(String name) { this.name = name; }
 
-    public void setPhoneNumber(int phoneNumber) { this.phoneNumber = phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
     //ingen setBirthday? Bør ikke kunne ændres, når brugeren først er oprettet??
     public void setBirthday(LocalDate birthday) { Member.birthday = birthday; }

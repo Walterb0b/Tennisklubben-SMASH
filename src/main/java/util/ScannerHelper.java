@@ -19,6 +19,16 @@ public class ScannerHelper {
         System.out.println("0. Luk programmet");
     }
 
+    public void memberMenu(){
+        System.out.println("=== Hovedmenu ===");
+        System.out.println("1. Se medlemskab");
+        System.out.println("2. Se medlemsoversigt");
+        System.out.println("3. Tilføj medlem");
+        System.out.println("4. Rediger medlem");
+        System.out.println("5. Slet medlem");
+        System.out.println("0. Gå tilbage");
+    }
+
     public void printFinanceMenu(){
         System.out.println("=== Økonomi ===");
         System.out.println("1. Tilføj indbetaling");
