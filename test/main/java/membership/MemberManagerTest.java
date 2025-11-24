@@ -1,9 +1,9 @@
 package main.java.membership;
 
+import main.java.logic.MemberManager;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 

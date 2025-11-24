@@ -1,4 +1,6 @@
-package main.java.membership;
+package main.java.logic;
+
+import main.java.membership.Member;
 
 import java.util.HashMap;
 
