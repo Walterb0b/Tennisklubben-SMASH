@@ -15,7 +15,6 @@ public class ScannerHelper {
     public int askNumber(int intMax) {
         boolean numCorrect = false;
         int selectInt = 0;
-        int selectIntMax = intMax;
 
 
         while (!numCorrect) {
@@ -28,8 +27,8 @@ public class ScannerHelper {
                     System.out.println("Du har indtastet et negativt tal. Prøv igen.");
                 } else if (selectInt == 0) {
                     System.out.println("Du kan ikke indtaste 0. Prøv igen.");
-                } else if (selectInt > selectIntMax) {
-                    System.out.println("Du kan ikke indtaste tal som er større end " + selectIntMax + ". Prøv igen.");
+                } else if (selectInt > intMax) {
+                    System.out.println("Du kan ikke indtaste tal som er større end " + intMax + ". Prøv igen.");
                 } else {
                     numCorrect = true;
                 }
@@ -57,7 +56,6 @@ public class ScannerHelper {
         String abort = "HMENU";
         boolean numCorrect = false;
         int selectInt = 0;
-        int selectIntMax = intMax;
 
 
         while (!numCorrect) {
@@ -68,8 +66,8 @@ public class ScannerHelper {
 
                 if (selectInt < 0) {
                     System.out.println("Du har indtastet et negativt tal. Prøv igen.");
-                } else if (selectInt > selectIntMax) {
-                    System.out.println("Du kan ikke indtaste tal som er større end " + selectIntMax + ". Prøv igen.");
+                } else if (selectInt > intMax) {
+                    System.out.println("Du kan ikke indtaste tal som er større end " + intMax + ". Prøv igen.");
                 } else {
                     numCorrect = true;
                 }
