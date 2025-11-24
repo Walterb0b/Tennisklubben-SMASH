@@ -1,10 +1,10 @@
 package main.java.app;
 
 import main.java.membership.*;
+import main.java.util.ScannerHelper;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
