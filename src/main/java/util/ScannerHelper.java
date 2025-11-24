@@ -1,5 +1,6 @@
 package main.java.util;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class ScannerHelper {
@@ -59,6 +60,7 @@ public class ScannerHelper {
 
 
         while (!numCorrect) {
+            System.out.print("Indtast tal (1-" + intMax + "): ");
 
             if (sc.hasNextInt()) {
                 selectInt = sc.nextInt();
@@ -68,16 +70,19 @@ public class ScannerHelper {
                     System.out.println("Du har indtastet et negativt tal. Prøv igen.");
                 } else if (selectInt > intMax) {
                     System.out.println("Du kan ikke indtaste tal som er større end " + intMax + ". Prøv igen.");
+                } else if (selectInt == 0) {
+                    System.out.println("Afbryder nuværende handling og går tilbage til tidligere menu.");
+                    numCorrect = true;
                 } else {
                     numCorrect = true;
                 }
             } else if (sc.hasNextLine() && sc.nextLine().equals(abort)) {
-                System.out.println("Du har afbrudt den aktuelle handling. Går tilbage til hovedmenuen");
+                System.out.println("Afbryder nuværende handling og går tilbage til hovedmenuen");
                 selectInt = -1;
-                sc.nextLine();
+                numCorrect = true;
             } else {
                 System.out.println("Du har ikke indtastet et tal. Prøv igen.");
-                sc.nextLine(); // rydder forkert input
+                //sc.nextLine(); // rydder forkert input
             }
         }
         return selectInt;
