@@ -1,6 +1,6 @@
 package main.java.controller;
 
-import main.java.membership.MemberManager;
+import main.java.logic.MemberManager;
 import main.java.util.ScannerHelper;
 
 
