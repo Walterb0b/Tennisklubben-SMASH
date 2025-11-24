@@ -31,7 +31,6 @@ public class FinanceController {
                 case 0:
                     //et skridt tilbage
                     // throw exception eller kør hovedmenu?
-                    MainController.run();
                     running = false;
                 case -1:
                     //tilbage til hovedmenu
