@@ -11,10 +11,12 @@ import java.util.Scanner;
 public class MemberController {
     private ScannerHelper sc;
     private MemberManager memberManager;
+    private StamDataManager stamDataManager;
 
-    public MemberController(ScannerHelper sc, MemberManager memberManager){
+    public MemberController(ScannerHelper sc, MemberManager memberManager, StamDataManager stamDataManager){
         this.sc = sc;
         this.memberManager = memberManager;
+        this.stamDataManager = stamDataManager;
     }
 
 
@@ -33,8 +35,8 @@ public class MemberController {
                         //break;
                 case 3 : createMember();
                         break;
-                //case 4 : memberManager.editMember();
-                        //break;
+                case 4 : editMember();
+                        break;
                 //case 5 : memberManager.removeMember();
                         //break;
                 //case 6 : ();
@@ -62,5 +64,83 @@ public class MemberController {
         //memberManager.printAllMembers();
 
         System.out.println("Oprettet medlem med ID: " + member.getMemberID());
+    }
+    private void editMember() {
+        boolean running = true;
+
+        while(running) {
+            sc.printEditMemberMenu();
+            int choice = sc.navigateMenu(4);
+            switch (choice){
+                case 1:
+                    editName();
+                    break;
+                case 2:
+                    editBirthday();
+                    break;
+                case 3:
+                    editPhoneNumber();
+                    break;
+                case 4:
+                    //editMembership();
+                    break;
+                case 0:
+                    running = false;
+                    System.out.println("Går tilbage til medlemsmenu");
+                    break;
+                default:
+                    System.out.println("Der er sket noget uvist");
+
+            }
+        }
+
+    }
+
+    private void editName(){
+        System.out.println("Indtast medlemsID: ");
+        int memberID = sc.askNumber(9999999);
+        String choice = sc.askQuestion("Vil du ændre navn på " + memberManager.getMember(memberID).getName() + "?");
+
+        if(choice.equalsIgnoreCase("Ja")) {
+            String newName = sc.askQuestion("Indtast det nye navn: ");
+            stamDataManager.updateName(memberID, newName);
+            System.out.println("Du ændrede navn for " + memberManager.getMember(memberID));
+        } else if (choice.equalsIgnoreCase("Nej")) {
+            System.out.println("Går tilbage til menuen");
+        } else {
+            System.out.println("Ikke et gyldigt svar, går tilbage til menuen");
+        }
+    }
+
+    private void editBirthday(){
+            System.out.println("Indtast medlemsID: ");
+            int memberID = sc.askNumber(9999999);
+            String choice = sc.askQuestion("Vil du ændre fødselsdagsdato på " + memberManager.getMember(memberID).getName() + "?");
+
+            if(choice.equalsIgnoreCase("Ja")) {
+                LocalDate newBirthday = Validator.birthdayValidatorWithScanner(sc,"Indtast fødselsdag i datoformatet (DD/MM/YYYY)");
+                stamDataManager.updateBirthday(memberID, newBirthday);
+                System.out.println("Du ændrede fødselsdagdato for " + memberManager.getMember(memberID));
+            } else if (choice.equalsIgnoreCase("Nej")) {
+                System.out.println("Går tilbage til menuen");
+            } else {
+                System.out.println("Ikke et gyldigt svar, går tilbage til menuen");
+            }
+        }
+    private void editPhoneNumber() {
+        System.out.println("Indtast medlemsID: ");
+        int memberID = sc.askNumber(9999999);
+        String choice = sc.askQuestion("Vil du ændre telefonnummer på " + memberManager.getMember(memberID).getName() + "?");
+
+        if(choice.equalsIgnoreCase("Ja")) {
+            String newPhoneNumber = sc.askQuestion("Indtast det nye telefonnummer: ");
+            stamDataManager.updatePhoneNumber(memberID, newPhoneNumber);
+            System.out.println("Du ændrede telefonnummer for " + memberManager.getMember(memberID));
+        } else if (choice.equalsIgnoreCase("Nej")) {
+            System.out.println("Går tilbage til menuen");
+        } else {
+            System.out.println("Ikke et gyldigt svar, går tilbage til menuen");
+        }
+    }
     }
 }

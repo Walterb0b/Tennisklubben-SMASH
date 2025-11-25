@@ -12,13 +12,13 @@ public class StamDataManager {
         this.memberManager = memberManager;
     }
 
-    public boolean updateName(int memberID, String newName){
+    public void updateName(int memberID, String newName){
         Member member = memberManager.getMember(memberID);
         if(member != null){
             member.setName(newName);
-            return true;
+        } else {
+            System.out.println("Medlem findes ikke");
         }
-        return false;
     }
 
     public boolean updateBirthday(int memberID, LocalDate birthday){

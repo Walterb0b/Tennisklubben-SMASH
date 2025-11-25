@@ -57,6 +57,14 @@ public class ScannerHelper {
         System.out.println("0. Gå tilbage");
     }
 
+    public void printEditMemberMenu(){
+        System.out.println("=== Ændring af medlemsoplysninger ===");
+        System.out.println("1. Ændre navn");
+        System.out.println("2. Ændre fødselsdagsdato");
+        System.out.println("3. Ændre telefonnummer");
+        System.out.println("4. Ændre medlemskab (Passivt/Aktivt");
+    }
+
     //Metode til at få int fra scanner input
     public int askNumber(int intMax) {
         boolean numCorrect = false;
