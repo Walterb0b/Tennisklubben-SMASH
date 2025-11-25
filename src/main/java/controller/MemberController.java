@@ -82,7 +82,7 @@ public class MemberController {
                     editPhoneNumber();
                     break;
                 case 4:
-                    //editMembership();
+                    editMembership();
                     break;
                 case 0:
                     running = false;

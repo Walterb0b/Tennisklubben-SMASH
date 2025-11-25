@@ -63,6 +63,7 @@ public class ScannerHelper {
         System.out.println("2. Ændre fødselsdagsdato");
         System.out.println("3. Ændre telefonnummer");
         System.out.println("4. Ændre medlemskab (Passivt/Aktivt");
+        System.out.println("0. Gå tilbage");
     }
 
     //Metode til at få int fra scanner input
