@@ -41,12 +41,12 @@ public class StamDataManager {
 
     public boolean updateMembershipPassive(int memberID, boolean passive){
         Member member = memberManager.getMember(memberID);
-            if(member != null){
-                member.setMembership(new PassiveMembership());
-                return true;
-            }
-            return false;
+        if(member != null){
+            member.setMembership(new PassiveMembership());
+            return true;
         }
+        return false;
+    }
 
     public boolean updatePlayPreference(int memberID, PlayPreference newType ){
         Member member = memberManager.getMember(memberID);
