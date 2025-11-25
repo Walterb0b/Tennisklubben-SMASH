@@ -30,10 +30,19 @@ public class StamDataManager {
         return false;
     }
 
-    public boolean updateMembershipStatus(int memberID, boolean active){
+    public boolean updateMembershipActive(int memberID, boolean active){
         Member member = memberManager.getMember(memberID);
         if(member != null){
             member.setMembership(new ActiveMembership());
+            return true;
+        }
+        return false;
+    }
+
+    public boolean updateMembershipPassive(int memberID, boolean passive){
+        Member member = memberManager.getMember(memberID);
+        if(member != null){
+            member.setMembership(new PassiveMembership());
             return true;
         }
         return false;
