@@ -3,8 +3,30 @@ package main.java.util;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Validator {
+    final static Pattern IsIntegerPattern = Pattern.compile("^\\d+$");
+    final static Pattern ContainsIntegerPattern = Pattern.compile("\\d+");
+
+    public static boolean isInteger(String str) {
+        return IsIntegerPattern.matcher(str).matches();
+    }
+
+    public static boolean containsInteger(String str) {
+        return ContainsIntegerPattern.matcher(str).find();
+    }
+
+    public static int lossyConvertStringToInt(String query) throws SmashException {
+        Matcher m = ContainsIntegerPattern.matcher(query);
+        if (m.find()) {
+            int number = Integer.parseInt(m.group());
+            return number;
+        } else {
+            throw new SmashException("Fejl i konvertering fra String til Integer");
+        }
+    }
 
     public Validator() {
         //Do nothing
