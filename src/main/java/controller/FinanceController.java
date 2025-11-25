@@ -19,6 +19,7 @@ public class FinanceController {
             sh.printFinanceMenu();
             int choice = sh.navigateMenu(3);
 
+
             switch (choice) {
                 case 1:
                     //tilføj betaling
