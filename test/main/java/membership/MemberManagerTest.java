@@ -12,7 +12,7 @@ class MemberManagerTest {
     @Test
     void addMemberTest(){
         MemberManager mm = new MemberManager();
-        Member m1 = new Member("Brian", 00000000, LocalDate.of(1989, 9, 18), new ActiveMembership());
+        Member m1 = new Member("Brian", "00000000", LocalDate.of(1989, 9, 18), new ActiveMembership());
         mm.addMember(m1);
         assertEquals(mm.getMember(m1.getMemberID()),m1 );
     }
