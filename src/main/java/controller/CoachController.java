@@ -1,23 +1,25 @@
 package main.java.controller;
 
+import main.java.logic.MemberManager;
+import main.java.membership.Member;
 import main.java.util.ScannerHelper;
 
 public class CoachController {
 
-    private ScannerHelper sc;
+    private ScannerHelper scannerHelper;
+    private MemberManager memberManager;
 
-
-    public CoachController(Scannerhelper sc,){
-        this.sc = sc;
-
+    public CoachController(ScannerHelper scannerHelper, MemberManager memberManager){
+        this.scannerHelper = scannerHelper;
+        this.memberManager = memberManager;
     }
 
     public void runStats() {
         boolean running = true;
 
         while (running) {
-            sc.printResultMenu();
-            int choice = sc.navigateMenu(3);
+            scannerHelper.printStatsMenu();
+            int choice = scannerHelper.navigateMenu(3);
 
 
             switch (choice) {
@@ -51,8 +53,8 @@ public class CoachController {
         boolean running = true;
 
         while (running) {
-            sc.printResultMenu();
-            int choice = sc.navigateMenu(6);
+            scannerHelper.printResultMenu();
+            int choice = scannerHelper.navigateMenu(6);
 
 
             switch (choice) {
