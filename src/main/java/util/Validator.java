@@ -51,9 +51,9 @@ public class Validator {
         int maxAge = 120;
         LocalDate now = LocalDate.now();
 
-        if (Period.between(birthday, now).getYears() < minAge) {
+        if (Period.between(birthday, now).getYears() < minAge && birthday.isBefore(now)) {
             throw new SmashException("Medlemmer kan ikke være yngre end " + minAge + " år");
-        } else if (Period.between(birthday, now).getYears() > maxAge) {
+        } else if (Period.between(birthday, now).getYears() > maxAge && birthday.isBefore(now)) {
             throw new SmashException("Medlemmer kan ikke være ældre end " + maxAge + " år");
         } else if (birthday.isAfter(now)) {
             throw new SmashException("Medlemmer kan ikke have en fødselsdag i fremtiden");
