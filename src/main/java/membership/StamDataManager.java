@@ -1,5 +1,7 @@
 package main.java.membership;
 
+import main.java.logic.MemberManager;
+
 import java.time.LocalDate;
 
 public class StamDataManager {
@@ -46,7 +48,7 @@ public class StamDataManager {
         return false;
     }
 
-    public boolean updatePhoneNumber(int memberID, int phoneNumber){
+    public boolean updatePhoneNumber(int memberID, String phoneNumber){
         Member member = memberManager.getMember(memberID);
         if(member != null){
             member.setPhoneNumber(phoneNumber);
