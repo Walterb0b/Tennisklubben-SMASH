@@ -55,7 +55,7 @@ public class MemberController {
     private void createMember(){
         String name = sc.askQuestion("Indtast navn: ");
         String phoneNumber = sc.askQuestion("Indtast telefonnummer: ");
-        LocalDate birthday = Validator.dateValidator(sc, "fødselsdag", "");
+        LocalDate birthday = Validator.birthdayValidatorWithScanner(sc, "Indtast fødselsdag i formatet DD/MM/YYYY");
         boolean active = sc.askQuestion("Aktivt medlemskab?(Ja/Nej): ").trim().equalsIgnoreCase("J");
         Membership membership = active ? new ActiveMembership() : new PassiveMembership();
         Member member = new Member(name, phoneNumber, birthday, membership);
