@@ -1,7 +1,7 @@
 package main.java.membership;
 
 public interface Membership {
-    String getName();
+    String toString();
     boolean isActive();
     double calculateYearlyFee();
 }
