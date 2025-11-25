@@ -44,7 +44,7 @@ public class PlayerStats {
     }
 
     @Override
-    public String tostring(){
+    public String toString(){
         return "Kampe: " + totalMatches +
                 "Sejre: " + wins +
                 "Nederlag: " + losses +
