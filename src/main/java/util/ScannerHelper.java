@@ -17,11 +17,11 @@ public class ScannerHelper {
         System.out.println("2. Økonomi");
         System.out.println("3. Spillerstatistik");
         System.out.println("4. Træning -og turneringsdata");
-        System.out.println("0. Luk programmet");
+        System.out.println("9. Luk programmet");
     }
 
-    public void memberMenu(){
-        System.out.println("=== Hovedmenu ===");
+    public void printMemberMenu(){
+        System.out.println("=== Medlemmer ===");
         System.out.println("1. Se medlemskab");
         System.out.println("2. Se medlemsoversigt");
         System.out.println("3. Tilføj medlem");

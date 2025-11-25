@@ -1,5 +1,6 @@
 package main.java.app;
 
+import main.java.controller.MainController;
 import main.java.logic.MemberManager;
 import main.java.membership.*;
 import main.java.util.ScannerHelper;
@@ -16,8 +17,18 @@ public class Main {
 
     public static void runProgram() {
         //printMainMenu();
-
+        ScannerHelper sh = new ScannerHelper();
         MemberManager mm = new MemberManager();
+        MainController mainController = new MainController(sh, mm);
+
+        mainController.run();
+
+
+
+
+
+
+        /*MemberManager mm = new MemberManager();
 
         ScannerHelper sh = new ScannerHelper();
 
@@ -44,28 +55,8 @@ public class Main {
         System.out.println("Medlem Registreret");
 
 
-
-
-
-
-
-
-
     }
 
-
-    public static void printMainMenu() {
-        System.out.println();
-        System.out.println(
-                """
-                           TENNISKLUBBEN SMASH
-                           Velkommen!
-                           """
-               
-
-
-
-
-        );
+         */
     }
 }

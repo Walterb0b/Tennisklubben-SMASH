@@ -10,7 +10,7 @@ public class Validator {
     }
 
 
-    public LocalDate dateValidator(ScannerHelper sh, String dateType, String string) {
+    public static LocalDate dateValidator(ScannerHelper sh, String dateType, String string) {
 
             boolean inputCorrect = false;
             boolean yearCorrect = false;
@@ -128,4 +128,4 @@ public class Validator {
         }
 
     }
-}
+

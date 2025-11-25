@@ -2,7 +2,7 @@ package main.java.membership;
 
 public class ActiveMembership implements Membership{
     @Override
-    public String getName() {
+    public String toString() {
         return "Aktivt";
     }
 
