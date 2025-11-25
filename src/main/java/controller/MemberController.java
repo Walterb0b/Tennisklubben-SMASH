@@ -142,5 +142,5 @@ public class MemberController {
             System.out.println("Ikke et gyldigt svar, går tilbage til menuen");
         }
     }
-    }
+
 }
