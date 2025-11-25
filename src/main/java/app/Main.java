@@ -4,6 +4,7 @@ import main.java.controller.MainController;
 import main.java.logic.MemberManager;
 import main.java.membership.*;
 import main.java.util.ScannerHelper;
+import main.java.membership.StamDataManager;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -19,8 +20,10 @@ public class Main {
         //printMainMenu();
         ScannerHelper sh = new ScannerHelper();
         MemberManager mm = new MemberManager();
-        MainController mainController = new MainController(sh, mm);
-
+        StamDataManager sdm = new StamDataManager(mm);
+        MainController mainController = new MainController(sh, mm, sdm);
+        Member m1 = new Member("John Nielsen", "12345678",LocalDate.of(1968,10,22), new ActiveMembership());
+        mm.addMember(m1);
         mainController.run();
 
 
