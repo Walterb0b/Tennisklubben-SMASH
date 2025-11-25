@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ActiveMembershipTest {
 
-    Member m1 = new Member("John Doe", 12345678, LocalDate.of(2008, 9, 23), new ActiveMembership());
+    Member m1 = new Member("John Doe", "12345678", LocalDate.of(2008, 9, 23), new ActiveMembership());
 
     @Test
     void calculateYearlyFeeSucces() {
