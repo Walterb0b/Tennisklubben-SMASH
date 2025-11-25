@@ -13,7 +13,7 @@ public class MainController {
         this.sc = sc;
         this.memberController = new MemberController(sc, memberManager);
         //this.financeController = new FinanceController(sc, memberManager, paymentManager);
-        //this.coachController = new CoachController(sc, coachService, memberManager);
+        this.coachController = new CoachController(sc, memberManager);
     }
 
     public void run(){
@@ -26,8 +26,10 @@ public class MainController {
                 case 1: memberController.run();
                         break;
                 //case 2: financeController.run();
-                //case 3: coachController.run();
-                //case 4: coachController.run();
+                case 3: coachController.runStats();
+                        break;
+                case 4: coachController.runResult();
+                        break;
                 case 9:
                     running = false;
                     System.out.println("Farvel!");

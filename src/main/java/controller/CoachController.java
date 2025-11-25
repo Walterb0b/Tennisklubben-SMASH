@@ -1,14 +1,17 @@
 package main.java.controller;
 
+import main.java.logic.MemberManager;
 import main.java.util.ScannerHelper;
 
 public class CoachController {
 
     private ScannerHelper sc;
+    private MemberManager memberManager;
 
 
-    public CoachController(Scannerhelper sc,){
+    public CoachController(ScannerHelper sc, MemberManager memberManager){
         this.sc = sc;
+        this.memberManager = memberManager;
 
     }
 
@@ -16,7 +19,7 @@ public class CoachController {
         boolean running = true;
 
         while (running) {
-            sc.printResultMenu();
+            sc.printStatsMenu();
             int choice = sc.navigateMenu(3);
 
 
@@ -36,9 +39,8 @@ public class CoachController {
                         break;
 
                 case 0 :
-                // gå tilbage
-                    System.out.println("gå tilbage");
                     running = false;
+                    break;
                 default:
                     System.out.println("Ugyldigt valg");
             }
@@ -81,9 +83,8 @@ public class CoachController {
                     System.out.println("Slet træningsresultat");
                 break;
                 case 0 :
-                // gå tilbage
-                    System.out.println("Gå tilbage");
                     running = false;
+                    break;
                 default:
                     System.out.println("Ugyldigt valg");
             }
