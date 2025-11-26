@@ -51,6 +51,8 @@ public class MemberManager {
         }
 
         return memberList;
+    public int membersSize(){
+        return  members.size();
     }
 }
 

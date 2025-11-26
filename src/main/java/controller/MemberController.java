@@ -39,7 +39,7 @@ public class MemberController {
                         break;
                 case 4 : editMember();
                         break;
-                //case 5 : memberManager.removeMember();
+                case 5 : removeMember();
                         //break;
                 //case 6 : ();
                         //break;
@@ -84,7 +84,7 @@ public class MemberController {
                     editPhoneNumber();
                     break;
                 case 4:
-                    //editMembership();
+                    editMembership();
                     break;
                 case 0:
                     running = false;
@@ -100,7 +100,7 @@ public class MemberController {
 
     private void editName(){
         int memberID = selectMemberFromList();
-        String choice = sc.askQuestion("Vil du ændre navn på " + memberManager.getMember(memberID).getName() + "? (ja/nej)");
+        String choice = sc.askQuestion("Vil du ændre navn på " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
 
         if(choice.equalsIgnoreCase("Ja")) {
             String newName = sc.askQuestion("Indtast det nye navn: ");
@@ -116,7 +116,7 @@ public class MemberController {
     private void editBirthday(){
 
             int memberID = selectMemberFromList();
-            String choice = sc.askQuestion("Vil du ændre fødselsdagsdato på " + memberManager.getMember(memberID).getName() + "? (ja/nej)");
+            String choice = sc.askQuestion("Vil du ændre fødselsdagsdato på " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
 
             if(choice.equalsIgnoreCase("Ja")) {
                 LocalDate newBirthday = Validator.birthdayValidatorWithScanner(sc,"Indtast fødselsdag i datoformatet (DD/MM/YYYY)");
@@ -131,12 +131,37 @@ public class MemberController {
     private void editPhoneNumber() {
 
         int memberID = selectMemberFromList();
-        String choice = sc.askQuestion("Vil du ændre telefonnummer på " + memberManager.getMember(memberID).getName() + "? (ja/nej)");
+        String choice = sc.askQuestion("Vil du ændre telefonnummer på " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
 
         if(choice.equalsIgnoreCase("Ja")) {
             String newPhoneNumber = sc.askQuestion("Indtast det nye telefonnummer: ");
             stamDataManager.updatePhoneNumber(memberID, newPhoneNumber);
             System.out.println("Du ændrede telefonnummer for " + memberManager.getMember(memberID));
+        } else if (choice.equalsIgnoreCase("Nej")) {
+            System.out.println("Går tilbage til menuen");
+        } else {
+            System.out.println("Ikke et gyldigt svar, går tilbage til menuen");
+        }
+    }
+    private void editMembership() {
+        System.out.println("Indtast medlemsID: ");
+        int memberID = sc.askNumber(memberManager.membersSize());
+        String choice = sc.askQuestion("Vil du ændre medlemskab for " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
+
+        if(choice.equalsIgnoreCase("Ja")) {
+            System.out.println("Vælg nyt medlemskab:\n1. Aktivt\n2. Passivt");
+            int membershipChoice = sc.askNumber(2);
+
+            switch(membershipChoice) {
+                case 1:
+                    stamDataManager.updateMembershipActive(memberID);
+                    System.out.println("Medlemskab ændret til aktivt for " + memberManager.getMember(memberID).getName());
+                    break;
+                case 2:
+                    stamDataManager.updateMembershipPassive(memberID);
+                    System.out.println("Medlemskab ændret til passivt for " + memberManager.getMember(memberID).getName());
+                    break;
+            }
         } else if (choice.equalsIgnoreCase("Nej")) {
             System.out.println("Går tilbage til menuen");
         } else {
@@ -180,4 +205,26 @@ public class MemberController {
 
 
 
+    private void removeMember(){
+        System.out.println("Indtast medlemsID: ");
+        int memberID = sc.askNumber(memberManager.membersSize());
+        String choice = sc.askQuestion("Vil du slette " + memberManager.getMember(memberID).getName() + " fra systemet? (Ja/Nej)");
+        if(choice.equalsIgnoreCase("Ja")) {
+            System.out.println("Er du sikker? \n1. Ja\n2. Nej");
+            int finalChoice = sc.askNumber(2);
+            switch(finalChoice){
+                case 1:
+                    memberManager.removeMember(memberID);
+                    System.out.println("Du har slettet medlemmet med ID " + memberID);
+                    break;
+                case 2:
+                    System.out.println("Går tilbage til menuen");
+                    break;
+            }
+        } else if (choice.equalsIgnoreCase("Nej")) {
+            System.out.println("Går tilbage til menuen");
+        } else {
+            System.out.println("Ikke et gyldigt svar, går tilbage til menuen");
+        }
+    }
 }

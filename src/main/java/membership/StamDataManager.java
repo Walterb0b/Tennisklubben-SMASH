@@ -21,49 +21,48 @@ public class StamDataManager {
         }
     }
 
-    public boolean updateBirthday(int memberID, LocalDate birthday){
+    public void updateBirthday(int memberID, LocalDate birthday){
         Member member = memberManager.getMember(memberID);
         if(member != null){
             member.setBirthday(birthday);
-            return true;
+        } else {
+            System.out.println("Medlem findes ikke");
         }
-        return false;
     }
 
-    public boolean updateMembershipActive(int memberID, boolean active){
+    public void updateMembershipActive(int memberID) {
         Member member = memberManager.getMember(memberID);
-        if(member != null){
+        if (member != null) {
             member.setMembership(new ActiveMembership());
-            return true;
+        } else {
+            System.out.println("Medlem findes ikke");
         }
-        return false;
     }
-
-    public boolean updateMembershipPassive(int memberID, boolean passive){
+    public void updateMembershipPassive(int memberID){
         Member member = memberManager.getMember(memberID);
         if(member != null){
             member.setMembership(new PassiveMembership());
-            return true;
+        } else {
+            System.out.println("Medlem findes ikke");
         }
-        return false;
     }
 
-    public boolean updatePlayPreference(int memberID, PlayPreference newType ){
+    public void updatePlayPreference(int memberID, PlayPreference newType ){
         Member member = memberManager.getMember(memberID);
         if(member != null){
             member.setPlayPreference(newType);
-            return true;
+        } else {
+            System.out.println("Medlem findes ikke");
         }
-        return false;
     }
 
-    public boolean updatePhoneNumber(int memberID, String phoneNumber){
+    public void updatePhoneNumber(int memberID, String phoneNumber){
         Member member = memberManager.getMember(memberID);
         if(member != null){
             member.setPhoneNumber(phoneNumber);
-            return true;
+        } else {
+            System.out.println("Medlem findes ikke");
         }
-        return false;
     }
 
 //    public boolean updateEmail(int memberID, String email){
