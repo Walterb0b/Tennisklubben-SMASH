@@ -124,7 +124,7 @@ public class MemberController {
         String choice = sc.askQuestion("Vil du ændre navn på " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
 
         if (choice.equalsIgnoreCase("Ja")) {
-            String newName = sc.askQuestion("Indtast det nye navn: ");
+            String newName = sc.askQuestion("Indtast det nye navn");
             stamDataManager.updateName(memberID, newName);
             System.out.println("Du ændrede navn for " + memberManager.getMember(memberID));
         } else if (choice.equalsIgnoreCase("Nej")) {
@@ -156,7 +156,7 @@ public class MemberController {
         String choice = sc.askQuestion("Vil du ændre telefonnummer på " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
 
         if (choice.equalsIgnoreCase("Ja")) {
-            String newPhoneNumber = sc.askQuestion("Indtast det nye telefonnummer: ");
+            String newPhoneNumber = sc.askQuestion("Indtast det nye telefonnummer");
             stamDataManager.updatePhoneNumber(memberID, newPhoneNumber);
             System.out.println("Du ændrede telefonnummer for " + memberManager.getMember(memberID));
         } else if (choice.equalsIgnoreCase("Nej")) {
