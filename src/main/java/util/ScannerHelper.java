@@ -12,22 +12,44 @@ public class ScannerHelper {
         this.sc = new Scanner(System.in);
     }
     public void printMainMenu(){
-        System.out.println("=== Hovedmenu ===");
-        System.out.println("1. Medlemskab");
-        System.out.println("2. Økonomi");
-        System.out.println("3. Spillerstatistik");
-        System.out.println("4. Træning -og turneringsdata");
-        System.out.println("9. Luk programmet");
+        System.out.println();
+        System.out.println("""
+                           🎾🥎=== Hovedmenu ===🥎🎾
+                ┌────────────────────────────────────────────┐
+                │           1. Medlemskab                    │
+                │           2. Økonomi                       │
+                │           3. Spillerstatistik              │
+                │           4. Trænings- og turneringsdata   │
+                │           9. Luk programmet                │
+                └────────────────────────────────────────────┘
+                """);
+        //System.out.println("1. Medlemskab");
+        //System.out.println("2. Økonomi");
+        //System.out.println("3. Spillerstatistik");
+        //System.out.println("4. Træning -og turneringsdata");
+        //System.out.println("9. Luk programmet");
     }
 
     public void printMemberMenu(){
-        System.out.println("=== Medlemmer ===");
-        System.out.println("1. Se medlemskab");
-        System.out.println("2. Se medlemsoversigt");
-        System.out.println("3. Tilføj medlem");
-        System.out.println("4. Rediger medlem");
-        System.out.println("5. Slet medlem");
-        System.out.println("0. Gå tilbage");
+        System.out.println();
+        System.out.println("""
+                           🧑‍🎾=== Medlemmer ===‍🎾👨
+                ┌────────────────────────────────────────────┐
+                │           1. Se medlemskab                 │
+                │           2. Se medlemsoversigt            │
+                │           3. Tilføj medlem                 │
+                │           4. Rediger medlem                │
+                │           5. Slet medlem                   │
+                │           0. Gå tilbage                    │
+                └────────────────────────────────────────────┘
+                """);
+        //System.out.println("=== Medlemmer ===");
+        //System.out.println("1. Se medlemskab");
+        //System.out.println("2. Se medlemsoversigt");
+        //System.out.println("3. Tilføj medlem");
+        //System.out.println("4. Rediger medlem");
+        //System.out.println("5. Slet medlem");
+        //System.out.println("0. Gå tilbage");
     }
 
     public void printFinanceMenu(){
@@ -55,6 +77,26 @@ public class ScannerHelper {
         System.out.println("5. Rediger træningsresultat");
         System.out.println("6. Slet træningsresultat");
         System.out.println("0. Gå tilbage");
+    }
+
+    public void printEditMemberMenu(){
+        System.out.println();
+        System.out.println("""
+                 🧑‍📋=== Ændring af medlemsoplysninger ===‍📋👨
+                ┌─────────────────────────────────────────────┐
+                │            1. Ændre navn                    │
+                │            2. Ændre fødselsdagsdato         │
+                │            3. Ændre telefonnummer           │
+                │            4. Ændre medlemskab              │
+                │            0. Gå tilbage                    │
+                └─────────────────────────────────────────────┘
+                """);
+        //System.out.println("=== Ændring af medlemsoplysninger ===");
+        //System.out.println("1. Ændre navn");
+        //System.out.println("2. Ændre fødselsdagsdato");
+        //System.out.println("3. Ændre telefonnummer");
+        //System.out.println("4. Ændre medlemskab (Passivt/Aktivt");
+        //System.out.println("0. Gå tilbage");
     }
 
     //Metode til at få int fra scanner input

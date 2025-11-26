@@ -13,6 +13,7 @@ public class ActiveMembership implements Membership{
 
     @Override
     public double calculateYearlyFee() {
+        /*
         if(Member.getAge() < 18){
             return 800;
         } else if (Member.getAge() >= 60) {
@@ -20,5 +21,10 @@ public class ActiveMembership implements Membership{
         } else {
             return 1500;
         }
+
+         */
+        return 1500;
     }
+
+
 }

@@ -1,7 +1,9 @@
 package main.java.logic;
 
 import main.java.membership.Member;
+import main.java.util.Validator;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MemberManager {
@@ -27,6 +29,31 @@ public class MemberManager {
         for (Member i : members.values()) {
             System.out.println(i);
         }
+    }
+
+    public ArrayList<Integer> searchForMemberIDs(String query) {
+        ArrayList<Integer> memberList = new ArrayList<>();
+
+
+        if (Validator.containsInteger(query)) {
+            for (Member m : members.values()) {
+                if (m.getMemberID() == Validator.lossyConvertStringToInt(query)) {
+                    memberList.add(m.getMemberID());
+                }
+            }
+        } else {
+
+            for (Member m : members.values()) {
+                if (m.getName().toUpperCase().contains(query.toUpperCase())) {
+                    memberList.add(m.getMemberID());
+                }
+            }
+        }
+
+        return memberList;
+    }
+    public int membersSize(){
+        return  members.size();
     }
 }
 
