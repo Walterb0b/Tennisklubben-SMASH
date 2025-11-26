@@ -31,10 +31,12 @@ public class MemberController {
 
 
             switch (choice) {
-                //case 1 : memberManager.getMember();
-                //break;
-                //case 2 : printAllMembers();
-                //break;
+                case 1:
+                    showMember();
+                    break;
+                case 2:
+                    printAllMembers();
+                    break;
                 case 3:
                     createMember();
                     break;
@@ -43,7 +45,7 @@ public class MemberController {
                     break;
                 case 5:
                     removeMember();
-                    //break;
+                    break;
                     //case 6 : ();
                     //break;
                 case 0:
@@ -58,11 +60,25 @@ public class MemberController {
 
     }
 
+    private void showMember() {
+        int memberID = selectMemberFromList();
+
+        System.out.println(memberManager.getMember(memberID));
+
+    }
+
+    private void printAllMembers() {
+        memberManager.printAllMembers();
+
+    }
+
     private void createMember() {
-        String name = sc.askQuestion("Indtast navn: ");
-        String phoneNumber = sc.askQuestion("Indtast telefonnummer: ");
+        System.out.println("Du har valgt at oprette et medlem");
+        System.out.println();
+        String name = sc.askQuestion("Indtast navn");
+        String phoneNumber = sc.askQuestion("Indtast telefonnummer");
         LocalDate birthday = Validator.birthdayValidatorWithScanner(sc, "Indtast fødselsdag i formatet DD/MM/YYYY");
-        boolean active = sc.askQuestion("Aktivt medlemskab?(Ja/Nej): ").trim().equalsIgnoreCase("J");
+        boolean active = sc.askQuestion("Aktivt medlemskab?(ja/nej)").trim().equalsIgnoreCase("J");
         Membership membership = active ? new ActiveMembership() : new PassiveMembership();
         Member member = new Member(name, phoneNumber, birthday, membership);
         memberManager.addMember(member);
