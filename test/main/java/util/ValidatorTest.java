@@ -1,3 +1,4 @@
+
 package main.java.util;
 
 import org.junit.jupiter.api.Test;
@@ -7,6 +8,40 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ValidatorTest {
+
+    @Test
+    void isIntegerCorrect() {
+        String testString = "1";
+        assertTrue(Validator.isInteger(testString));
+    }
+
+    @Test
+    void isIntegerFalse() {
+        String testString = "1 ";
+        assertFalse(Validator.isInteger(testString));
+    }
+
+    @Test
+    void containsIntegerCorrect() {
+        String testString = "s 1 d";
+        assertTrue(Validator.containsInteger(testString));
+    }
+
+    @Test
+    void containsIntegerFalse() {
+        String testString = "s s sdgf:!) d";
+        assertFalse(Validator.containsInteger(testString));
+    }
+
+    @Test
+    void lossyConvertStrinToInt() {
+        String testString = "sd 2 sldkf";
+        int result = 2;
+        assertEquals(result, Validator.lossyConvertStringToInt(testString));
+    }
+
+
+
     @Test
     void testCorrectDateInput() {
         String userDateString = "18/08/1975";

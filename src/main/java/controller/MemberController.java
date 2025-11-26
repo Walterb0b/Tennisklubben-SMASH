@@ -5,7 +5,9 @@ import main.java.membership.*;
 import main.java.util.ScannerHelper;
 import main.java.util.Validator;
 
+import java.sql.SQLOutput;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MemberController {
@@ -97,9 +99,8 @@ public class MemberController {
     }
 
     private void editName(){
-        System.out.println("Indtast medlemsID: ");
-        int memberID = sc.askNumber(memberManager.membersSize());
-        String choice = sc.askQuestion("Vil du ændre navn for " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
+        int memberID = selectMemberFromList();
+        String choice = sc.askQuestion("Vil du ændre navn på " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
 
         if(choice.equalsIgnoreCase("Ja")) {
             String newName = sc.askQuestion("Indtast det nye navn: ");
@@ -113,9 +114,9 @@ public class MemberController {
     }
 
     private void editBirthday(){
-            System.out.println("Indtast medlemsID: ");
-            int memberID = sc.askNumber(memberManager.membersSize());
-            String choice = sc.askQuestion("Vil du ændre fødselsdagsdato for " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
+
+            int memberID = selectMemberFromList();
+            String choice = sc.askQuestion("Vil du ændre fødselsdagsdato på " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
 
             if(choice.equalsIgnoreCase("Ja")) {
                 LocalDate newBirthday = Validator.birthdayValidatorWithScanner(sc,"Indtast fødselsdag i datoformatet (DD/MM/YYYY)");
@@ -128,9 +129,9 @@ public class MemberController {
             }
         }
     private void editPhoneNumber() {
-        System.out.println("Indtast medlemsID: ");
-        int memberID = sc.askNumber(memberManager.membersSize());
-        String choice = sc.askQuestion("Vil du ændre telefonnummer for " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
+
+        int memberID = selectMemberFromList();
+        String choice = sc.askQuestion("Vil du ændre telefonnummer på " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
 
         if(choice.equalsIgnoreCase("Ja")) {
             String newPhoneNumber = sc.askQuestion("Indtast det nye telefonnummer: ");
@@ -167,6 +168,42 @@ public class MemberController {
             System.out.println("Ikke et gyldigt svar, går tilbage til menuen");
         }
     }
+
+    private int selectMemberFromList() {
+        boolean inputCorrect = false;
+        int viewCount = 1;
+        int memberID = 0;
+        while(!inputCorrect) {
+            String query = sc.askQuestion("Indtast MedlemsID eller søg på navn");
+            if (query.isEmpty() || query.isBlank()) {
+                System.out.println("Din søgestreng er tom. Prøv igen.");
+            } else {
+                ArrayList<Integer> memberList = memberManager.searchForMemberIDs(query);
+                if (memberList.isEmpty()) {
+                    System.out.println("Der findes ikke medlemmer, der opfylder dine søgekriterier. Prøv igen.");
+
+                } else {
+                    for (int m : memberList) {
+                        System.out.println(viewCount + ". " + memberManager.getMember(m));
+                        viewCount++;
+                    }
+                    System.out.println();
+                    System.out.println("Vælg medlem fra listen");
+                    int userSelect = sc.navigateMenu(memberList.size());
+                    userSelect = userSelect - 1;
+                    memberID = memberList.get(userSelect);
+                    memberManager.getMember(memberID);
+                    inputCorrect = true;
+                }
+
+            }
+
+        }
+        return memberID;
+
+    }
+
+
 
     private void removeMember(){
         System.out.println("Indtast medlemsID: ");
