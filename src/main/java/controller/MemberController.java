@@ -167,8 +167,8 @@ public class MemberController {
     }
 
     private void editMembership() {
-        System.out.println("Indtast medlemsID: ");
-        int memberID = sc.askNumber(memberManager.membersSize());
+
+        int memberID = selectMemberFromList();
         String choice = sc.askQuestion("Vil du ændre medlemskab for " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
 
         if (choice.equalsIgnoreCase("Ja")) {
