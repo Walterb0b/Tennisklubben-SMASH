@@ -28,6 +28,10 @@ public class MemberManager {
             System.out.println(i);
         }
     }
+
+    public int membersSize(){
+        return  members.size();
+    }
 }
 
 
