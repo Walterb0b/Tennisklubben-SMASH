@@ -34,6 +34,7 @@ public class MemberManager {
     public ArrayList<Integer> searchForMemberIDs(String query) {
         ArrayList<Integer> memberList = new ArrayList<>();
 
+
         if (Validator.containsInteger(query)) {
             for (Member m : members.values()) {
                 if (m.getMemberID() == Validator.lossyConvertStringToInt(query)) {
@@ -43,7 +44,7 @@ public class MemberManager {
         } else {
 
             for (Member m : members.values()) {
-                if (m.getName().contains(query)) {
+                if (m.getName().toUpperCase().contains(query.toUpperCase())) {
                     memberList.add(m.getMemberID());
                 }
             }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         runProgram();
-        runTest();
+        //runTest();
 
         }
 
@@ -30,17 +30,9 @@ public class Main {
         mm.addMember(m2);
         mm.addMember(m3);
 
-        //mainController.run();
+        mainController.run();
 
-        ArrayList<Integer> memberList = new ArrayList<>();
 
-        mm.printAllMembers();
-        System.out.println();
-
-        memberList = mm.searchForMemberIDs("  brian2");
-        for (int m : memberList) {
-            System.out.println(mm.getMember(m));
-        }
 
 
     }

@@ -61,7 +61,7 @@ public class Validator {
                 System.out.println("FødselsdagsDato-fejl: " + e.getMessage());
             }
                 /*
-            } try {
+            } try {return number;
                 date = birthdayValidator(date);
                 inputCorrect = true;
             } catch (SmashException e) {
