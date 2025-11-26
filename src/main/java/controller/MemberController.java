@@ -37,7 +37,7 @@ public class MemberController {
                         break;
                 case 4 : editMember();
                         break;
-                //case 5 : memberManager.removeMember();
+                case 5 : removeMember();
                         //break;
                 //case 6 : ();
                         //break;
@@ -161,6 +161,20 @@ public class MemberController {
                     System.out.println("Medlemskab ændret til passivt for " + memberManager.getMember(memberID).getName());
                     break;
             }
+        } else if (choice.equalsIgnoreCase("Nej")) {
+            System.out.println("Går tilbage til menuen");
+        } else {
+            System.out.println("Ikke et gyldigt svar, går tilbage til menuen");
+        }
+    }
+
+    private void removeMember(){
+        System.out.println("Indtast medlemsID: ");
+        int memberID = sc.askNumber(memberManager.membersSize());
+        String choice = sc.askQuestion("Vil du slette " + memberManager.getMember(memberID).getName() + " fra systemet?");
+        if(choice.equalsIgnoreCase("Ja")) {
+            memberManager.removeMember(memberID);
+            System.out.println("Du har slettet medlemmet med ID " + memberID);
         } else if (choice.equalsIgnoreCase("Nej")) {
             System.out.println("Går tilbage til menuen");
         } else {
