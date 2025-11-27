@@ -1,5 +1,6 @@
 package main.java.logic;
 
+import main.java.membership.Member;
 import main.java.membership.MembershipPayment;
 
 import java.util.HashMap;
@@ -13,7 +14,11 @@ public class PaymentManager {
         this.payments = new HashMap<>();
     }
 
-    public void addNextSeason(){}
+    public void addNextSeason(){
+        for (Member m : memberManager.getAllMembers().values()) {
+          //
+        }
+    }
 
     public void payFuturePayments(int memberID){}
 

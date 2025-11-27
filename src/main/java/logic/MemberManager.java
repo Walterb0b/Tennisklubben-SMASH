@@ -17,6 +17,10 @@ public class MemberManager {
         members.put(member.getMemberID(), member);
     }
 
+    public HashMap<Integer, Member> getAllMembers() {
+        return members;
+    }
+
     public Member getMember(int ID) {
         return members.get(ID);
     }
