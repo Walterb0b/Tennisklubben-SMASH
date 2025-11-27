@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class MembershipPayment {
     private static int nextID = 1;
     private int paymentID;
+    private boolean isPaid;
     private LocalDate paidDate;
     private String seasonQuarter;
     private Member member;
@@ -16,8 +17,16 @@ public class MembershipPayment {
         this.seasonQuarter = getSeasonQuarter(this.paidDate);
         this.member = member;
         this.amount = member.getMembership().calculateYearlyFee() / 4;
+        this.isPaid = false;
     }
 
+    public int getPaymentID() {
+        return paymentID;
+    }
+
+    public boolean getIsPaid(){
+        return isPaid;
+    }
 
     private String getSeasonQuarter(LocalDate date){
         int monthValue = (date.getMonthValue() - 1) / 3 + 1;
