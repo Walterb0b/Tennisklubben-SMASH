@@ -64,6 +64,9 @@ public class PaymentManager {
     public void printAllPayments() {
         for (MembershipPayment p : payments.values()) {
             System.out.println(p);
+        }
+    }
+
     public MembershipPayment getPayment(int paymentID){
         return payments.get(paymentID);
     }
