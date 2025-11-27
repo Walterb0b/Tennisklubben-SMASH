@@ -12,7 +12,7 @@ public class PassiveMembership implements Membership{
     }
 
     @Override
-    public double calculateYearlyFee() {
+    public double calculateYearlyFee(int age) {
         return 250;
     }
 }

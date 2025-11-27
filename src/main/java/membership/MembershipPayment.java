@@ -15,7 +15,7 @@ public class MembershipPayment {
         this.paidDate = LocalDate.now();
         this.seasonQuarter = getSeasonQuarter(this.paidDate);
         this.member = member;
-        this.amount = member.getMembership().calculateYearlyFee() / 4;
+        this.amount = member.getMembership().calculateYearlyFee(member.getAge()) / 4;
     }
 
 
