@@ -1,5 +1,6 @@
 package main.java.logic;
 
+import main.java.membership.Member;
 import main.java.membership.MembershipPayment;
 
 import java.util.ArrayList;
@@ -19,7 +20,11 @@ public class PaymentManager {
         return payments.get(paymentID);
     }
 
-    public void addNextSeason(){}
+    public void addNextSeason(){
+        for (Member m : memberManager.getAllMembers().values()) {
+          //
+        }
+    }
 
     public void payFuturePayments(int memberID){}
 
