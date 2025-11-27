@@ -28,6 +28,14 @@ public class MembershipPayment {
         return paymentID;
     }
 
+    public int getMemberID() {
+        return member.getMemberID();
+    }
+
+    public String getSeasonQuarter() {
+        return seasonQuarter;
+    }
+
     public LocalDate getDueDate() {
         return dueDate;
     }
@@ -56,6 +64,10 @@ public class MembershipPayment {
   
     public boolean getIsPaid(){
         return isPaid;
+    }
+
+    public String paymentString() {
+        return "Kvartal: " + seasonQuarter + ", Beløb: " + amount + " kr." + ", BetalingsID: " + paymentID;
     }
 
     @Override

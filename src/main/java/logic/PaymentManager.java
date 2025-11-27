@@ -1,14 +1,12 @@
 package main.java.logic;
 
 import main.java.membership.Member;
-import main.java.membership.Membership;
 import main.java.membership.MembershipPayment;
 import main.java.util.Validator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class PaymentManager {
     private MemberManager memberManager;
@@ -67,6 +65,10 @@ public class PaymentManager {
         }
     }
 
+    public HashMap<Integer, MembershipPayment> getAllPayments() {
+        return payments;
+    }
+
     public MembershipPayment getPayment(int paymentID){
         return payments.get(paymentID);
     }
@@ -96,6 +98,18 @@ public class PaymentManager {
         }
 
         return membersNotPaid;
+    }
+
+    public ArrayList<Integer> paymentIDByMember(int memberID){
+        ArrayList<Integer> paymentIDs = new ArrayList<>();
+        for (MembershipPayment payment : payments.values()){
+            if(payment.getMemberID() == memberID){
+                int paymentID = payment.getPaymentID();
+                paymentIDs.add(paymentID);
+            }
+        }
+
+        return paymentIDs;
     }
 
 

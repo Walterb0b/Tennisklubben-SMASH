@@ -1,15 +1,20 @@
 package main.java.util;
 
+import main.java.logic.MemberManager;
+
 import java.sql.SQLOutput;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ScannerHelper {
 
     private Scanner sc;
+    private MemberManager memberManager;
 
     //Constructor
-    public ScannerHelper () {
+    public ScannerHelper (MemberManager memberManager) {
         this.sc = new Scanner(System.in);
+        this.memberManager = memberManager;
     }
     public void printMainMenu(){
         System.out.println();
@@ -177,6 +182,63 @@ public class ScannerHelper {
             }
         }
         return selectInt;
+    }
+
+    public int selectMemberFromList() {
+        boolean inputCorrect = false;
+        int viewCount = 1;
+        int memberID = 0;
+        while (!inputCorrect) {
+            String query = askQuestion("Indtast MedlemsID eller søg på navn");
+            if (query.isEmpty() || query.isBlank()) {
+                System.out.println("Din søgestreng er tom. Prøv igen.");
+            } else {
+                ArrayList<Integer> memberList = memberManager.searchForMemberIDs(query);
+                if (memberList.isEmpty()) {
+                    System.out.println("Der findes ikke medlemmer, der opfylder dine søgekriterier. Prøv igen.");
+
+                } else {
+                    for (int m : memberList) {
+                        System.out.println(viewCount + ". " + memberManager.getMember(m));
+                        viewCount++;
+                    }
+                    System.out.println();
+                    System.out.println("Vælg medlem fra listen");
+                    int userSelect = navigateMenu(memberList.size());
+                    userSelect = userSelect - 1;
+                    memberID = memberList.get(userSelect);
+                    memberManager.getMember(memberID);
+                    inputCorrect = true;
+                }
+
+            }
+
+        }
+        return memberID;
+
+    }
+
+    public boolean askConfirmYesNo (String question) {
+        boolean replyCorrect = false;
+        boolean reply = false;
+
+        while(!replyCorrect) {
+            System.out.print(question + "? (j/n):");
+            String answer = sc.nextLine();
+            if (answer.equalsIgnoreCase("ja") ||
+                    answer.equalsIgnoreCase("j")) {
+                replyCorrect = true;
+                reply = true;
+            } else if (answer.equalsIgnoreCase("nej") ||
+                    answer.equalsIgnoreCase("n")) {
+                replyCorrect = true;
+                reply = false;
+            } else {
+                System.out.println("Ups, den fik jeg ikke - prøv igen");
+            }
+
+        }
+        return reply;
     }
 
 }
