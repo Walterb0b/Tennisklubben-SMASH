@@ -1,4 +1,4 @@
-package main.java.membership;
+package main.java.tournaments;
 
 public class TournamentEntry {
 

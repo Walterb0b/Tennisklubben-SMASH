@@ -1,4 +1,4 @@
-package main.java.membership;
+package main.java.tournaments;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
