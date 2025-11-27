@@ -99,6 +99,10 @@ public class ScannerHelper {
         //System.out.println("0. Gå tilbage");
     }
 
+    public void printLn(String prompt){
+        System.out.println(prompt);
+    }
+
     //Metode til at få int fra scanner input
     public int askNumber(int intMax) {
         boolean numCorrect = false;

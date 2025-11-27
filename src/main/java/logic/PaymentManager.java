@@ -6,7 +6,9 @@ import main.java.membership.MembershipPayment;
 import main.java.util.Validator;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class PaymentManager {
     private MemberManager memberManager;
@@ -62,6 +64,13 @@ public class PaymentManager {
     public void printAllPayments() {
         for (MembershipPayment p : payments.values()) {
             System.out.println(p);
+    public MembershipPayment getPayment(int paymentID){
+        return payments.get(paymentID);
+    }
+
+    public void addNextSeason(){
+        for (Member m : memberManager.getAllMembers().values()) {
+          //
         }
     }
 
@@ -72,4 +81,19 @@ public class PaymentManager {
     private void missingPaymentsList(){}
 
     private void futurePaymentsList(){}
+
+    public ArrayList<Integer> notPaidIDs(){
+        ArrayList<Integer> membersNotPaid = new ArrayList<>();
+        for (MembershipPayment payment : payments.values()){
+            if(!payment.getIsPaid()){
+                int paymentID = payment.getPaymentID();
+                membersNotPaid.add(paymentID);
+            }
+
+
+        }
+        return membersNotPaid;
+    }
+
+
 }

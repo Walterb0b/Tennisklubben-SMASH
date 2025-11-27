@@ -1,5 +1,6 @@
 package main.java.app;
 
+import main.java.controller.FinanceController;
 import main.java.controller.MainController;
 import main.java.logic.MemberManager;
 import main.java.logic.PaymentManager;
@@ -24,6 +25,7 @@ public class Main {
         MemberManager mm = new MemberManager();
         PaymentManager pm = new PaymentManager(mm);
         StamDataManager sdm = new StamDataManager(mm);
+        FinanceController fc = new FinanceController(sh, mm, pm);
         MainController mainController = new MainController(sh, mm, sdm, pm);
         Member m1 = new Member("John Nielsen", "12345678",LocalDate.of(1968,10,22), new ActiveMembership());
         Member m2 = new Member("Rasmus Johnsen", "87126732",LocalDate.of(1954,11,21), new ActiveMembership());

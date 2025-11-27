@@ -7,6 +7,7 @@ import java.time.LocalDate;
 public class MembershipPayment {
     private static int nextID = 1;
     private int paymentID;
+    private boolean isPaid;
     private LocalDate paidDate;
     private LocalDate dueDate;
     private String seasonQuarter;
@@ -20,6 +21,7 @@ public class MembershipPayment {
         this.seasonQuarter = Validator.getSeasonQuarter(dueDate);
         this.member = member;
         this.amount = member.getMembership().calculateYearlyFee(member.getAge()) / 4;
+        this.isPaid = false;
     }
 
     public int getPaymentID() {
@@ -43,6 +45,10 @@ public class MembershipPayment {
     }
 
  */
+  
+    public boolean getIsPaid(){
+        return isPaid;
+    }
 
     @Override
     public String toString(){
