@@ -28,7 +28,7 @@ public class FinanceController {
             switch (choice) {
                 case 1:
                     //tilføj betaling
-                    addQuarterlyPayment();
+                    registerPayment();
                     break;
                 case 2:
                     //vis medlemmer i restance
@@ -51,7 +51,7 @@ public class FinanceController {
 
     }
 
-    private void addQuarterlyPayment() {
+    private void registerPayment() {
         //PSEUDO KODE
 
         //Fremsøg medlem-metode
