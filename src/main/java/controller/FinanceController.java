@@ -1,16 +1,21 @@
 package main.java.controller;
 
 import main.java.logic.MemberManager;
+import main.java.logic.PaymentManager;
 import main.java.util.ScannerHelper;
+
+import java.util.ArrayList;
 
 
 public class FinanceController {
     private ScannerHelper sh;
     private MemberManager memberManager;
+    private PaymentManager paymentManager;
 
-    public FinanceController(ScannerHelper sc, MemberManager memberManager) {
+    public FinanceController(ScannerHelper sc, MemberManager memberManager, PaymentManager paymentManager) {
         this.sh = sc;
         this.memberManager = memberManager;
+        this.paymentManager = paymentManager;
     }
 
     public void run()  {
@@ -56,7 +61,11 @@ public class FinanceController {
     }
 
     private void missingPaymentsList() {
-        //no body
+        ArrayList<Integer> notPaidList = paymentManager.notPaidIDs();
+        for (int p : notPaidList) {
+
+            System.out.println(p);
+        }
     }
 
     private void futurePaymentsList() {

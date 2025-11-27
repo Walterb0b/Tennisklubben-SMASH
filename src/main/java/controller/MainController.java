@@ -1,6 +1,7 @@
 package main.java.controller;
 
 import main.java.logic.MemberManager;
+import main.java.logic.PaymentManager;
 import main.java.membership.StamDataManager;
 import main.java.util.ScannerHelper;
 
@@ -10,10 +11,10 @@ public class MainController {
     private FinanceController financeController;
     private CoachController coachController;
 
-    public MainController(ScannerHelper sc, MemberManager memberManager, StamDataManager stamDataManager){
+    public MainController(ScannerHelper sc, MemberManager memberManager, StamDataManager stamDataManager, PaymentManager paymentManager){
         this.sc = sc;
         this.memberController = new MemberController(sc, memberManager, stamDataManager);
-        //this.financeController = new FinanceController(sc, memberManager, paymentManager);
+        this.financeController = new FinanceController(sc, memberManager, paymentManager);
         this.coachController = new CoachController(sc, memberManager);
     }
 
@@ -26,7 +27,8 @@ public class MainController {
             switch (choice){
                 case 1: memberController.run();
                         break;
-                //case 2: financeController.run();
+                case 2: financeController.run();
+                        break;
                 case 3: coachController.runStats();
                         break;
                 case 4: coachController.runResult();
