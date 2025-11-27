@@ -2,6 +2,7 @@ package main.java.controller;
 
 import main.java.logic.MemberManager;
 import main.java.logic.PaymentManager;
+import main.java.membership.MembershipPayment;
 import main.java.util.ScannerHelper;
 
 import java.util.ArrayList;
@@ -52,6 +53,39 @@ public class FinanceController {
     }
 
     private void registerPayment() {
+        int memberID = sh.selectMemberFromList();
+        ArrayList<Integer> paymentList = paymentManager.paymentIDByMember(memberID);
+        MembershipPayment payment;
+        int viewCount = 0;
+        int paymentID = 0;
+        for (int id : paymentList) {
+            payment = paymentManager.getPayment(id);
+            boolean isPaid = payment.getIsPaid();
+
+            if (!isPaid) {
+                viewCount++;
+                System.out.println(viewCount + ". " + payment.paymentString());
+
+            }
+        }
+
+        System.out.println("\nVælg betaling fra listen");
+        int userSelect = sh.navigateMenu(viewCount);
+        userSelect--;
+        paymentID = paymentList.get(userSelect);
+        payment = paymentManager.getPayment(paymentID);
+
+
+        boolean setPaid = sh.askConfirmYesNo("Vil du registrere denne betaling som betalt");
+
+        if (setPaid) {
+
+            payment.setIsPaid(true);
+            System.out.println("Betaling for " + payment.paymentString() + " er betalt");
+        }
+
+    }
+
         //PSEUDO KODE
 
         //Fremsøg medlem-metode
@@ -61,7 +95,7 @@ public class FinanceController {
         //vis kvartaler, der ikke er betalt
         //vælg kvartal til betaling
 
-    }
+
 
     private void missingPaymentsList() {
         ArrayList<Integer> notPaidList = paymentManager.notPaidIDs();

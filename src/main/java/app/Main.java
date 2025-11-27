@@ -21,8 +21,9 @@ public class Main {
 
     public static void runProgram() {
         //printMainMenu();
-        ScannerHelper sh = new ScannerHelper();
+
         MemberManager mm = new MemberManager();
+        ScannerHelper sh = new ScannerHelper(mm);
         PaymentManager pm = new PaymentManager(mm);
         StamDataManager sdm = new StamDataManager(mm);
         FinanceController fc = new FinanceController(sh, mm, pm);
