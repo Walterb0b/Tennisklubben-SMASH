@@ -10,7 +10,7 @@ public class MembershipPayment {
     private Member member;
     private double amount;
 
-    public MembershipPayment(int paymentID, LocalDate paidDate, String seasonQuarter, Member member, double amount){
+    public MembershipPayment(Member member){
         this.paymentID = nextID++;
         this.paidDate = LocalDate.now();
         this.seasonQuarter = getSeasonQuarter(this.paidDate);
