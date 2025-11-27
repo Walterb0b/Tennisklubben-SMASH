@@ -28,13 +28,15 @@ public class FinanceController {
             switch (choice) {
                 case 1:
                     //tilføj betaling
-                    addQuarterlyPayment();
+                    registerPayment();
+                    break;
                 case 2:
                     //vis medlemmer i restance
                     missingPaymentsList();
+                    break;
                 case 3:
-
                     futurePaymentsList();
+                    break;
                 case 0:
                     //et skridt tilbage
                     // throw exception eller kør hovedmenu?
@@ -49,7 +51,7 @@ public class FinanceController {
 
     }
 
-    private void addQuarterlyPayment() {
+    private void registerPayment() {
         //PSEUDO KODE
 
         //Fremsøg medlem-metode
@@ -64,8 +66,7 @@ public class FinanceController {
     private void missingPaymentsList() {
         ArrayList<Integer> notPaidList = paymentManager.notPaidIDs();
         for (int p : notPaidList) {
-
-            System.out.println(p);
+            System.out.println(paymentManager.getPayment(p) );
         }
     }
 

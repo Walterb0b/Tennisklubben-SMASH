@@ -27,6 +27,14 @@ public class MembershipPayment {
     public int getPaymentID() {
         return paymentID;
     }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setIsPaid(boolean isPaid) {
+        this.isPaid = isPaid;
+    }
 /*
     private String getSeasonQuarter() {
         int monthValue = dueDate.getMonthValue();
@@ -53,7 +61,8 @@ public class MembershipPayment {
     @Override
     public String toString(){
         return "Betalings - id: " + paymentID + "\n" +
-                "Betalings dato: " + paidDate + "\n" +
+                "Opkrævnings dato: " + dueDate + "\n" +
+                "Betaling modtaget dato: " + paidDate + "\n" +
                 "Kvartal: " + seasonQuarter + "\n" +
                 "Medlem: " + member + "\n" +
                 "Beløb: " + amount + " kr." + "\n";

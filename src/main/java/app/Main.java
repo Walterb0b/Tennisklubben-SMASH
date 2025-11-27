@@ -36,6 +36,9 @@ public class Main {
         pm.createSeasonQuarterPayment(2025);
         pm.createSeasonQuarterPayment(2026);
 
+
+
+
         mainController.run();
 
 
