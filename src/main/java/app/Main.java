@@ -33,8 +33,13 @@ public class Main {
         mm.addMember(m1);
         mm.addMember(m2);
         mm.addMember(m3);
+        pm.createSeasonQuarterPayment(2025);
+        pm.createSeasonQuarterPayment(2026);
 
         mainController.run();
+
+
+
 
 
 

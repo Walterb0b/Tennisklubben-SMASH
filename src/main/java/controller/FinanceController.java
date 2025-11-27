@@ -33,6 +33,7 @@ public class FinanceController {
                     //vis medlemmer i restance
                     missingPaymentsList();
                 case 3:
+
                     futurePaymentsList();
                 case 0:
                     //et skridt tilbage
@@ -69,7 +70,7 @@ public class FinanceController {
     }
 
     private void futurePaymentsList() {
-        //no body
+        paymentManager.printAllPayments();
     }
 
 

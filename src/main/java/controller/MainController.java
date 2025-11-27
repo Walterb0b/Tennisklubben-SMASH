@@ -25,14 +25,18 @@ public class MainController {
             int choice = sc.navigateMenu(9);
 
             switch (choice){
-                case 1: memberController.run();
-                        break;
-                case 2: financeController.run();
-                        break;
-                case 3: coachController.runStats();
-                        break;
-                case 4: coachController.runResult();
-                        break;
+                case 1:
+                    memberController.run();
+                    break;
+                case 2:
+                    financeController.run();
+                    break;
+                case 3:
+                    coachController.runStats();
+                    break;
+                case 4:
+                    coachController.runResult();
+                    break;
                 case 9:
                     running = false;
                     System.out.println("Farvel!");
