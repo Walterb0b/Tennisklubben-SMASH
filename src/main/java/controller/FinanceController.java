@@ -1,16 +1,19 @@
 package main.java.controller;
 
 import main.java.logic.MemberManager;
+import main.java.logic.PaymentManager;
 import main.java.util.ScannerHelper;
 
 
 public class FinanceController {
     private ScannerHelper sh;
     private MemberManager memberManager;
+    private PaymentManager paymentManager;
 
-    public FinanceController(ScannerHelper sc, MemberManager memberManager) {
+    public FinanceController(ScannerHelper sc, MemberManager memberManager, PaymentManager paymentManager) {
         this.sh = sc;
         this.memberManager = memberManager;
+        this.paymentManager = paymentManager;
     }
 
     public void run()  {
@@ -28,6 +31,7 @@ public class FinanceController {
                     //vis medlemmer i restance
                     missingPaymentsList();
                 case 3:
+
                     futurePaymentsList();
                 case 0:
                     //et skridt tilbage
@@ -60,7 +64,7 @@ public class FinanceController {
     }
 
     private void futurePaymentsList() {
-        //no body
+        paymentManager.printAllPayments();
     }
 
 

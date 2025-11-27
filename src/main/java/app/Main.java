@@ -2,6 +2,7 @@ package main.java.app;
 
 import main.java.controller.MainController;
 import main.java.logic.MemberManager;
+import main.java.logic.PaymentManager;
 import main.java.membership.*;
 import main.java.util.ScannerHelper;
 import main.java.membership.StamDataManager;
@@ -21,16 +22,22 @@ public class Main {
         //printMainMenu();
         ScannerHelper sh = new ScannerHelper();
         MemberManager mm = new MemberManager();
+        PaymentManager pm = new PaymentManager(mm);
         StamDataManager sdm = new StamDataManager(mm);
-        MainController mainController = new MainController(sh, mm, sdm);
+        MainController mainController = new MainController(sh, mm, sdm, pm);
         Member m1 = new Member("John Nielsen", "12345678",LocalDate.of(1968,10,22), new ActiveMembership());
         Member m2 = new Member("Rasmus Johnsen", "87126732",LocalDate.of(1954,11,21), new ActiveMembership());
         Member m3 = new Member("Lizzie Okdal", "78249712",LocalDate.of(2005,3,20), new ActiveMembership ());
         mm.addMember(m1);
         mm.addMember(m2);
         mm.addMember(m3);
+        pm.createSeasonQuarterPayment(2025);
+        pm.createSeasonQuarterPayment(2026);
 
         mainController.run();
+
+
+
 
 
 
