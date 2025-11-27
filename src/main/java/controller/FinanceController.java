@@ -29,12 +29,14 @@ public class FinanceController {
                 case 1:
                     //tilføj betaling
                     addQuarterlyPayment();
+                    break;
                 case 2:
                     //vis medlemmer i restance
                     missingPaymentsList();
+                    break;
                 case 3:
-
                     futurePaymentsList();
+                    break;
                 case 0:
                     //et skridt tilbage
                     // throw exception eller kør hovedmenu?
@@ -64,8 +66,7 @@ public class FinanceController {
     private void missingPaymentsList() {
         ArrayList<Integer> notPaidList = paymentManager.notPaidIDs();
         for (int p : notPaidList) {
-
-            System.out.println(p);
+            System.out.println(paymentManager.getPayment(p) );
         }
     }
 

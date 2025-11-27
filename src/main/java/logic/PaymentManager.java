@@ -18,7 +18,7 @@ public class PaymentManager {
     public PaymentManager(MemberManager memberManager){
         this.memberManager = memberManager;
         this.payments = new HashMap<>();
-        this.firstQuarterWeekdays = 5;
+        //this.firstQuarterWeekdays = 5;
     }
 
     public void addPayment(MembershipPayment membershipPayment) {
@@ -88,13 +88,13 @@ public class PaymentManager {
     public ArrayList<Integer> notPaidIDs(){
         ArrayList<Integer> membersNotPaid = new ArrayList<>();
         for (MembershipPayment payment : payments.values()){
-            if(!payment.getIsPaid()){
+            boolean pastPayment = payment.getDueDate().isBefore(LocalDate.now());
+            if(!payment.getIsPaid() && pastPayment){
                 int paymentID = payment.getPaymentID();
                 membersNotPaid.add(paymentID);
             }
-
-
         }
+
         return membersNotPaid;
     }
 
