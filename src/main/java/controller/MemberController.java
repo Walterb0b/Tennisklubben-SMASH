@@ -120,7 +120,7 @@ public class MemberController {
     }
 
     private void editName() {
-        int memberID = selectMemberFromList();
+        int memberID = sc.selectMemberFromList();
         String choice = sc.askQuestion("Vil du ændre navn på " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
 
         if (choice.equalsIgnoreCase("Ja")) {
@@ -136,7 +136,7 @@ public class MemberController {
 
     private void editBirthday() {
 
-        int memberID = selectMemberFromList();
+        int memberID = sc.selectMemberFromList();
         String choice = sc.askQuestion("Vil du ændre fødselsdagsdato på " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
 
         if (choice.equalsIgnoreCase("Ja")) {
@@ -152,7 +152,7 @@ public class MemberController {
 
     private void editPhoneNumber() {
 
-        int memberID = selectMemberFromList();
+        int memberID = sc.selectMemberFromList();
         String choice = sc.askQuestion("Vil du ændre telefonnummer på " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
 
         if (choice.equalsIgnoreCase("Ja")) {
@@ -168,7 +168,7 @@ public class MemberController {
 
     private void editMembership() {
 
-        int memberID = selectMemberFromList();
+        int memberID = sc.selectMemberFromList();
         String choice = sc.askQuestion("Vil du ændre medlemskab for " + memberManager.getMember(memberID).getName() + "? (Ja/Nej)");
 
         if (choice.equalsIgnoreCase("Ja")) {
@@ -194,7 +194,7 @@ public class MemberController {
 
     private void removeMember() {
 
-        int memberID = selectMemberFromList();
+        int memberID = sc.selectMemberFromList();
         String choice = sc.askQuestion("Vil du slette " + memberManager.getMember(memberID).getName() + " fra systemet? (Ja/Nej)");
         if (choice.equalsIgnoreCase("Ja")) {
             System.out.println("Er du sikker? \n1. Ja\n2. Nej");
