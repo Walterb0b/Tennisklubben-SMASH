@@ -4,12 +4,12 @@ import java.util.HashSet;
 
 public class PlayPreference {
     private boolean isCompetetiveMember;
-    private HashSet<GamePreference> gamePreference;
+    private HashSet<Disciplines> disciplines;
     private int smashPoint;
 
-    public PlayPreference(boolean isCompetetiveMember, HashSet<GamePreference> gamePreference,int smashPoint) {
+    public PlayPreference(boolean isCompetetiveMember, HashSet<Disciplines> disciplines, int smashPoint) {
         this.isCompetetiveMember = isCompetetiveMember;
-        this.gamePreference = gamePreference;
+        this.disciplines = disciplines;
         this.smashPoint = smashPoint;
     }
 
@@ -17,8 +17,8 @@ public class PlayPreference {
         return isCompetetiveMember;
     }
 
-    public HashSet<GamePreference> getGamePreference() {
-        return gamePreference;
+    public HashSet<Disciplines> getGamePreference() {
+        return disciplines;
     }
 
     public int getSmashPoint() {
@@ -29,8 +29,8 @@ public class PlayPreference {
         this.isCompetetiveMember = competetiveMember;
     }
 
-    public void setGamePreference(HashSet<GamePreference> gamePreference) {
-        this.gamePreference = gamePreference;
+    public void setGamePreference(HashSet<Disciplines> disciplines) {
+        this.disciplines = disciplines;
     }
 
     public void setSmashPoint(int smashPoint) {
@@ -39,6 +39,6 @@ public class PlayPreference {
 
     @Override
     public String toString(){
-        return "Konkurrencespiller: " + isCompetetiveMember + "Disciplin(er): " + gamePreference + "SMASH-Point: " + smashPoint;
+        return "Konkurrencespiller: " + isCompetetiveMember + "Disciplin(er): " + disciplines + "SMASH-Point: " + smashPoint;
     }
 }
