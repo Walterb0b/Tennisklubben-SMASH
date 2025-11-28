@@ -32,4 +32,13 @@ public class PlayerResult {
         this.score = score;
         this.date = date;
     }
+
+    public int getMatchID(){return matchID;}
+    public Member getPlayer(){return player;}
+    public Disciplines getDiscipline(){return discipline;}
+    public MatchType getType(){return type;}
+    public ResultOutcome getOutcome(){return outcome;}
+    public String getOpponentInfo(){return opponentInfo;}
+    public String getScore(){return score;}
+    public LocalDate getDate(){return date;}
 }

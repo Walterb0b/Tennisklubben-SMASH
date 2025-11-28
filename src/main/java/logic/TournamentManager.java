@@ -1,6 +1,6 @@
 package main.java.logic;
 
-import main.java.membership.Tournament;
+import main.java.tournaments.Tournament;
 
 import java.util.HashMap;
 
