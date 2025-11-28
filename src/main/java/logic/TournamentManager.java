@@ -1,15 +1,15 @@
 package main.java.logic;
 
-import main.java.membership.Tournament;
+import main.java.tournaments.Tournament;
 
 import java.util.HashMap;
 
 public class TournamentManager {
 
-    private HashMap<Integer, Tournament> tournaments;
+    public HashMap<Integer, Tournament> tournaments;
 
     public TournamentManager() {
-        tournaments = new HashMap<>();
+        this.tournaments = new HashMap<Integer, Tournament>();
     }
 
     public void addTournament(Tournament tournament) {

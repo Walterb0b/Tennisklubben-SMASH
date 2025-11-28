@@ -15,7 +15,7 @@ public class Tournament {
     private List<TournamentEntry> entries;
 
 
-    public Tournament(int tournamentID, String name, String location, LocalDate startDate, LocalDate endDate) {
+    public Tournament(int tournamentID, int id, String name, String location, LocalDate startDate, LocalDate endDate, int nextTournamentID) {
         this.tournamentID = tournamentID;
         this.name = name;
         this.location = location;
@@ -39,5 +39,9 @@ public class Tournament {
 
     public void addEntry(TournamentEntry entry){
         entries.add(entry);
+    }
+
+    public int getTournamentId() {
+        return tournamentID;
     }
 }
