@@ -5,7 +5,11 @@ import main.java.logic.PaymentManager;
 import main.java.membership.MembershipPayment;
 import main.java.util.ScannerHelper;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import static main.java.membership.MembershipPayment.futurePaymentHeader;
 
 
 public class FinanceController {
@@ -37,6 +41,8 @@ public class FinanceController {
                     break;
                 case 3:
                     futurePaymentsList();
+                    printNextSeasonQuarterSum();
+
                     break;
                 case 0:
                     //et skridt tilbage
@@ -106,9 +112,23 @@ public class FinanceController {
 
     private void futurePaymentsList() {
         ArrayList<Integer> futurePayments = paymentManager.futurePaymentsList();
+        System.out.println("\n" + futurePaymentHeader());
         for (int p : futurePayments) {
-            System.out.println(paymentManager.getPayment(p) );
+            MembershipPayment thisPayment = paymentManager.getPayment(p);
+            System.out.println(thisPayment.futurePaymentString() );
+
         }
+        System.out.println("\n");
+
+    }
+
+    private void printNextSeasonQuarterSum() {
+        String[] seasonQuarters = {"26Q1", "26Q2", "26Q3", "26Q4"};
+        for (String sq : seasonQuarters) {
+            System.out.println(sq + " sum: " + paymentManager.calculateQuarterSum(sq) + " kr.");
+        }
+        System.out.println("\n");
+
     }
 
 

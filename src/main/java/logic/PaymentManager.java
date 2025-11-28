@@ -124,4 +124,28 @@ public class PaymentManager {
         return futurePayments;
     }
 
+    public double calculateQuarterSum(String seasonQuarter){
+        Double sum = 0.0;
+        for (MembershipPayment p : payments.values()) {
+            if (p.getSeasonQuarter().equalsIgnoreCase(seasonQuarter)) {
+                sum = sum + p.getAmount();
+            }
+        }
+        return sum;
+    }
+    /*
+    public ArrayList<String> futureSeasonQuarters() {
+        ArrayList<String> seasonQuarters;
+
+        for (MembershipPayment p : payments.values()) {
+            if (p.getSeasonQuarter().equalsIgnoreCase(seasonQuarter)) {
+                sum = sum + p.getAmount();
+            }
+        }
+    }
+    */
+
+
+
+
 }
