@@ -2,6 +2,7 @@ package main.java.controller;
 
 import main.java.logic.MemberManager;
 import main.java.logic.PaymentManager;
+import main.java.logic.PlayerStats;
 import main.java.logic.ResultManager;
 import main.java.membership.StamDataManager;
 import main.java.util.ScannerHelper;
@@ -12,11 +13,11 @@ public class MainController {
     private FinanceController financeController;
     private CoachController coachController;
 
-    public MainController(ScannerHelper sc, MemberManager memberManager, StamDataManager stamDataManager, PaymentManager paymentManager, ResultManager resultManager){
+    public MainController(ScannerHelper sc, MemberManager memberManager, StamDataManager stamDataManager, PaymentManager paymentManager, ResultManager resultManager, PlayerStats playerStats){
         this.sc = sc;
         this.memberController = new MemberController(sc, memberManager, stamDataManager);
         this.financeController = new FinanceController(sc, memberManager, paymentManager);
-        this.coachController = new CoachController(sc, memberManager, resultManager);
+        this.coachController = new CoachController(sc, memberManager, resultManager, playerStats);
     }
 
     public void run(){

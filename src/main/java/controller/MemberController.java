@@ -54,6 +54,7 @@ public class MemberController {
 
                 default:
                     System.out.println("Der er sket noget helt uventet");
+                    break;
 
             }
         }
@@ -113,6 +114,7 @@ public class MemberController {
                     break;
                 default:
                     System.out.println("Der er sket noget uvist");
+                    break;
 
             }
         }

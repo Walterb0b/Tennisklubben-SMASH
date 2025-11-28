@@ -1,6 +1,7 @@
 package main.java.controller;
 
 import main.java.logic.MemberManager;
+import main.java.logic.PlayerStats;
 import main.java.logic.ResultManager;
 import main.java.membership.Disciplines;
 import main.java.membership.Member;
@@ -17,12 +18,14 @@ public class CoachController {
     private ScannerHelper sc;
     private MemberManager memberManager;
     private ResultManager resultManager;
+    private PlayerStats playerStats;
 
 
-    public CoachController(ScannerHelper sc, MemberManager memberManager, ResultManager resultManager){
+    public CoachController(ScannerHelper sc, MemberManager memberManager, ResultManager resultManager, PlayerStats playerStats){
         this.sc = sc;
         this.memberManager = memberManager;
         this.resultManager = resultManager;
+        this.playerStats = playerStats;
 
     }
 
@@ -34,14 +37,11 @@ public class CoachController {
             int choice = sc.navigateMenu(3);
             switch (choice) {
                 case 1 :
-                //CoachManager.topFive();
-                    System.out.println("Top 5");
-                        break;
+                    topFive();
+                    break;
                 case 2 :
                     playerStats();
-                    System.out.println("Statistik for spiller");
-                        break;
-
+                    break;
                 case 3 :
                 // CoachManager.playerMatches();
                     System.out.println("Turneringskampe for spiller");
@@ -209,5 +209,20 @@ public class CoachController {
         Member m = memberManager.getMember(sc.selectMemberFromList());
 
         resultManager.getResultsForPlayer(m);
+    }
+
+    private void topFive() {
+
+        Disciplines d = askDiscipline();
+
+        List<Member> top5 = playerStats.getTop5(d);
+
+        sc.printLn("\n TOP 5 i " + d + ": ");
+
+        int rank = 1;
+        for(Member m : top5){
+            sc.printLn(rank + ". " + m.getName() + " (ID: " + m.getMemberID() + ")");
+            rank++;
+        }
     }
 }
