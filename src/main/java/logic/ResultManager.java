@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ResultManager {
-    private List<PlayerResult> results = new ArrayList<>();
+    private final List<PlayerResult> results = new ArrayList<>();
     private int nextMatchID = 1;
 
     public List<PlayerResult> getAllResults(){
@@ -77,5 +77,12 @@ public class ResultManager {
         }
         return (setsWon > setsLost) ? ResultOutcome.VUNDET : ResultOutcome.TABT;
     }
+
+    /*public void deleteResults(int matchID){
+        if(results.contains() {
+            results.removeAll(getResultsFromMatch(matchID));
+        }
+
+    }*/
 
 }

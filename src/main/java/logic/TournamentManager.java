@@ -1,4 +1,4 @@
-package main.java.logic;
+/*package main.java.logic;
 
 import main.java.tournaments.Tournament;
 
@@ -29,4 +29,4 @@ public class TournamentManager {
             System.out.println(tournament);
         }
     }
-}
+}*/

@@ -38,7 +38,7 @@ public class CoachController {
                     System.out.println("Top 5");
                         break;
                 case 2 :
-                    //CoachManager.playerStats();
+                    playerStats();
                     System.out.println("Statistik for spiller");
                         break;
 
@@ -51,10 +51,9 @@ public class CoachController {
                     running = false;
                     break;
                 default:
-                    System.out.println("Ugyldigt valg");
+                    sc.printLn("Ugyldigt valg");
             }
         }
-
     }
 
 
@@ -66,14 +65,13 @@ public class CoachController {
             int choice = sc.navigateMenu(6);
             switch (choice) {
                 case 1 : addMatch();
-                    System.out.println("Du har valgt tilføj turneringskamp");
                     break;
                 case 2 :
                 // CoachManager.editMatch();
                     System.out.println("Rediger turneringskamp");
                 break;
                 case 3 :
-                // CoachManager.removeMatch();
+                removeMatch();
                     System.out.println("Slet turneringskamp");
                 break;
                 case 4 :
@@ -92,16 +90,29 @@ public class CoachController {
                     running = false;
                     break;
                 default:
-                    System.out.println("Ugyldigt valg");
+                    sc.printLn("Ugyldigt valg");
             }
         }
 
     }
 
+    private void removeMatch() {
+        sc.printLn("\n=== Fjern en kamp ===");
+        int matchID = sc.askNumber("Hvilken kamp vil du gerne slette? (Indtast ID): ");
+
+        try{
+            //resultManager.deleteResults(matchID);
+        } catch (IndexOutOfBoundsException IOE){
+            sc.printLn("Der findes ingen kamp med dette ID");
+        }
+
+        sc.printLn("Kamp " + matchID + " er blevet slettet");
+    }
+
     private void addMatch() {
-        System.out.println("\n=== Registrer kamp===");
-        System.out.println("1. Kamp mod en anden klub");
-        System.out.println("2. Intern kamp (Vores egne spillere mod hinanden)");
+        sc.printLn("\n=== Registrer kamp===");
+        sc.printLn("1. Kamp mod en anden klub");
+        sc.printLn("2. Intern kamp (Vores egne spillere mod hinanden)");
 
         int typeChoice = sc.askNumber(2);
 
@@ -111,18 +122,54 @@ public class CoachController {
         if(typeChoice == 1) {
             addExternalMatchFlow(discipline, perTeam);
         } else if (typeChoice == 2) {
+            addInternalMatchFlow(discipline, perTeam);
+        }
+    }
 
+
+
+    private void addInternalMatchFlow(Disciplines discipline, int perTeam) {
+        sc.printLn("=== Intern kamp ===");
+
+        List<Member> teamA = new ArrayList<>();
+        sc.printLn("Vælg spillere til hold A");
+        for(int i = 1; i <= perTeam; i++){
+            Member m = memberManager.getMember(sc.selectMemberFromList());
+            if(m == null) return;
+            teamA.add(m);
         }
 
+        List<Member> teamB = new ArrayList<>();
+        sc.printLn("Vælg spillere til hold B");
+        for(int i = 1; i <= perTeam; i++){
+            Member m = memberManager.getMember(sc.selectMemberFromList());
+            if(m == null) return;
+            teamB.add(m);
+        }
 
+        MatchType type = MatchType.valueOf(sc.askQuestion("Er det en træning eller intern turnering").equalsIgnoreCase("Træning") ? "Træning".toUpperCase() : "Turnering".toUpperCase());
 
+        String score = sc.askQuestion("Indtast score (fx. 6-4 7-5 6-2): ");
+
+        sc.printLn("Hvilket hold vandt?");
+        sc.printLn("1. Team A");
+        sc.printLn("2. Team B");
+        int winnerTeam = sc.askNumber(2);
+
+        if(winnerTeam != 1 && winnerTeam != 2){
+            sc.printLn("Ugyldigt valg - kamp ikke gemt");
+        }
+
+        resultManager.addInternalMatchResult(teamA, teamB, discipline, type, winnerTeam, score, LocalDate.now());
+
+        sc.printLn("Intern kamp registreret");
     }
 
     private void addExternalMatchFlow(Disciplines discipline, int perTeam) {
-        System.out.println("=== Kamp mod anden klub ===");
+        sc.printLn("=== Kamp mod anden klub ===");
 
         List<Member> clubPlayers = new ArrayList<>();
-        for(int i = 0; i <= perTeam; i++){
+        for(int i = 1; i <= perTeam; i++){
             Member m = memberManager.getMember(sc.selectMemberFromList());
             if(m == null)
                 return;
@@ -139,10 +186,10 @@ public class CoachController {
     }
 
     private Disciplines askDiscipline() {
-        System.out.println("Vælg disciplin:");
-        System.out.println("1. SINGLE");
-        System.out.println("2. DOUBLE");
-        System.out.println("3. MIX DOUBLE");
+        sc.printLn("Vælg disciplin:");
+        sc.printLn("1. SINGLE");
+        sc.printLn("2. DOUBLE");
+        sc.printLn("3. MIX DOUBLE");
 
         int choice = sc.askNumber(3);
 
@@ -151,10 +198,16 @@ public class CoachController {
             case 2 -> Disciplines.DOUBLE;
             case 3 -> Disciplines.MIXDOUBLE;
             default -> {
-                System.out.println("Ugyldigt valg, bruger single som standard");
+                sc.printLn("Ugyldigt valg, bruger single som standard");
                 yield Disciplines.SINGLE;
             }
         };
     }
 
+
+    private void playerStats() {
+        Member m = memberManager.getMember(sc.selectMemberFromList());
+
+        resultManager.getResultsForPlayer(m);
+    }
 }

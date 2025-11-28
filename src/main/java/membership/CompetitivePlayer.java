@@ -3,12 +3,12 @@ package main.java.membership;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompetitivePlayer {
+/*public class CompetitivePlayer {
 
     private int playerId;
     private String name;
     private int age;
-    private List<> disciplines;
+    //private List<> disciplines;
 
     public CompetitivePlayer(int playerId, String name, int age) {
         this.playerId = playerId;
@@ -53,4 +53,4 @@ public class CompetitivePlayer {
                 ", disciplines=" + disciplines +
                 '}';
     }
-}
+}*/
