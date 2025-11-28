@@ -13,7 +13,7 @@ public class MainController {
 
     public MainController(ScannerHelper sc, MemberManager memberManager, StamDataManager stamDataManager, PaymentManager paymentManager){
         this.sc = sc;
-        this.memberController = new MemberController(sc, memberManager, stamDataManager);
+        this.memberController = new MemberController(sc, memberManager, stamDataManager, paymentManager);
         this.financeController = new FinanceController(sc, memberManager, paymentManager);
         this.coachController = new CoachController(sc, memberManager);
     }

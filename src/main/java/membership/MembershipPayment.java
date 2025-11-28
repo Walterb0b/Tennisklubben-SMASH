@@ -3,6 +3,7 @@ package main.java.membership;
 import main.java.util.Validator;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 
 public class MembershipPayment {
     private static int nextID = 1;
@@ -74,6 +75,9 @@ public class MembershipPayment {
         return "Kvartal: " + seasonQuarter + ", Beløb: " + amount + " kr." + ", BetalingsID: " + paymentID;
     }
 
+    //Comparator<MembershipPayment> byDueDate = Comparator.comparing(MembershipPayment::getDueDate);
+    //Comparator<MembershipPayment> byMemberID = Comparator.comparing(MembershipPayment::getMemberID);
+    //Comparator<MembershipPayment> byDueDateThenMemberID = byDueDate.thenComparing(byMemberID);
     public String futurePaymentString(){
             return String.format("%-30s | %-10s | %-8s | %.0f kr.",
                     member.getName(),
