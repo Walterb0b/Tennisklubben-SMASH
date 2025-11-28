@@ -9,24 +9,28 @@ public class Member {
     private String name;
     private String phoneNumber;
     private LocalDate birthday;
+    private LocalDate signUpDate;
+    private LocalDate cancellationDate;
     private Membership membership;
     private PlayPreference playPreference;
 
-    public Member(String name, String phoneNumber, LocalDate birthday, Membership membership,
+    public Member(String name, String phoneNumber, LocalDate birthday, LocalDate signUpDate, Membership membership,
                   PlayPreference playPreference) {
         this.memberID = nextID++;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.birthday = birthday;
+        this.signUpDate = signUpDate;
         this.membership = membership;
         this.playPreference = playPreference;
     }
 
-    public Member(String name, String phoneNumber, LocalDate birthday, Membership membership) {
+    public Member(String name, String phoneNumber, LocalDate birthday, LocalDate signUpDate, Membership membership) {
         this.memberID = nextID++;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.birthday = birthday;
+        this.signUpDate = signUpDate;
         this.membership = membership;
     }
 
@@ -38,6 +42,10 @@ public class Member {
     public String getName() { return name; }
 
     public LocalDate getBirthday() { return birthday; }
+
+    public LocalDate getSignUpDate() { return signUpDate; }
+
+    public LocalDate getCancellationDate() { return cancellationDate; }
 
     public int getAge() {
         return Period.between(getBirthday(), LocalDate.now()).getYears();
@@ -54,6 +62,8 @@ public class Member {
 
     //ingen setBirthday? Bør ikke kunne ændres, når brugeren først er oprettet??
     public void setBirthday(LocalDate birthday) { this.birthday = birthday; }
+
+    public void setCancellationDate(LocalDate cancellationDate) { this.cancellationDate = cancellationDate; }
 
     public void setMembership( Membership membership) { this.membership = membership; }
 

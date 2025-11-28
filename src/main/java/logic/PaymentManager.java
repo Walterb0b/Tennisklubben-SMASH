@@ -1,11 +1,14 @@
 package main.java.logic;
 
+import main.java.membership.ActiveMembership;
 import main.java.membership.Member;
 import main.java.membership.MembershipPayment;
+import main.java.membership.PassiveMembership;
 import main.java.util.Validator;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class PaymentManager {
@@ -22,22 +25,30 @@ public class PaymentManager {
     public void addPayment(MembershipPayment membershipPayment) {
         payments.put(membershipPayment.getPaymentID(), membershipPayment);
     }
-/*
-    public void createSeasonQuarterPaymentOLD(int year){
-        int yearValid = Validator.yearValidator(year);
-        String yearValidShort = String.valueOf(yearValid).substring(2);
-        String[] quarters = {"Q1", "Q2", "Q3", "Q4"};
-        for (String q : quarters) {
-            for (Member m : memberManager.getAllMembers().values()) {
-                String seasonQuarter = yearValidShort + q;
-                addPayment(new MembershipPayment(m,seasonQuarter));
-                //MembershipPayment msp = new MembershipPayment(m, seasonQuarter);
-                //payments.put(msp.getPaymentID(), msp);
-            }
+
+    public void createMembershipPaymentWithNewMember(int memberID) {
+        Member m = memberManager.getMember(memberID);
+        LocalDate signUpDate = m.getSignUpDate();
+        int year = signUpDate.getYear();
+        LocalDate[] dateQuarters = {
+                LocalDate.of(year, 1, 1),
+                LocalDate.of(year, 4, 1),
+                LocalDate.of(year, 7, 1),
+                LocalDate.of(year,10,1),
+                LocalDate.of(year, 1, 1).plusYears(1),
+                LocalDate.of(year, 4, 1).plusYears(1),
+                LocalDate.of(year, 7, 1).plusYears(1),
+                LocalDate.of(year,10,1).plusYears(1)
+        };
+
+        for (LocalDate d : dateQuarters) {
+                boolean dateSearch = m.getSignUpDate().isEqual(d) || m.getSignUpDate().isBefore(d);
+                boolean membership = m.getMembership().isActive() || !m.getMembership().isActive(); //medlemmer m aktiv/passiv medlemsskab
+                if (dateSearch && membership) {
+                    addPayment(new MembershipPayment(m, d));
+                }
         }
     }
-
- */
 
     public void createSeasonQuarterPayment(int year){
         int yearValid = Validator.yearValidator(year);
@@ -51,10 +62,11 @@ public class PaymentManager {
                 };
         for (LocalDate d : dateQuarters) {
             for (Member m : memberManager.getAllMembers().values()) {
-                //String seasonQuarter = yearValidShort + q;
-                addPayment(new MembershipPayment(m,d));
-                //MembershipPayment msp = new MembershipPayment(m, seasonQuarter);
-                //payments.put(msp.getPaymentID(), msp);
+                boolean dateSearch = m.getSignUpDate().isEqual(d) || m.getSignUpDate().isBefore(d);
+                boolean membership = m.getMembership().isActive() || !m.getMembership().isActive(); //medlemmer m aktiv/passiv medlemsskab
+                if (dateSearch && membership) {
+                    addPayment(new MembershipPayment(m, d));
+                }
             }
         }
     }
@@ -69,6 +81,13 @@ public class PaymentManager {
         return payments;
     }
 
+
+    public ArrayList<MembershipPayment> getAllPaymentsSortedByDueDateMemberID() {
+        ArrayList<MembershipPayment> paymentsSorted = new ArrayList<MembershipPayment>(payments.values());
+        paymentsSorted.sort(byDueDateThenMemberID);
+        return paymentsSorted;
+    }
+
     public MembershipPayment getPayment(int paymentID){
         return payments.get(paymentID);
     }
@@ -78,6 +97,10 @@ public class PaymentManager {
           //
         }
     }
+
+    Comparator<MembershipPayment> byDueDate = Comparator.comparing(MembershipPayment::getDueDate);
+    Comparator<MembershipPayment> byMemberID = Comparator.comparing(MembershipPayment::getMemberID);
+    Comparator<MembershipPayment> byDueDateThenMemberID = byDueDate.thenComparing(byMemberID);
 
     public void payFuturePayments(int memberID){}
 

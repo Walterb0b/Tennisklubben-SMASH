@@ -1,6 +1,7 @@
 package main.java.controller;
 
 import main.java.logic.MemberManager;
+import main.java.logic.PaymentManager;
 import main.java.membership.*;
 import main.java.util.ScannerHelper;
 import main.java.util.Validator;
@@ -14,11 +15,13 @@ public class MemberController {
     private ScannerHelper sc;
     private MemberManager memberManager;
     private StamDataManager stamDataManager;
+    private PaymentManager paymentManager;
 
-    public MemberController(ScannerHelper sc, MemberManager memberManager, StamDataManager stamDataManager) {
+    public MemberController(ScannerHelper sc, MemberManager memberManager, StamDataManager stamDataManager, PaymentManager paymentManager) {
         this.sc = sc;
         this.memberManager = memberManager;
         this.stamDataManager = stamDataManager;
+        this.paymentManager = paymentManager;
     }
 
 
@@ -78,10 +81,12 @@ public class MemberController {
         String name = sc.askQuestion("Indtast navn");
         String phoneNumber = sc.askQuestion("Indtast telefonnummer");
         LocalDate birthday = Validator.birthdayValidatorWithScanner(sc, "Indtast fødselsdag i formatet DD/MM/YYYY");
+        LocalDate signUpDate = LocalDate.now();
         boolean active = sc.askQuestion("Aktivt medlemskab?(ja/nej)").trim().equalsIgnoreCase("J");
         Membership membership = active ? new ActiveMembership() : new PassiveMembership();
-        Member member = new Member(name, phoneNumber, birthday, membership);
+        Member member = new Member(name, phoneNumber, birthday, signUpDate, membership);
         memberManager.addMember(member);
+        paymentManager.createMembershipPaymentWithNewMember(member.getMemberID());
 
         //memberManager.printAllMembers();
 

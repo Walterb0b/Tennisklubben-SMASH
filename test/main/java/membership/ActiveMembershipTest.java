@@ -8,9 +8,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ActiveMembershipTest {
 
-    Member m1 = new Member("John Doe", "12345678", LocalDate.of(2008, 9, 23), new ActiveMembership());
-    Member m2 = new Member("Martin Henriksen", "12345678", LocalDate.of(2000, 9, 23), new ActiveMembership());
-    Member m3 = new Member("Lisa Henriksen", "12345678", LocalDate.of(1964, 9, 23), new ActiveMembership());
+    Member m1 = new Member("John Doe", "12345678", LocalDate.of(2008, 9, 23), LocalDate.of(2025,1,1),new ActiveMembership());
+    Member m2 = new Member("Martin Henriksen", "12345678", LocalDate.of(2000, 9, 23), LocalDate.of(2025,1,1),new ActiveMembership());
+    Member m3 = new Member("Lisa Henriksen", "12345678", LocalDate.of(1964, 9, 23), LocalDate.of(2025,1,1),new ActiveMembership());
 
     @Test
     void calculateYearlyFeeUnder18True() {
