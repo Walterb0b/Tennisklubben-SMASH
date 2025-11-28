@@ -85,7 +85,6 @@ public class PaymentManager {
 
     private void missingPaymentsList(){}
 
-    private void futurePaymentsList(){}
 
     public ArrayList<Integer> notPaidIDs(){
         ArrayList<Integer> membersNotPaid = new ArrayList<>();
@@ -112,5 +111,17 @@ public class PaymentManager {
         return paymentIDs;
     }
 
+    public ArrayList<Integer> futurePaymentsList(){
+        ArrayList<Integer> futurePayments = new ArrayList<>();
+        for (MembershipPayment payment : payments.values()){
+            boolean futurePayment = payment.getDueDate().isAfter(LocalDate.now());
+            if(futurePayment){
+                int paymentID = payment.getPaymentID();
+                futurePayments.add(paymentID);
+            }
+        }
+
+        return futurePayments;
+    }
 
 }

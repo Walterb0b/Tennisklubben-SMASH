@@ -105,7 +105,10 @@ public class FinanceController {
     }
 
     private void futurePaymentsList() {
-        paymentManager.printAllPayments();
+        ArrayList<Integer> futurePayments = paymentManager.futurePaymentsList();
+        for (int p : futurePayments) {
+            System.out.println(paymentManager.getPayment(p) );
+        }
     }
 
 
