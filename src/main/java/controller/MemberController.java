@@ -82,7 +82,7 @@ public class MemberController {
         String phoneNumber = sc.askQuestion("Indtast telefonnummer");
         LocalDate birthday = Validator.birthdayValidatorWithScanner(sc, "Indtast fødselsdag i formatet DD/MM/YYYY");
         LocalDate signUpDate = LocalDate.now();
-        boolean active = sc.askQuestion("Aktivt medlemskab?(ja/nej)").trim().equalsIgnoreCase("J");
+        boolean active = sc.askConfirmYesNo("Aktivt medlemsskab?");
         Membership membership = active ? new ActiveMembership() : new PassiveMembership();
         Member member = new Member(name, phoneNumber, birthday, signUpDate, membership);
         memberManager.addMember(member);

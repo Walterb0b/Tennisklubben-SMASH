@@ -111,11 +111,11 @@ public class FinanceController {
     }
 
     private void futurePaymentsList() {
-        ArrayList<Integer> futurePayments = paymentManager.futurePaymentsList();
+        ArrayList<MembershipPayment> futurePayments = paymentManager.getAllPaymentsSortedByDueDateMemberID();
         System.out.println("\n" + futurePaymentHeader());
-        for (int p : futurePayments) {
-            MembershipPayment thisPayment = paymentManager.getPayment(p);
-            System.out.println(thisPayment.futurePaymentString() );
+        for (MembershipPayment p : futurePayments) {
+            //MembershipPayment thisPayment = paymentManager.getPayment(p);
+            System.out.println(p.futurePaymentString() );
 
         }
         System.out.println("\n");
