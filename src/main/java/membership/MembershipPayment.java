@@ -67,6 +67,10 @@ public class MembershipPayment {
         return isPaid;
     }
 
+    public double getAmount() {
+        return amount;
+    }
+
     public String paymentString() {
         return "Kvartal: " + seasonQuarter + ", Beløb: " + amount + " kr." + ", BetalingsID: " + paymentID;
     }
@@ -74,6 +78,29 @@ public class MembershipPayment {
     //Comparator<MembershipPayment> byDueDate = Comparator.comparing(MembershipPayment::getDueDate);
     //Comparator<MembershipPayment> byMemberID = Comparator.comparing(MembershipPayment::getMemberID);
     //Comparator<MembershipPayment> byDueDateThenMemberID = byDueDate.thenComparing(byMemberID);
+    public String futurePaymentString(){
+            return String.format("%-30s | %-10s | %-8s | %.0f kr.",
+                    member.getName(),
+                    member.getMemberID(),
+                    seasonQuarter,
+                    amount) +
+                    "\n" + "----------------------------------------------------------------";
+
+    }
+
+
+
+
+    public static String futurePaymentHeader() {
+        return String.format(
+                "%-30s | %-10s | %-8s | %s",
+                "NAVN",
+                "MEDLEMS-ID",
+                "KVARTAL",
+                "BELØB"
+        ) + "\n" +
+                "----------------------------------------------------------------";
+    }
 
     @Override
     public String toString(){

@@ -1,6 +1,6 @@
 package main.java.membership;
 
-public enum GamePreference {
+public enum Disciplines {
     SINGLE,
     DOUBLE,
     MIXDOUBLE

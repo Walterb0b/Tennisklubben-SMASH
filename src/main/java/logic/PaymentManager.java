@@ -108,7 +108,6 @@ public class PaymentManager {
 
     private void missingPaymentsList(){}
 
-    private void futurePaymentsList(){}
 
     public ArrayList<Integer> notPaidIDs(){
         ArrayList<Integer> membersNotPaid = new ArrayList<>();
@@ -134,6 +133,42 @@ public class PaymentManager {
 
         return paymentIDs;
     }
+
+    public ArrayList<Integer> futurePaymentsList(){
+        ArrayList<Integer> futurePayments = new ArrayList<>();
+        for (MembershipPayment payment : payments.values()){
+            boolean futurePayment = payment.getDueDate().isAfter(LocalDate.now());
+            if(futurePayment){
+                int paymentID = payment.getPaymentID();
+                futurePayments.add(paymentID);
+            }
+        }
+
+        return futurePayments;
+    }
+
+    public double calculateQuarterSum(String seasonQuarter){
+        Double sum = 0.0;
+        for (MembershipPayment p : payments.values()) {
+            if (p.getSeasonQuarter().equalsIgnoreCase(seasonQuarter)) {
+                sum = sum + p.getAmount();
+            }
+        }
+        return sum;
+    }
+    /*
+    public ArrayList<String> futureSeasonQuarters() {
+        ArrayList<String> seasonQuarters;
+
+        for (MembershipPayment p : payments.values()) {
+            if (p.getSeasonQuarter().equalsIgnoreCase(seasonQuarter)) {
+                sum = sum + p.getAmount();
+            }
+        }
+    }
+    */
+
+
 
 
 }

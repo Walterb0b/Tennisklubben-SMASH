@@ -1,6 +1,6 @@
 package main.java.tournaments;
 
-import main.java.membership.GamePreference;
+import main.java.membership.Disciplines;
 import main.java.membership.Member;
 
 import java.time.LocalDate;
@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class PlayerResult {
     private int matchID;
     private Member player;
-    private GamePreference discipline;
+    private Disciplines discipline;
     private MatchType type;
     private ResultOutcome outcome;
     private String opponentInfo;
@@ -17,7 +17,7 @@ public class PlayerResult {
 
     public PlayerResult(int matchID,
                         Member player,
-                        GamePreference discipline,
+                        Disciplines discipline,
                         MatchType type,
                         ResultOutcome outcome,
                         String opponentInfo,
