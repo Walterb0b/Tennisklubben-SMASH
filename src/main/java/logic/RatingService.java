@@ -34,6 +34,12 @@ public class RatingService {
         }
     }
 
+    /**
+     * Opdaterer Elo-rating eller Smashpoints efter intern kamp
+     * @param clubPlayers Liste over spillerne fra klubben
+     * @param clubWon True hvis holdet fra klubben har vundet
+     * @param type Er det en træningkamp eller turneringskamp
+     */
     public void updateAfterExternalMatch(List<Member> clubPlayers, boolean clubWon, MatchType type){
         if(type == MatchType.TURNERING){
             updateEloAfterExternalTournament(clubPlayers, clubWon);
@@ -95,7 +101,7 @@ public class RatingService {
         }
     }
 
-    //Helpers
+    //Helpers til Elo udregning
     private int ensureEloInitialized(Member m) {
         if(m.getEloRating() == null){
             m.setEloRating(1500);
