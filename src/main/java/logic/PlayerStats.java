@@ -41,6 +41,10 @@ public class PlayerStats {
         return (wins * 100.0) / total;
     }
 
+    /**
+     * Bruges til at lave en top 5 liste over en specifik disciplin
+     * @return Liste over top 5 spillere med flest sejre i en specifik disciplin
+     */
     public List<Member> getTop5ByDiscipline(Disciplines d){
         return resultManager.getAllResults().stream().filter(r -> r.getDiscipline() == d && r.getOutcome() == ResultOutcome.VUNDET).
                 collect(Collectors.groupingBy(PlayerResult::getPlayer, Collectors.counting())).
@@ -48,6 +52,10 @@ public class PlayerStats {
                 limit(5).map(Map.Entry::getKey).toList();
     }
 
+    /**
+     * Bruges til at lave en top 5 liste over Elo - rating
+     * @return Liste over top 5 spillere med højeste Elo - rating
+     */
     public List<Member> getTop5ByElo(){
         Collection<Member> allMembers = memberManager.getAllMembers().values();
 
@@ -62,6 +70,10 @@ public class PlayerStats {
         return list.subList(0, limit);
     }
 
+    /**
+     * Bruges til at lave en top 5 liste over smash point
+     * @return Liste over top 5 spillere med flest smash point
+     */
     public List<Member> getTop5BySmashPoints(){
         Collection<Member> allMembers = memberManager.getAllMembers().values();
 
