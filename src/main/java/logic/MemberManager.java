@@ -4,6 +4,7 @@ import main.java.membership.Member;
 import main.java.util.Validator;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class MemberManager {
@@ -19,6 +20,10 @@ public class MemberManager {
 
     public HashMap<Integer, Member> getAllMembers() {
         return members;
+    }
+
+    public Collection<Member> getAllMembersCollection(){
+        return (Collection<Member>) members;
     }
 
     public Member getMember(int ID) {

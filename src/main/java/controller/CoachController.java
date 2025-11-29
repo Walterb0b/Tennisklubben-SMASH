@@ -2,6 +2,7 @@ package main.java.controller;
 
 import main.java.logic.MemberManager;
 import main.java.logic.PlayerStats;
+import main.java.logic.RatingService;
 import main.java.logic.ResultManager;
 import main.java.membership.Disciplines;
 import main.java.membership.Member;
@@ -19,14 +20,15 @@ public class CoachController {
     private MemberManager memberManager;
     private ResultManager resultManager;
     private PlayerStats playerStats;
+    private RatingService ratingService;
 
 
-    public CoachController(ScannerHelper sc, MemberManager memberManager, ResultManager resultManager, PlayerStats playerStats){
+    public CoachController(ScannerHelper sc, MemberManager memberManager, ResultManager resultManager, PlayerStats playerStats, RatingService ratingService){
         this.sc = sc;
         this.memberManager = memberManager;
         this.resultManager = resultManager;
         this.playerStats = playerStats;
-
+        this.ratingService = ratingService;
     }
 
     public void runStats() {
@@ -162,7 +164,9 @@ public class CoachController {
 
         resultManager.addInternalMatchResult(teamA, teamB, discipline, type, winnerTeam, score, LocalDate.now());
 
-        sc.printLn("Intern kamp registreret");
+        ratingService.updateAfterInternalMatch(teamA, teamB, winnerTeam, type);
+
+        sc.printLn("Intern kamp registreret og Elo eller Smash-points opdateret");
     }
 
     private void addExternalMatchFlow(Disciplines discipline, int perTeam) {
@@ -179,6 +183,14 @@ public class CoachController {
         String score = sc.askQuestion("Indtast score (fx. 6-4 7-5 6-2): ");
 
         resultManager.addExternalMatchResult(clubPlayers, discipline, MatchType.TURNERING, opponentInfo, score, LocalDate.now());
+
+        boolean clubWon = (calculateOutComeFromScore(score) == ResultOutcome.VUNDET);
+
+        ratingService.updateAfterExternalMatch(clubPlayers, clubWon, MatchType.TURNERING);
+    }
+
+    private ResultOutcome calculateOutComeFromScore(String score) {
+        return resultManager.calculateOutcomeFromScore(score);
     }
 
     private int playersPerTeam(Disciplines discipline) {
@@ -212,16 +224,68 @@ public class CoachController {
     }
 
     private void topFive() {
+        sc.printLn("\n=== Top 5 ===");
+        sc.printLn("Hvad vil du gerne se top 5 over?");
+        sc.printLn("1. Elo - ranking");
+        sc.printLn("2. Smash point - ranking");
+        sc.printLn("3. En specifik disciplin (flest sejre)");
+        int choice = sc.askNumber("Vælg: ");
 
+        switch (choice){
+            case 1 : top5ByElo();
+            break;
+            case 2 : top5BySmashPoints();
+            break;
+            case 3 : top5ByDiscipline();
+            break;
+            default: sc.printLn("Ugyldigt valg");
+            break;
+        }
+
+    }
+
+    private void top5BySmashPoints() {
+        List<Member> top5 = playerStats.getTop5BySmashPoints(memberManager.getAllMembersCollection());
+
+        if (top5.isEmpty()) {
+            sc.printLn("Ingen spillere har SMASH-point endnu.");
+            return;
+        }
+
+        sc.printLn("\n=== TOP 5 SMASH-point ===");
+        int rank = 1;
+        for (Member m : top5) {
+            sc.printLn(rank + ". " + m.getName() + " (SMASH: " + m.getSmashPoints() + ")");
+            rank++;
+        }
+    }
+
+    private void top5ByDiscipline(){
         Disciplines d = askDiscipline();
 
-        List<Member> top5 = playerStats.getTop5(d);
+        List<Member> top5 = playerStats.getTop5ByDiscipline(d);
 
         sc.printLn("\n TOP 5 i " + d + ": ");
 
         int rank = 1;
         for(Member m : top5){
             sc.printLn(rank + ". " + m.getName() + " (ID: " + m.getMemberID() + ")");
+            rank++;
+        }
+    }
+
+    private void top5ByElo(){
+        List<Member> top5 = playerStats.getTop5ByElo(memberManager.getAllMembersCollection());
+
+        if (top5.isEmpty()) {
+            sc.printLn("Ingen spillere med Elo-rating endnu.");
+            return;
+        }
+
+        sc.printLn("\n=== TOP 5 ELO (kun competitive) ===");
+        int rank = 1;
+        for (Member m : top5) {
+            sc.printLn(rank + ". " + m.getName() + " (Elo: " + m.getEloRating() + ")");
             rank++;
         }
     }
