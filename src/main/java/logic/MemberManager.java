@@ -22,10 +22,6 @@ public class MemberManager {
         return members;
     }
 
-    public Collection<Member> getAllMembersCollection(){
-        return (Collection<Member>) members;
-    }
-
     public Member getMember(int ID) {
         return members.get(ID);
     }

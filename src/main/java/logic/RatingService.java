@@ -15,7 +15,17 @@ public class RatingService {
     private static final int trainingWinPoints = 3;
     private static final int trainingLossPoints = 1;
 
+    //=========================
+    //===   ELO -RATING     ===
+    //=========================
 
+    /**
+     * Opdaterer Elo-rating eller Smashpoints efter intern kamp
+     * @param teamA Liste over spillerne på det ene hold
+     * @param teamB Liste over spillerne på det andet hold
+     * @param winningTeam Bestemmer hvem der har vundet
+     * @param type Er det en træningkamp eller turneringskamp
+     */
     public void updateAfterInternalMatch(List<Member> teamA, List<Member> teamB, int winningTeam, MatchType type){
         if(type == MatchType.TURNERING){
             updateEloAfterInternalTournament(teamA, teamB, winningTeam);
@@ -85,6 +95,7 @@ public class RatingService {
         }
     }
 
+    //Helpers
     private int ensureEloInitialized(Member m) {
         if(m.getEloRating() == null){
             m.setEloRating(1500);
@@ -117,6 +128,16 @@ public class RatingService {
         return result;
     }
 
+    //=========================
+    //===   SMASH POINTS    ===
+    //=========================
+
+    /**
+     * Opdaterer smash point efter intern træning
+     * @param teamA Medlemmer på det ene hold
+     * @param teamB Medlemmer på det andet hold
+     * @param winningTeam Bestemmer vinderholdet
+     */
     private void updateSmashPointsAfterInternalTraining(List<Member> teamA, List<Member> teamB, int winningTeam) {
         List<Member> winners = (winningTeam == 1) ? teamA : teamB;
         List<Member> losers = (winningTeam == 1) ? teamB : teamA;
@@ -129,6 +150,11 @@ public class RatingService {
         }
     }
 
+    /**
+     * Kan bruges til at opdatere smash point ved træninger mod eksterne spillere
+     * @param clubPlayers Medlemmer fra klubben
+     * @param clubWon True hvis holdet fra klubben vandt
+     */
     private void updateSmashPointsAfterExternalTraining(List<Member> clubPlayers, boolean clubWon) {
 
         for(Member m : clubPlayers){

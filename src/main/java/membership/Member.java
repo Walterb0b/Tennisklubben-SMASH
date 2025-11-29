@@ -66,6 +66,7 @@ public class Member {
     public void setPlayPreference( PlayPreference playPreference) { this.playPreference = playPreference; }
 
     public void setEloRating(int newRating) {
+        initializeEloIfNeeded();
         this.eloRating += newRating;
     }
 

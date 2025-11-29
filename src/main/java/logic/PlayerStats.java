@@ -11,9 +11,11 @@ import java.util.stream.Collectors;
 public class PlayerStats {
 
     private ResultManager resultManager;
+    private MemberManager memberManager;
 
-    public PlayerStats(ResultManager resultManager){
+    public PlayerStats(ResultManager resultManager, MemberManager memberManager){
         this.resultManager = resultManager;
+        this.memberManager = memberManager;
     }
 
     public int getWins(Member m, Disciplines d){
@@ -46,7 +48,9 @@ public class PlayerStats {
                 limit(5).map(Map.Entry::getKey).toList();
     }
 
-    public List<Member> getTop5ByElo(Collection<Member> allMembers){
+    public List<Member> getTop5ByElo(){
+        Collection<Member> allMembers = memberManager.getAllMembers().values();
+
         List<Member> list = new ArrayList<>(allMembers);
 
         list.removeIf(m -> !m.isCompetetive() || m.getEloRating() == null);
@@ -58,8 +62,10 @@ public class PlayerStats {
         return list.subList(0, limit);
     }
 
-    public List<Member> getTop5BySmashPoints(Collection<Member> allMembers){
-        List<Member> list = new ArrayList<>();
+    public List<Member> getTop5BySmashPoints(){
+        Collection<Member> allMembers = memberManager.getAllMembers().values();
+
+        List<Member> list = new ArrayList<>(allMembers);
 
         Collections.sort(list, (m1, m2) -> Integer.compare(m2.getSmashPoints(), m1.getSmashPoints()));
 

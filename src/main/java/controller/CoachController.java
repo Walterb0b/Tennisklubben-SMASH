@@ -187,6 +187,8 @@ public class CoachController {
         boolean clubWon = (calculateOutComeFromScore(score) == ResultOutcome.VUNDET);
 
         ratingService.updateAfterExternalMatch(clubPlayers, clubWon, MatchType.TURNERING);
+
+        sc.printLn("Ekstern kamp mod " + opponentInfo + " registreret og Elo rating opdateret");
     }
 
     private ResultOutcome calculateOutComeFromScore(String score) {
@@ -245,7 +247,7 @@ public class CoachController {
     }
 
     private void top5BySmashPoints() {
-        List<Member> top5 = playerStats.getTop5BySmashPoints(memberManager.getAllMembersCollection());
+        List<Member> top5 = playerStats.getTop5BySmashPoints();
 
         if (top5.isEmpty()) {
             sc.printLn("Ingen spillere har SMASH-point endnu.");
@@ -275,7 +277,7 @@ public class CoachController {
     }
 
     private void top5ByElo(){
-        List<Member> top5 = playerStats.getTop5ByElo(memberManager.getAllMembersCollection());
+        List<Member> top5 = playerStats.getTop5ByElo();
 
         if (top5.isEmpty()) {
             sc.printLn("Ingen spillere med Elo-rating endnu.");

@@ -20,10 +20,6 @@ public class PlayPreference {
         return disciplines;
     }
 
-    public int getSmashPoint() {
-        return smashPoint;
-    }
-
     public void setCompetetiveMember(boolean competetiveMember) {
         this.isCompetetiveMember = competetiveMember;
     }
