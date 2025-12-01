@@ -16,16 +16,19 @@ public class TournamentEntry {
     private LocalDate endDate;
     private int nextTournamentID;
 
-    public TournamentEntry(int entryID, int memberID, int tournamentID, Disciplines discipline) {
+    public TournamentEntry(int entryID, int memberID, int tournamentID, Disciplines discipline, String name, String location,
+                           LocalDate startDate, LocalDate endDate) {
         this.entryID = entryID;
         this.memberID = memberID;
         this.tournamentID = tournamentID;
         this.discipline = discipline;
+        this.name = name;
+        this.location = location;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
-    public int getEntryID() {
-        return entryID;
-    }
+    public int getEntryID() {return entryID;}
 
     public int getMemberID() {
         return memberID;

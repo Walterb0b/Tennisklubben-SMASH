@@ -41,7 +41,5 @@ public class Tournament {
         entries.add(entry);
     }
 
-    public int getTournamentId() {
-        return tournamentID;
-    }
+    public int getTournamentId() {return tournamentID;}
 }
