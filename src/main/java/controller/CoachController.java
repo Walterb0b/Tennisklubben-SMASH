@@ -140,25 +140,37 @@ public class CoachController {
      * @param perTeam spillere pr. hold
      */
     private void addInternalMatchFlow(Disciplines discipline, int perTeam) {
-        sc.printLn("=== Indtern kamp ===");
+        sc.printLn("=== Intern kamp ===");
+
+        MatchType type = MatchType.valueOf(sc.askQuestion("Er det en træning eller intern turnering").equalsIgnoreCase("Træning") ? "Træning".toUpperCase() : "Turnering".toUpperCase());
 
         List<Member> teamA = new ArrayList<>();
         sc.printLn("Vælg spillere til hold A");
         for(int i = 1; i <= perTeam; i++){
-            Member m = memberManager.getMember(sc.selectMemberFromList());
-            if(m == null) return;
-            teamA.add(m);
+            if(type == MatchType.TURNERING){
+                Member m = askCompetitiveMember();
+                if(m == null) return;
+                teamA.add(m);
+            } else if (type == MatchType.TRÆNING){
+                Member m = memberManager.getMember(sc.selectMemberFromList());
+                if(m == null) return;
+                teamA.add(m);
+            }
         }
 
         List<Member> teamB = new ArrayList<>();
         sc.printLn("Vælg spillere til hold B");
         for(int i = 1; i <= perTeam; i++){
-            Member m = memberManager.getMember(sc.selectMemberFromList());
-            if(m == null) return;
-            teamB.add(m);
+            if(type == MatchType.TURNERING){
+                Member m = askCompetitiveMember();
+                if(m == null) return;
+                teamA.add(m);
+            } else if (type == MatchType.TRÆNING){
+                Member m = memberManager.getMember(sc.selectMemberFromList());
+                if(m == null) return;
+                teamA.add(m);
+            }
         }
-
-        MatchType type = MatchType.valueOf(sc.askQuestion("Er det en træning eller intern turnering").equalsIgnoreCase("Træning") ? "Træning".toUpperCase() : "Turnering".toUpperCase());
 
         String score = sc.askQuestion("Indtast score (fx. 6-4 7-5 6-2): ");
 
@@ -189,7 +201,7 @@ public class CoachController {
 
         List<Member> clubPlayers = new ArrayList<>();
         for(int i = 1; i <= perTeam; i++){
-            Member m = memberManager.getMember(sc.selectMemberFromList());
+            Member m = askCompetitiveMember();
             if(m == null)
                 return;
             clubPlayers.add(m);
@@ -208,16 +220,14 @@ public class CoachController {
 
     /**
      * Hjælper metode til at filtrere konkurrencespillere
-     * @param prompt Spørgsmål til brugeren om hvilke medlemmer de vil vælge
      * @return Member
      */
-    private Member askCompetitiveMember(String prompt) {
+    private Member askCompetitiveMember() {
         if (memberManager.getAllMembers().isEmpty()) {
             sc.printLn("Der er ingen medlemmer i systemet.");
             return null;
         }
 
-        // Evt. vis kun konkurrencemedlemmer:
         Map<Integer, Member> all = memberManager.getAllMembers();
         for (Member m : all.values()) {
             if (m.isCompetitive()) {
@@ -225,8 +235,7 @@ public class CoachController {
             }
         }
 
-        int id = sc.askNumber(prompt);
-        Member m = memberManager.getMember(id);
+        Member m = memberManager.getMember(sc.selectMemberFromList());
 
         if (m == null) {
             sc.printLn("Medlem med det ID findes ikke.");
