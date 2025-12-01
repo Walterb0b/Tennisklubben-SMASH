@@ -12,12 +12,13 @@ public class FileHandler {
             System.out.println("Error writing file.");
         }
     }
-    public ArrayList<String> readFromFile(String filename){
-        ArrayList<String> fileContent = new ArrayList<>();
+    public ArrayList<String[]> readFromFile(String filename){
+        ArrayList<String[]> fileContent = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader(filename))){
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(";");
+                fileContent.add(parts);
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
