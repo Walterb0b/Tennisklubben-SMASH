@@ -128,7 +128,7 @@ public class RatingService {
     private List<Member> filterCompetetive(List<Member> players) {
         List<Member> result = new ArrayList<>();
         for(Member m : players){
-            if(m.isCompetetive())
+            if(m.isCompetitive())
                 result.add(m);
         }
         return result;

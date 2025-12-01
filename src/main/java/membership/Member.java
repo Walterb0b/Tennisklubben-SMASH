@@ -100,17 +100,18 @@ public class Member {
         }
     }
 
-    public boolean isCompetetive(){
+    public boolean isCompetitive(){
         return playPreference.isCompetetiveMember();
     }
 
     public void initializeEloIfNeeded(){
-        if(isCompetetive() && eloRating == null) eloRating = 1500;
+        if(isCompetitive() && eloRating == null) eloRating = 1500;
     }
 
     public void addSmashPoints(int points){
         smashPoints += points;
     }
+
 
     @Override
     public String toString() {
@@ -118,5 +119,4 @@ public class Member {
                 ", Fødselsdag: " + birthday + ", Alder: " + getAge() + ", AldersKategori: " + getAgeCategory() +
                 ", Medlemsskab: " + getMembership() + ", SpillerPræferencer: " + playPreference;
     }
-
 }

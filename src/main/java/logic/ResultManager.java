@@ -9,6 +9,7 @@ import main.java.tournaments.ResultOutcome;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ResultManager {
     private final List<PlayerResult> results = new ArrayList<>();
@@ -35,10 +36,10 @@ public class ResultManager {
         List<Member> losers = (winningTeam == 1) ? teamB : teamA;
 
         for(Member w : winners){
-            results.add(new PlayerResult(matchID, w, discipline, type, ResultOutcome.VUNDET, "Intern kamp", score, date));
+            results.add(new PlayerResult(matchID, w, discipline, type, ResultOutcome.VUNDET, buildOpponentNameString(losers), score, date));
         }
         for(Member l : losers){
-            results.add(new PlayerResult(matchID, l, discipline, type, ResultOutcome.TABT, "Intern kamp", score, date));
+            results.add(new PlayerResult(matchID, l, discipline, type, ResultOutcome.TABT, buildOpponentNameString(winners), score, date));
         }
     }
 
@@ -78,6 +79,7 @@ public class ResultManager {
         return (setsWon > setsLost) ? ResultOutcome.VUNDET : ResultOutcome.TABT;
     }
 
+
     /*public void deleteResults(int matchID){
         if(results.contains() {
             results.removeAll(getResultsFromMatch(matchID));
@@ -85,4 +87,9 @@ public class ResultManager {
 
     }*/
 
+    private String buildOpponentNameString(List<Member> opponents) {
+        return opponents.stream()
+                .map(Member::getName)
+                .collect(Collectors.joining(", "));
+    }
 }

@@ -108,6 +108,10 @@ public class ScannerHelper {
         System.out.println(prompt);
     }
 
+    public void print(String prompt){
+        System.out.print(prompt);
+    }
+
     //Metode til at få int fra scanner input
     public int askNumber(int intMax) {
         boolean numCorrect = false;

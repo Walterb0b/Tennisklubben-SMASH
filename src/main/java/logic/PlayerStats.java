@@ -61,7 +61,7 @@ public class PlayerStats {
 
         List<Member> list = new ArrayList<>(allMembers);
 
-        list.removeIf(m -> !m.isCompetetive() || m.getEloRating() == null);
+        list.removeIf(m -> !m.isCompetitive() || m.getEloRating() == null);
 
         Collections.sort(list, (m1, m2) -> Integer.compare(m2.getEloRating(), m1.getEloRating()));
 
