@@ -48,10 +48,16 @@ public class RatingService {
         }
     }
 
+    /**
+     * Opdaterer Elo efter intern turnering
+     * @param teamA Liste over spillerne på team A
+     * @param teamB Liste over spillerne på team B
+     * @param winningTeam En int der bestemmer vinderholdet
+     */
     private void updateEloAfterInternalTournament(List<Member> teamA, List<Member> teamB, int winningTeam) {
 
-        List<Member> compA = filterCompetetive(teamA);
-        List<Member> compB = filterCompetetive(teamB);
+        List<Member> compA = filterCompetitive(teamA);
+        List<Member> compB = filterCompetitive(teamB);
 
         if(compA.isEmpty() && compB.isEmpty()){
             return;
@@ -84,7 +90,7 @@ public class RatingService {
 
     private void updateEloAfterExternalTournament(List<Member> clubPlayers, boolean clubWon) {
 
-        List<Member> compPlayers = filterCompetetive(clubPlayers);
+        List<Member> compPlayers = filterCompetitive(clubPlayers);
         if(compPlayers.isEmpty()) return;
 
         double teamRating = averageRating(compPlayers);
@@ -102,6 +108,12 @@ public class RatingService {
     }
 
     //Helpers til Elo udregning
+
+    /**
+     * Tjekker om Elo er initialiseret for en spiller
+     * @param m Et medlem som skal tjekkes
+     * @return Elo ratingen for en spiller
+     */
     private int ensureEloInitialized(Member m) {
         if(m.getEloRating() == null){
             m.setEloRating(1500);
@@ -109,6 +121,12 @@ public class RatingService {
         return m.getEloRating();
     }
 
+    /**
+     * Elo formlen. Bruges til at udregne hvor meget elo en spiller får eller mister
+     * @param ratingA Rating for spiller A
+     * @param ratingB Rating for spiller B
+     * @return Den nye elo rating
+     */
     private double expectedScore(double ratingA, double ratingB) {
         double diff = (ratingB - ratingA) / 400.0;
         return 1.0 / (1.0 + Math.pow(10, diff));
@@ -125,7 +143,12 @@ public class RatingService {
         return sum / (double) players.size();
     }
 
-    private List<Member> filterCompetetive(List<Member> players) {
+    /**
+     * Hjælper metode til at filtrere konkurrence spillere
+     * @param players Liste af de spillere som skal filtreres
+     * @return Filtreret liste som kun indeholder konkurrencespillere
+     */
+    private List<Member> filterCompetitive(List<Member> players) {
         List<Member> result = new ArrayList<>();
         for(Member m : players){
             if(m.isCompetitive())

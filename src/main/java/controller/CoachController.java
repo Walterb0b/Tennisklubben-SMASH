@@ -31,6 +31,9 @@ public class CoachController {
         this.ratingService = ratingService;
     }
 
+    /**
+     * Kører Statistik menuen
+     */
     public void runStats() {
         boolean running = true;
 
@@ -58,7 +61,9 @@ public class CoachController {
         }
     }
 
-
+    /**
+     * Kører resultatmenuen
+     */
     public void runResult() {
         boolean running = true;
 
@@ -182,6 +187,35 @@ public class CoachController {
     }
 
     /**
+     * Flowet der styrer tilføjelse af en ekstern kamp
+     * @param discipline Hvilken disciplin spilles der
+     * @param perTeam Hvor mange spillere pr. hold
+     */
+    private void addExternalMatchFlow(Disciplines discipline, int perTeam) {
+        sc.printLn("=== Kamp mod anden klub ===");
+
+        HashSet<Integer> usedIDs = new HashSet<>();
+        List<Member> clubPlayers = new ArrayList<>();
+        for(int i = 1; i <= perTeam; i++){
+            Member m = askCompetitiveMember(usedIDs);
+            if(m == null)
+                return;
+            clubPlayers.add(m);
+            usedIDs.add(m.getMemberID());
+        }
+        String opponentInfo = sc.askQuestion("Indtast info om modstander(e) fx. (Spiller X fra klub Y): ");
+        String score = sc.askQuestion("Indtast score (fx. 6-4 7-5 6-2): ");
+
+        resultManager.addExternalMatchResult(clubPlayers, discipline, MatchType.TURNERING, opponentInfo, score, LocalDate.now());
+
+        boolean clubWon = (calculateOutComeFromScore(score) == ResultOutcome.VUNDET);
+
+        ratingService.updateAfterExternalMatch(clubPlayers, clubWon, MatchType.TURNERING);
+
+        sc.printLn("Ekstern kamp mod " + opponentInfo + " registreret og Elo rating opdateret");
+    }
+
+    /**
      * Hjælpe metode til at vælge spillere til et hold
      * @param perTeam antal spillere pr. hold
      * @param type Hvilken kamptype
@@ -212,37 +246,8 @@ public class CoachController {
             }
             team.add(m);
             forbiddenIDs.add(m.getMemberID());
-            }
-        return true;
-    }
-
-    /**
-     * Flowet der styrer tilføjelse af en ekstern kamp
-     * @param discipline Hvilken disciplin spilles der
-     * @param perTeam Hvor mange spillere pr. hold
-     */
-    private void addExternalMatchFlow(Disciplines discipline, int perTeam) {
-        sc.printLn("=== Kamp mod anden klub ===");
-
-        HashSet<Integer> usedIDs = new HashSet<>();
-        List<Member> clubPlayers = new ArrayList<>();
-        for(int i = 1; i <= perTeam; i++){
-            Member m = askCompetitiveMember(usedIDs);
-            if(m == null)
-                return;
-            clubPlayers.add(m);
-            usedIDs.add(m.getMemberID());
         }
-        String opponentInfo = sc.askQuestion("Indtast info om modstander(e) fx. (Spiller X fra klub Y): ");
-        String score = sc.askQuestion("Indtast score (fx. 6-4 7-5 6-2): ");
-
-        resultManager.addExternalMatchResult(clubPlayers, discipline, MatchType.TURNERING, opponentInfo, score, LocalDate.now());
-
-        boolean clubWon = (calculateOutComeFromScore(score) == ResultOutcome.VUNDET);
-
-        ratingService.updateAfterExternalMatch(clubPlayers, clubWon, MatchType.TURNERING);
-
-        sc.printLn("Ekstern kamp mod " + opponentInfo + " registreret og Elo rating opdateret");
+        return true;
     }
 
     /**
@@ -275,7 +280,6 @@ public class CoachController {
             return m;
         }
     }
-
 
     /**
      * Hjælper medtode til at få resultatet ud fra en score
@@ -317,7 +321,6 @@ public class CoachController {
             }
         };
     }
-
 
     private void playerStats() {
         sc.printLn("=== Statistik for en spiller ===");
