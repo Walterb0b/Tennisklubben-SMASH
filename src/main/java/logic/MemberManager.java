@@ -16,6 +16,7 @@ public class MemberManager {
 
     public void addMember(Member member) {
         members.put(member.getMemberID(), member);
+
     }
 
     public HashMap<Integer, Member> getAllMembers() {

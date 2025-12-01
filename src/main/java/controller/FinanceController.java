@@ -7,6 +7,8 @@ import main.java.util.ScannerHelper;
 
 import java.util.ArrayList;
 
+import static main.java.membership.MembershipPayment.futurePaymentHeader;
+
 
 public class FinanceController {
     private ScannerHelper sh;
@@ -37,6 +39,7 @@ public class FinanceController {
                     break;
                 case 3:
                     futurePaymentsList();
+                    printNextSeasonQuarterSum();
                     break;
                 case 0:
                     //et skridt tilbage
@@ -98,17 +101,34 @@ public class FinanceController {
 
 
     private void missingPaymentsList() {
-        ArrayList<Integer> notPaidList = paymentManager.notPaidIDs();
-        for (int p : notPaidList) {
-            System.out.println(paymentManager.getPayment(p) );
+        ArrayList<Integer> membersNotPaid = paymentManager.notPaidIDs();
+        System.out.println("\n" + futurePaymentHeader());
+        for (Integer p : membersNotPaid) {
+            MembershipPayment thisPayment = paymentManager.getPayment(p);
+            System.out.println(thisPayment.displayPaymentString());
         }
+        System.out.println("\n");
     }
 
     private void futurePaymentsList() {
         ArrayList<Integer> futurePayments = paymentManager.futurePaymentsList();
-        for (int p : futurePayments) {
-            System.out.println(paymentManager.getPayment(p) );
+        System.out.println("\n" + futurePaymentHeader());
+        for (Integer p : futurePayments) {
+            MembershipPayment thisPayment = paymentManager.getPayment(p);
+            System.out.println(thisPayment.displayPaymentString() );
+
         }
+        System.out.println("\n");
+
+    }
+
+    private void printNextSeasonQuarterSum() {
+        String[] seasonQuarters = {"26Q1", "26Q2", "26Q3", "26Q4"};
+        for (String sq : seasonQuarters) {
+            System.out.println(sq + " sum: " + paymentManager.calculateQuarterSum(sq) + " kr.");
+        }
+        System.out.println("\n");
+
     }
 
 

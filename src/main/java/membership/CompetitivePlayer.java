@@ -8,7 +8,7 @@ import java.util.List;
     private int playerId;
     private String name;
     private int age;
-    //private List<> disciplines;
+    private List<Disciplines> disciplines;
 
     public CompetitivePlayer(int playerId, String name, int age) {
         this.playerId = playerId;
@@ -29,18 +29,18 @@ import java.util.List;
         return age;
     }
 
-    public List<> getDisciplines() {
+    public List<Disciplines> getDisciplines() {
         return disciplines;
     }
 
-    public void addDiscipline(DisciplineType discipline) {
+    public void addDiscipline(Disciplines discipline) {
         if (!disciplines.contains(discipline)) {
             disciplines.add(discipline);
         }
     }
 
 
-    public void removeDiscipline(DisciplineType discipline) {
+    public void removeDiscipline(Disciplines discipline) {
         disciplines.remove(discipline);
     }
 

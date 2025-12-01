@@ -37,9 +37,18 @@ public class Main {
         Member m1 = new Member("John Nielsen", "12345678",LocalDate.of(1968,10,22), new ActiveMembership(), new PlayPreference(true, new HashSet<>(List.of(Disciplines.SINGLE))));
         Member m2 = new Member("Rasmus Johnsen", "87126732",LocalDate.of(1954,11,21), new ActiveMembership(), new PlayPreference(false, new HashSet<>(List.of(Disciplines.SINGLE, Disciplines.DOUBLE))));
         Member m3 = new Member("Lizzie Okdal", "78249712",LocalDate.of(2005,3,20), new ActiveMembership (), new PlayPreference(true, new HashSet<>(List.of(Disciplines.SINGLE, Disciplines.DOUBLE, Disciplines.MIXDOUBLE))));
+        //FinanceController fc = new FinanceController(sh, mm, pm);
+        MainController mainController = new MainController(sh, mm, sdm, pm);
+        Member m1 = new Member("John Nielsen", "12345678",LocalDate.of(1968,10,22), LocalDate.of(2025,1,1), new ActiveMembership());
+        Member m2 = new Member("Rasmus Johnsen", "87126732",LocalDate.of(1954,11,21), LocalDate.of(2025,1,1), new ActiveMembership());
+        Member m3 = new Member("Lizzie Okdal", "78249712",LocalDate.of(2005,3,20), LocalDate.of(2025,1,1), new ActiveMembership());
+        Member m4 = new Member("Preben Kaas", "14085287",LocalDate.of(1983,3,20), LocalDate.of(2025,1,1), new PassiveMembership());
+        Member m5 = new Member("Olga Findsen", "13082587",LocalDate.of(2000,4,1), LocalDate.of(2025,11,1), new ActiveMembership());
         mm.addMember(m1);
         mm.addMember(m2);
         mm.addMember(m3);
+        mm.addMember(m4);
+        mm.addMember(m5);
         pm.createSeasonQuarterPayment(2025);
         pm.createSeasonQuarterPayment(2026);
 
