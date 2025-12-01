@@ -10,10 +10,9 @@ import main.java.tournaments.MatchType;
 import main.java.tournaments.ResultOutcome;
 import main.java.util.ScannerHelper;
 
+import java.security.Security;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CoachController {
 
@@ -46,7 +45,7 @@ public class CoachController {
                     playerStats();
                     break;
                 case 3 :
-                // CoachManager.playerMatches();
+                playerMatches();
                     System.out.println("Turneringskampe for spiller");
                         break;
 
@@ -133,6 +132,15 @@ public class CoachController {
         }
     }
 
+    /**
+     * Printer alle kampe for en specifik spiller
+     */
+    private void playerMatches() {
+        Member m = memberManager.getMember(sc.selectMemberFromList());
+
+        sc.printLn(resultManager.getResultsForPlayer(m).toString());
+    }
+
 
     /**
      * Flowet der styrer tilføjelse af en indtern kamp i klubben
@@ -142,35 +150,17 @@ public class CoachController {
     private void addInternalMatchFlow(Disciplines discipline, int perTeam) {
         sc.printLn("=== Intern kamp ===");
 
+        HashSet<Integer> usedIDs = new HashSet<>();
+
         MatchType type = MatchType.valueOf(sc.askQuestion("Er det en træning eller intern turnering").equalsIgnoreCase("Træning") ? "Træning".toUpperCase() : "Turnering".toUpperCase());
 
         List<Member> teamA = new ArrayList<>();
         sc.printLn("Vælg spillere til hold A");
-        for(int i = 1; i <= perTeam; i++){
-            if(type == MatchType.TURNERING){
-                Member m = askCompetitiveMember();
-                if(m == null) return;
-                teamA.add(m);
-            } else if (type == MatchType.TRÆNING){
-                Member m = memberManager.getMember(sc.selectMemberFromList());
-                if(m == null) return;
-                teamA.add(m);
-            }
-        }
+        if (!pickPlayersForTeam(perTeam, type, teamA, usedIDs)) return;
 
         List<Member> teamB = new ArrayList<>();
         sc.printLn("Vælg spillere til hold B");
-        for(int i = 1; i <= perTeam; i++){
-            if(type == MatchType.TURNERING){
-                Member m = askCompetitiveMember();
-                if(m == null) return;
-                teamA.add(m);
-            } else if (type == MatchType.TRÆNING){
-                Member m = memberManager.getMember(sc.selectMemberFromList());
-                if(m == null) return;
-                teamA.add(m);
-            }
-        }
+        if (!pickPlayersForTeam(perTeam, type, teamB, usedIDs)) return;
 
         String score = sc.askQuestion("Indtast score (fx. 6-4 7-5 6-2): ");
 
@@ -192,6 +182,41 @@ public class CoachController {
     }
 
     /**
+     * Hjælpe metode til at vælge spillere til et hold
+     * @param perTeam antal spillere pr. hold
+     * @param type Hvilken kamptype
+     * @param team Det hold der skal spillere på
+     * @param forbiddenIDs Et HashSet med de ID'er der allerede er brugt
+     * @return true, hvis alt er godt
+     */
+    private boolean pickPlayersForTeam(int perTeam, MatchType type, List<Member> team, Set<Integer> forbiddenIDs) {
+        for(int i = 1; i <= perTeam; i++) {
+            Member m = null;
+            while (true) {
+                if (type == MatchType.TURNERING) {
+                    m = askCompetitiveMember(forbiddenIDs);
+                } else {
+                    m = memberManager.getMember(sc.selectMemberFromList());
+                }
+                if (m == null) continue;
+
+                if (team.contains(m)) {
+                    sc.printLn("Denne spiller er allerede på holdet, prøv igen.");
+                    continue;
+                }
+                if (forbiddenIDs.contains(m.getMemberID())) {
+                    sc.printLn("Denne spiller er allerede valgt til kampen, prøv igen.");
+                    continue;
+                }
+                break;
+            }
+            team.add(m);
+            forbiddenIDs.add(m.getMemberID());
+            }
+        return true;
+    }
+
+    /**
      * Flowet der styrer tilføjelse af en ekstern kamp
      * @param discipline Hvilken disciplin spilles der
      * @param perTeam Hvor mange spillere pr. hold
@@ -199,12 +224,14 @@ public class CoachController {
     private void addExternalMatchFlow(Disciplines discipline, int perTeam) {
         sc.printLn("=== Kamp mod anden klub ===");
 
+        HashSet<Integer> usedIDs = new HashSet<>();
         List<Member> clubPlayers = new ArrayList<>();
         for(int i = 1; i <= perTeam; i++){
-            Member m = askCompetitiveMember();
+            Member m = askCompetitiveMember(usedIDs);
             if(m == null)
                 return;
             clubPlayers.add(m);
+            usedIDs.add(m.getMemberID());
         }
         String opponentInfo = sc.askQuestion("Indtast info om modstander(e) fx. (Spiller X fra klub Y): ");
         String score = sc.askQuestion("Indtast score (fx. 6-4 7-5 6-2): ");
@@ -222,7 +249,7 @@ public class CoachController {
      * Hjælper metode til at filtrere konkurrencespillere
      * @return Member
      */
-    private Member askCompetitiveMember() {
+    private Member askCompetitiveMember(Set<Integer> forbiddenIDs) {
         if (memberManager.getAllMembers().isEmpty()) {
             sc.printLn("Der er ingen medlemmer i systemet.");
             return null;
@@ -234,18 +261,19 @@ public class CoachController {
                 sc.printLn(m.getMemberID() + " - " + m.getName());
             }
         }
+        while(true) {
+            Member m = memberManager.getMember(sc.selectMemberFromList());
 
-        Member m = memberManager.getMember(sc.selectMemberFromList());
-
-        if (m == null) {
-            sc.printLn("Medlem med det ID findes ikke.");
-            return null;
+            if (forbiddenIDs.contains(m.getMemberID())){
+                sc.printLn("Denne spiller er allerede valgt! Prøv igen");
+            continue;
+            }
+            if (!m.isCompetitive()) {
+                sc.printLn("Denne spiller er ikke konkurrencespiller og kan ikke deltage i turneringer.");
+                continue;
+            }
+            return m;
         }
-        if (!m.isCompetitive()) {
-            sc.printLn("Denne spiller er ikke konkurrencespiller og kan ikke deltage i turneringer.");
-            return null;
-        }
-        return m;
     }
 
 
@@ -290,13 +318,20 @@ public class CoachController {
         };
     }
 
-    /**
-     * Printer alle kampe for en specifik spiller
-     */
-    private void playerStats() {
-        Member m = memberManager.getMember(sc.selectMemberFromList());
 
-        sc.printLn(resultManager.getResultsForPlayer(m).toString());
+    private void playerStats() {
+        sc.printLn("=== Statistik for en spiller ===");
+        List<Member> all = memberManager.getAllMembers().values().stream().toList();
+        sc.printLn("Hvilken disciplin vil du gerne se statistik over?");
+        Disciplines d = askDiscipline();
+
+        for(Member m : all){
+            sc.printLn("----------------------");
+            sc.printLn(m.getName());
+            sc.printLn("Sejre: " + playerStats.getWins(m, d));
+            sc.printLn("Nederlag: " + playerStats.getLosses(m, d));
+            sc.printLn("Win-rate: " + playerStats.getWinRate(m, d) + "%");
+        }
     }
 
     /**

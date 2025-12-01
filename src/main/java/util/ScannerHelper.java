@@ -68,7 +68,7 @@ public class ScannerHelper {
     public void printStatsMenu(){
         System.out.println("=== Spillerstatistik ===");
         System.out.println("1. Se top 5 spillere");
-        System.out.println("2. Se statistik for en spiller");
+        System.out.println("2. Se statistik for alle spillere");
         System.out.println("3. Se turneringskampe for spiller");
         System.out.println("0. Gå tilbage");
     }
@@ -241,12 +241,9 @@ public class ScannerHelper {
                     memberManager.getMember(memberID);
                     inputCorrect = true;
                 }
-
             }
-
         }
         return memberID;
-
     }
 
     public boolean askConfirmYesNo (String question) {
