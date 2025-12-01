@@ -41,6 +41,8 @@ public class Member {
 
     public String getName() { return name; }
 
+    public String getPhoneNumber() { return phoneNumber; }
+
     public LocalDate getBirthday() { return birthday; }
 
     public LocalDate getSignUpDate() { return signUpDate; }
