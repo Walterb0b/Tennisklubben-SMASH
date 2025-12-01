@@ -5,9 +5,7 @@ import main.java.logic.PaymentManager;
 import main.java.membership.MembershipPayment;
 import main.java.util.ScannerHelper;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static main.java.membership.MembershipPayment.futurePaymentHeader;
 
@@ -42,7 +40,6 @@ public class FinanceController {
                 case 3:
                     futurePaymentsList();
                     printNextSeasonQuarterSum();
-
                     break;
                 case 0:
                     //et skridt tilbage
@@ -104,18 +101,21 @@ public class FinanceController {
 
 
     private void missingPaymentsList() {
-        ArrayList<Integer> notPaidList = paymentManager.notPaidIDs();
-        for (int p : notPaidList) {
-            System.out.println(paymentManager.getPayment(p) );
+        ArrayList<Integer> membersNotPaid = paymentManager.notPaidIDs();
+        System.out.println("\n" + futurePaymentHeader());
+        for (Integer p : membersNotPaid) {
+            MembershipPayment thisPayment = paymentManager.getPayment(p);
+            System.out.println(thisPayment.displayPaymentString());
         }
+        System.out.println("\n");
     }
 
     private void futurePaymentsList() {
-        ArrayList<MembershipPayment> futurePayments = paymentManager.getAllPaymentsSortedByDueDateMemberID();
+        ArrayList<Integer> futurePayments = paymentManager.futurePaymentsList();
         System.out.println("\n" + futurePaymentHeader());
-        for (MembershipPayment p : futurePayments) {
-            //MembershipPayment thisPayment = paymentManager.getPayment(p);
-            System.out.println(p.futurePaymentString() );
+        for (Integer p : futurePayments) {
+            MembershipPayment thisPayment = paymentManager.getPayment(p);
+            System.out.println(thisPayment.displayPaymentString() );
 
         }
         System.out.println("\n");

@@ -111,7 +111,7 @@ public class PaymentManager {
 
     public ArrayList<Integer> notPaidIDs(){
         ArrayList<Integer> membersNotPaid = new ArrayList<>();
-        for (MembershipPayment payment : payments.values()){
+        for (MembershipPayment payment : getAllPaymentsSortedByDueDateMemberID()){
             boolean pastPayment = payment.getDueDate().isBefore(LocalDate.now());
             if(!payment.getIsPaid() && pastPayment){
                 int paymentID = payment.getPaymentID();
@@ -136,7 +136,7 @@ public class PaymentManager {
 
     public ArrayList<Integer> futurePaymentsList(){
         ArrayList<Integer> futurePayments = new ArrayList<>();
-        for (MembershipPayment payment : payments.values()){
+        for (MembershipPayment payment : getAllPaymentsSortedByDueDateMemberID()){
             boolean futurePayment = payment.getDueDate().isAfter(LocalDate.now());
             if(futurePayment){
                 int paymentID = payment.getPaymentID();
