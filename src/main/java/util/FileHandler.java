@@ -5,14 +5,14 @@ import java.util.ArrayList;
 
 public class FileHandler {
 
-    public void writeFile(String fileInput, String fileName){
+    public static void writeFile(String fileInput, String fileName){
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))){
             bw.write(fileInput);
         } catch (IOException e) {
             System.out.println("Error writing file.");
         }
     }
-    public ArrayList<String[]> readFromFile(String filename){
+    public static ArrayList<String[]> readFromFile(String filename){
         ArrayList<String[]> fileContent = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader(filename))){
             String line;

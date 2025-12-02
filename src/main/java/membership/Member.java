@@ -55,7 +55,7 @@ public class Member {
 
     public Membership getMembership() { return membership; }
 
-    public PlayPreference playPreference() { return playPreference; }
+    public PlayPreference getPlayPreference() { return playPreference; }
 
     //setters
     public void setName(String name) { this.name = name; }
