@@ -25,6 +25,7 @@ public class ScannerHelper {
                 │   2. Økonomi                       │
                 │   3. Spillerstatistik              │
                 │   4. Trænings- og turneringsdata   │
+                │   5. Turneringsadministration      │
                 │   9. Luk programmet                │
                 └────────────────────────────────────┘
                 """);

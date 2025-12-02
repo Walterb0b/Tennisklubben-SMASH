@@ -4,7 +4,9 @@ import main.java.controller.FinanceController;
 import main.java.controller.MainController;
 import main.java.logic.MemberManager;
 import main.java.logic.PaymentManager;
+import main.java.logic.TournamentManager;
 import main.java.membership.*;
+import main.java.tournaments.Tournament;
 import main.java.util.ScannerHelper;
 import main.java.membership.StamDataManager;
 
@@ -27,7 +29,8 @@ public class Main {
         PaymentManager pm = new PaymentManager(mm);
         StamDataManager sdm = new StamDataManager(mm);
         //FinanceController fc = new FinanceController(sh, mm, pm);
-        MainController mainController = new MainController(sh, mm, sdm, pm);
+        TournamentManager tm = new TournamentManager();
+        MainController mainController = new MainController(sh, mm, sdm, pm, tm);
         Member m1 = new Member("John Nielsen", "12345678",LocalDate.of(1968,10,22), LocalDate.of(2025,1,1), new ActiveMembership());
         Member m2 = new Member("Rasmus Johnsen", "87126732",LocalDate.of(1954,11,21), LocalDate.of(2025,1,1), new ActiveMembership());
         Member m3 = new Member("Lizzie Okdal", "78249712",LocalDate.of(2005,3,20), LocalDate.of(2025,1,1), new ActiveMembership());

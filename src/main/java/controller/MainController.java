@@ -4,18 +4,22 @@ import main.java.logic.MemberManager;
 import main.java.logic.PaymentManager;
 import main.java.membership.StamDataManager;
 import main.java.util.ScannerHelper;
+import main.java.logic.TournamentManager;
+
 
 public class MainController {
     private ScannerHelper sc;
     private MemberController memberController;
     private FinanceController financeController;
     private CoachController coachController;
+    private TournamentController tournamentController;
 
-    public MainController(ScannerHelper sc, MemberManager memberManager, StamDataManager stamDataManager, PaymentManager paymentManager){
+    public MainController(ScannerHelper sc, MemberManager memberManager, StamDataManager stamDataManager, PaymentManager paymentManager, TournamentManager tournamentManager){
         this.sc = sc;
         this.memberController = new MemberController(sc, memberManager, stamDataManager, paymentManager);
         this.financeController = new FinanceController(sc, memberManager, paymentManager);
         this.coachController = new CoachController(sc, memberManager);
+        this.tournamentController = new TournamentController(sc, memberManager, tournamentManager);
     }
 
     public void run(){
@@ -37,6 +41,8 @@ public class MainController {
                 case 4:
                     coachController.runResult();
                     break;
+               case 5:
+                    tournamentController.run();
                 case 9:
                     running = false;
                     System.out.println("Farvel!");
