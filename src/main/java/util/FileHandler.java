@@ -7,7 +7,12 @@ public class FileHandler {
 
     public static void writeFile(String fileInput, String fileName){
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))){
-            bw.write(fileInput);
+
+            String[] lines = fileInput.split("\n");
+            for(int i = 1; i < lines.length; i++){
+                bw.write(lines[i]);
+                bw.newLine();
+            }
         } catch (IOException e) {
             System.out.println("Error writing file.");
         }
@@ -15,6 +20,7 @@ public class FileHandler {
     public static ArrayList<String[]> readFromFile(String filename){
         ArrayList<String[]> fileContent = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader(filename))){
+            br.readLine();
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(";");
