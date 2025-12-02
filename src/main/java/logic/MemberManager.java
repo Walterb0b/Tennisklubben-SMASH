@@ -137,7 +137,7 @@ public class MemberManager {
 
         }
 
-        FileHandler.writeFile(memberCSV, "memberDatabase");
+        FileHandler.writeFile(memberCSV, "memberDatabase.csv");
 
 
 
