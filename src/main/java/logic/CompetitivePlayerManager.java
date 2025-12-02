@@ -1,6 +1,6 @@
 package main.java.logic;
 
-import main.java.membership.CompetitivePlayer;
+/*import main.java.membership.CompetitivePlayer;
 
 import java.util.HashMap;
 
@@ -29,4 +29,4 @@ public class CompetitivePlayerManager {
             System.out.println(player);
         }
     }
-}
+}*/

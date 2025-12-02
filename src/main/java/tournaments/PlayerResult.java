@@ -32,4 +32,24 @@ public class PlayerResult {
         this.score = score;
         this.date = date;
     }
+
+    public int getMatchID(){return matchID;}
+    public Member getPlayer(){return player;}
+    public Disciplines getDiscipline(){return discipline;}
+    public MatchType getType(){return type;}
+    public ResultOutcome getOutcome(){return outcome;}
+    public String getOpponentInfo(){return opponentInfo;}
+    public String getScore(){return score;}
+    public LocalDate getDate(){return date;}
+
+    @Override
+    public String toString(){
+        return "Kamp ID: " + matchID + "\n" +
+                "Kamp type: " + type + "\n" +
+                "Spiller: " + player.getName() + " (ID: " + player.getMemberID() + ")" + "\n" +
+                "Disciplin: " + discipline + "\n" +
+                "Modstander: " + opponentInfo + "\n" +
+                "Score: " + score + "\n" +
+                "Resultat: " + outcome + "\n";
+    }
 }

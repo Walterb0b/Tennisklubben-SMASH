@@ -5,12 +5,11 @@ import java.util.HashSet;
 public class PlayPreference {
     private boolean isCompetetiveMember;
     private HashSet<Disciplines> disciplines;
-    private int smashPoint;
 
-    public PlayPreference(boolean isCompetetiveMember, HashSet<Disciplines> disciplines, int smashPoint) {
+
+    public PlayPreference(boolean isCompetetiveMember, HashSet<Disciplines> disciplines) {
         this.isCompetetiveMember = isCompetetiveMember;
         this.disciplines = disciplines;
-        this.smashPoint = smashPoint;
     }
 
     public boolean isCompetetiveMember() {
@@ -21,10 +20,6 @@ public class PlayPreference {
         return disciplines;
     }
 
-    public int getSmashPoint() {
-        return smashPoint;
-    }
-
     public void setCompetetiveMember(boolean competetiveMember) {
         this.isCompetetiveMember = competetiveMember;
     }
@@ -33,12 +28,4 @@ public class PlayPreference {
         this.disciplines = disciplines;
     }
 
-    public void setSmashPoint(int smashPoint) {
-        this.smashPoint = smashPoint;
-    }
-
-    @Override
-    public String toString(){
-        return "Konkurrencespiller: " + isCompetetiveMember + "Disciplin(er): " + disciplines + "SMASH-Point: " + smashPoint;
-    }
 }
