@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class FileHandler {
 
-    public void writeFile(String fileInput, String fileName){
+    public static void writeFile(ArrayList<String> fileInput, String fileName){
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))){
 
             String[] lines = fileInput.split("\n");

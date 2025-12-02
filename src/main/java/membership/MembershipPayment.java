@@ -110,4 +110,12 @@ public class MembershipPayment {
                 "Medlem: " + member + "\n" +
                 "Beløb: " + amount + " kr." + "\n";
     }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
+    }
 }
