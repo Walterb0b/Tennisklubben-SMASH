@@ -2,6 +2,7 @@ package main.java.logic;
 
 import main.java.membership.Member;
 import main.java.membership.MembershipPayment;
+import main.java.util.Formatter;
 import main.java.util.Validator;
 
 import java.time.LocalDate;
@@ -76,6 +77,7 @@ public class MemberManager {
 
     public void saveMembersToCSV() {
         String name;
+        String memberID;
         String phoneNumber;
         String birthday;
         String signUpDate;
@@ -93,6 +95,7 @@ public class MemberManager {
         ArrayList<String> memberCSV = new ArrayList<>();
 
         name = "Medlemsnavn";
+        memberID = "MedlemsID";
         phoneNumber = "Telefonnummer";
         birthday = "Fødselsdag";
         signUpDate = "Medlemsskab Startdato";
@@ -104,16 +107,18 @@ public class MemberManager {
         playsMixDouble = "Disciplin: Spiller MixDouble";
         smashPoint = "Antal SmashPoint";
 
-        singleLine = name + delimiter + phoneNumber + delimiter + birthday + delimiter + signUpDate + delimiter +
-                cancellationDate + delimiter + activePassive + delimiter + competitiveCasual + delimiter +
+        singleLine = name + delimiter + memberID + delimiter + phoneNumber + delimiter + birthday + delimiter + signUpDate +
+                delimiter + cancellationDate + delimiter + activePassive + delimiter + competitiveCasual + delimiter +
                 playsSingle + delimiter + playsDouble + delimiter + playsMixDouble + delimiter + smashPoint;
 
         memberCSV.add(singleLine);
 
         for (Member m : members.values()) {
             name = m.getName();
+            memberID = String.valueOf(m.getMemberID());
             phoneNumber = m.getPhoneNumber();
-            birthday = m.getBirthday().getYear();
+            birthday = Formatter.localDateToString(m.getBirthday());
+
         }
 
 
