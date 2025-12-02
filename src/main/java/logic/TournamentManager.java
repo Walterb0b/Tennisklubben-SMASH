@@ -1,4 +1,4 @@
-package main.java.logic;
+/*package main.java.logic;
 
 import main.java.tournaments.Tournament;
 
@@ -17,5 +17,6 @@ public class TournamentManager {
     public void removeTournament(int id) {tournaments.remove(id);}
 
     public void printAllTournaments() {
-        for (Tournament tournament : tournaments.values()) {System.out.println(tournament);}}
-}
+        for (Tournament tournament : tournaments.values()) {System.out.println(tournament);}
+    }
+}*/

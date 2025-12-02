@@ -13,6 +13,8 @@ public class Member {
     private LocalDate cancellationDate;
     private Membership membership;
     private PlayPreference playPreference;
+    private Integer eloRating = null;
+    private int smashPoints = 0;
 
     public Member(String name, String phoneNumber, LocalDate birthday, LocalDate signUpDate, Membership membership,
                   PlayPreference playPreference) {
@@ -55,6 +57,10 @@ public class Member {
 
     public PlayPreference playPreference() { return playPreference; }
 
+    public Integer getEloRating() { return eloRating; }
+
+    public int getSmashPoints() { return smashPoints; }
+
     //setters
     public void setName(String name) { this.name = name; }
 
@@ -68,6 +74,11 @@ public class Member {
     public void setMembership( Membership membership) { this.membership = membership; }
 
     public void setPlayPreference( PlayPreference playPreference) { this.playPreference = playPreference; }
+
+    public void setEloRating(int newRating) {
+        initializeEloIfNeeded();
+        this.eloRating += newRating;
+    }
 
     public String getAgeCategory() {
         int age = getAge();
@@ -97,9 +108,20 @@ public class Member {
         } else {
             throw new IllegalStateException("Ugyldig alder: " + age);
         }
-
-
     }
+
+    public boolean isCompetitive(){
+        return playPreference.isCompetetiveMember();
+    }
+
+    public void initializeEloIfNeeded(){
+        if(isCompetitive() && eloRating == null) eloRating = 1500;
+    }
+
+    public void addSmashPoints(int points){
+        smashPoints += points;
+    }
+
 
     @Override
     public String toString() {
@@ -107,7 +129,4 @@ public class Member {
                 ", Fødselsdag: " + birthday + ", Alder: " + getAge() + ", AldersKategori: " + getAgeCategory() +
                 ", Medlemsskab: " + getMembership() + ", SpillerPræferencer: " + playPreference;
     }
-
-
-
 }
