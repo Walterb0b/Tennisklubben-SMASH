@@ -14,32 +14,40 @@ public class Tournament {
 
     private List<TournamentEntry> entries;
 
-
-    public Tournament(int tournamentID, int id, String name, String location, LocalDate startDate, LocalDate endDate, int nextTournamentID) {
+    public Tournament(int tournamentID, String name, String location,
+                      LocalDate startDate, LocalDate endDate) {
         this.tournamentID = tournamentID;
         this.name = name;
         this.location = location;
         this.startDate = startDate;
         this.endDate = endDate;
-
         this.entries = new ArrayList<>();
     }
 
-    public int getTournamentID(){return tournamentID;}
-
-    public String getName(){return name;}
-
-    public String getLocation(){return location;}
-
-    public LocalDate getStartDate(){return startDate;}
-
-    public LocalDate getEndDate(){return endDate;}
-
-    public List <TournamentEntry> getEntries(){return entries;}
-
-    public void addEntry(TournamentEntry entry){
-        entries.add(entry);
-    }
-
     public int getTournamentId() {return tournamentID;}
+
+    public String getName() {return name;}
+
+    public String getLocation() {return location;}
+
+    public LocalDate getStartDate() {return startDate;}
+
+    public LocalDate getEndDate() {return endDate;}
+
+    public List<TournamentEntry> getEntries() {return entries;}
+
+    public void addEntry(TournamentEntry entry) {entries.add(entry);}
+
+    @Override
+    public String toString() {
+        return "Tournament{" +
+                "id=" + tournamentID +
+                ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", entries=" + entries.size() +
+                '}';
+    }
 }
+

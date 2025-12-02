@@ -10,15 +10,11 @@ public class TournamentManager {
 
     public TournamentManager() {this.tournaments = new HashMap<Integer, Tournament>();}
 
-    public void addTournament(Tournament tournament) {
-        tournaments.put(tournament.getTournamentId(), tournament);
-    }
+    public void addTournament(Tournament tournament) {tournaments.put(tournament.getTournamentId(), tournament);}
 
     public Tournament getTournament(int id) {return tournaments.get(id);}
 
-    public void removeTournament(int id) {
-        tournaments.remove(id);
-    }
+    public void removeTournament(int id) {tournaments.remove(id);}
 
     public void printAllTournaments() {
         for (Tournament tournament : tournaments.values()) {System.out.println(tournament);}

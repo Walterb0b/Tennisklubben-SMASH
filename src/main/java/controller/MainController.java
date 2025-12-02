@@ -3,12 +3,15 @@ package main.java.controller;
 import main.java.logic.*;
 import main.java.membership.StamDataManager;
 import main.java.util.ScannerHelper;
+import main.java.logic.TournamentManager;
+
 
 public class MainController {
     private ScannerHelper sc;
     private MemberController memberController;
     private FinanceController financeController;
     private CoachController coachController;
+    private TournamentController tournamentController;
 
     public MainController(ScannerHelper sc, MemberManager memberManager, StamDataManager stamDataManager, PaymentManager paymentManager, ResultManager resultManager, PlayerStats playerStats, RatingService ratingService){
         this.sc = sc;
@@ -36,6 +39,8 @@ public class MainController {
                 case 4:
                     coachController.runResult();
                     break;
+               case 5:
+                    tournamentController.run();
                 case 9:
                     running = false;
                     System.out.println("Farvel!");
