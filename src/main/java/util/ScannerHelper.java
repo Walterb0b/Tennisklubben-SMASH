@@ -25,6 +25,7 @@ public class ScannerHelper {
                 │   2. Økonomi                       │
                 │   3. Spillerstatistik              │
                 │   4. Trænings- og turneringsdata   │
+                │   5. Turneringsadministration      │
                 │   9. Luk programmet                │
                 └────────────────────────────────────┘
                 """);
@@ -141,6 +142,10 @@ public class ScannerHelper {
         System.out.println(prompt);
     }
 
+    public void print(String prompt){
+        System.out.print(prompt);
+    }
+
     //Metode til at få int fra scanner input
     public int askNumber(int intMax) {
         boolean numCorrect = false;
@@ -159,6 +164,33 @@ public class ScannerHelper {
                     System.out.println("Du kan ikke indtaste 0. Prøv igen.");
                 } else if (selectInt > intMax) {
                     System.out.println("Du kan ikke indtaste tal som er større end " + intMax + ". Prøv igen.");
+                } else {
+                    numCorrect = true;
+                }
+            } else {
+                System.out.println("Du har ikke indtastet et tal. Prøv igen.");
+                sc.nextLine(); // rydder forkert input
+            }
+        }
+        return selectInt;
+    }
+
+    public int askNumber(String prompt) {
+        System.out.print(prompt);
+        boolean numCorrect = false;
+        int selectInt = 0;
+
+
+        while (!numCorrect) {
+
+            if (sc.hasNextInt()) {
+                selectInt = sc.nextInt();
+                sc.nextLine();
+
+                if (selectInt < 0) {
+                    System.out.println("Du har indtastet et negativt tal. Prøv igen.");
+                } else if (selectInt == 0) {
+                    System.out.println("Du kan ikke indtaste 0. Prøv igen.");
                 } else {
                     numCorrect = true;
                 }
@@ -243,12 +275,9 @@ public class ScannerHelper {
                     memberManager.getMember(memberID);
                     inputCorrect = true;
                 }
-
             }
-
         }
         return memberID;
-
     }
 
     public boolean askConfirmYesNo (String question) {

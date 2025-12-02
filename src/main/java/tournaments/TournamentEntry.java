@@ -10,48 +10,29 @@ public class TournamentEntry {
     private int memberID;
     private int tournamentID;
     private Disciplines discipline;
-    private String name;
+    private String tournamentName;
     private String location;
     private LocalDate startDate;
     private LocalDate endDate;
-    private int nextTournamentID;
 
-    public TournamentEntry(int entryID, int memberID, int tournamentID, Disciplines discipline, String name, String location,
-                           LocalDate startDate, LocalDate endDate) {
+    public TournamentEntry(int entryID, int memberID, Tournament tournament, Disciplines discipline) {
         this.entryID = entryID;
         this.memberID = memberID;
-        this.tournamentID = tournamentID;
+        this.tournamentID = tournament.getTournamentId();
         this.discipline = discipline;
-        this.name = name;
-        this.location = location;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.tournamentName = tournament.getName();
+        this.location = tournament.getLocation();
+        this.startDate = tournament.getStartDate();
+        this.endDate = tournament.getEndDate();
     }
 
     public int getEntryID() {return entryID;}
 
-    public int getMemberID() {
-        return memberID;
-    }
+    public int getMemberID() {return memberID;}
 
-    public int getTournamentID() {
-        return tournamentID;
-    }
+    public int getTournamentID() {return tournamentID;}
 
-    public Disciplines getDiscipline() {
-        return discipline;
-    }
-
-    public void setEntryID(int entryID) {
-        if (entryID <= 0) {
-            throw new IllegalArgumentException("ID skal være større end 0");
-        }
-        this.entryID = entryID;
-    }
-
-    public void setDiscipline(Disciplines discipline) {
-        this.discipline = discipline;
-    }
+    public Disciplines getDiscipline() {return discipline;}
 
     @Override
     public String toString() {
@@ -63,4 +44,3 @@ public class TournamentEntry {
                 '}';
     }
 }
-

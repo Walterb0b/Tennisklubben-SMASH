@@ -1,7 +1,9 @@
 package main.java.logic;
 
+import main.java.membership.Disciplines;
 import main.java.membership.Member;
 import main.java.membership.MembershipPayment;
+import main.java.util.FileHandler;
 import main.java.util.Formatter;
 import main.java.util.Validator;
 
@@ -111,18 +113,31 @@ public class MemberManager {
                 delimiter + cancellationDate + delimiter + activePassive + delimiter + competitiveCasual + delimiter +
                 playsSingle + delimiter + playsDouble + delimiter + playsMixDouble + delimiter + smashPoint;
 
-        memberCSV.add(singleLine);
+        memberCSV.add(singleLine + "\n");
 
-        for (Member m : members.values()) {
+        for (Member m : getAllMembersSortedByMemberIDName()) {
             name = m.getName();
             memberID = String.valueOf(m.getMemberID());
             phoneNumber = m.getPhoneNumber();
             birthday = Formatter.localDateToString(m.getBirthday());
             signUpDate = Formatter.localDateToString(m.getSignUpDate());
             cancellationDate = Formatter.localDateToString(m.getCancellationDate());
-            activePassive =
+            activePassive = (m.getMembership().isActive()) ? "Passivt" : "Aktivt";
+            competitiveCasual = (m.getPlayPreference().isCompetetiveMember()) ? "Motionist" : "Konkurrencespiller";
+            playsSingle = (m.getPlayPreference().getGamePreference().contains(Disciplines.SINGLE)) ? "" : "Ja";
+            playsDouble = (m.getPlayPreference().getGamePreference().contains(Disciplines.DOUBLE)) ? "" : "Ja";
+            playsMixDouble = (m.getPlayPreference().getGamePreference().contains(Disciplines.MIXDOUBLE)) ? "" : "Ja";
+            smashPoint = String.valueOf(m.getPlayPreference().getSmashPoint());
+
+            singleLine = name + delimiter + memberID + delimiter + phoneNumber + delimiter + birthday + delimiter + signUpDate +
+                    delimiter + cancellationDate + delimiter + activePassive + delimiter + competitiveCasual + delimiter +
+                    playsSingle + delimiter + playsDouble + delimiter + playsMixDouble + delimiter + smashPoint;
+
+            memberCSV.add(singleLine + "\n");
 
         }
+
+        FileHandler.writeFile(memberCSV, "memberDatabase.csv");
 
 
 

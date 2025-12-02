@@ -14,5 +14,4 @@ public class Formatter {
         return year + delimiter + month + delimiter + day;
     }
 
-    public
 }
