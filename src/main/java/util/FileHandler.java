@@ -15,6 +15,7 @@ public class FileHandler {
     public ArrayList<String[]> readFromFile(String filename){
         ArrayList<String[]> fileContent = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader(filename))){
+            br.readLine();
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(";");
