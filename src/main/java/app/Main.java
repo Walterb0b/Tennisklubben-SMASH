@@ -33,17 +33,12 @@ public class Main {
         PaymentManager pm = new PaymentManager(mm);
         StamDataManager sdm = new StamDataManager(mm);
         ResultManager rm = new ResultManager();
+        TournamentManager tm = new TournamentManager();
         PlayerStats ps = new PlayerStats(rm, mm);
         RatingService rs = new RatingService();
 
-        MainController mainController = new MainController(sh, mm, sdm, pm, rm, ps, rs);
+        MainController mainController = new MainController(sh, mm, sdm, pm, rm, tm,ps, rs);
 
-        Member m1 = new Member("John Nielsen", "12345678",LocalDate.of(1968,10,22), new ActiveMembership(), new PlayPreference(true, new HashSet<>(List.of(Disciplines.SINGLE))));
-        Member m2 = new Member("Rasmus Johnsen", "87126732",LocalDate.of(1954,11,21), new ActiveMembership(), new PlayPreference(false, new HashSet<>(List.of(Disciplines.SINGLE, Disciplines.DOUBLE))));
-        Member m3 = new Member("Lizzie Okdal", "78249712",LocalDate.of(2005,3,20), new ActiveMembership (), new PlayPreference(true, new HashSet<>(List.of(Disciplines.SINGLE, Disciplines.DOUBLE, Disciplines.MIXDOUBLE))));
-        //FinanceController fc = new FinanceController(sh, mm, pm);
-        TournamentManager tm = new TournamentManager();
-        MainController mainController = new MainController(sh, mm, sdm, pm, tm);
         Member m1 = new Member("John Nielsen", "12345678",LocalDate.of(1968,10,22), LocalDate.of(2025,1,1), new ActiveMembership());
         Member m2 = new Member("Rasmus Johnsen", "87126732",LocalDate.of(1954,11,21), LocalDate.of(2025,1,1), new ActiveMembership());
         Member m3 = new Member("Lizzie Okdal", "78249712",LocalDate.of(2005,3,20), LocalDate.of(2025,1,1), new ActiveMembership());

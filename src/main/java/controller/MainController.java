@@ -13,11 +13,12 @@ public class MainController {
     private CoachController coachController;
     private TournamentController tournamentController;
 
-    public MainController(ScannerHelper sc, MemberManager memberManager, StamDataManager stamDataManager, PaymentManager paymentManager, ResultManager resultManager, PlayerStats playerStats, RatingService ratingService){
+    public MainController(ScannerHelper sc, MemberManager memberManager, StamDataManager stamDataManager, PaymentManager paymentManager, ResultManager resultManager, TournamentManager tournamentManager, PlayerStats playerStats, RatingService ratingService){
         this.sc = sc;
         this.memberController = new MemberController(sc, memberManager, stamDataManager, paymentManager);
         this.financeController = new FinanceController(sc, memberManager, paymentManager);
         this.coachController = new CoachController(sc, memberManager, resultManager, playerStats, ratingService);
+        this.tournamentController = new TournamentController(sc,memberManager, tournamentManager);
     }
 
     public void run(){

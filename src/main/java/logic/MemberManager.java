@@ -127,7 +127,7 @@ public class MemberManager {
             playsSingle = (m.getPlayPreference().getGamePreference().contains(Disciplines.SINGLE)) ? "" : "Ja";
             playsDouble = (m.getPlayPreference().getGamePreference().contains(Disciplines.DOUBLE)) ? "" : "Ja";
             playsMixDouble = (m.getPlayPreference().getGamePreference().contains(Disciplines.MIXDOUBLE)) ? "" : "Ja";
-            smashPoint = String.valueOf(m.getPlayPreference().getSmashPoint());
+            smashPoint = String.valueOf(m.getSmashPoints());
 
             singleLine = name + delimiter + memberID + delimiter + phoneNumber + delimiter + birthday + delimiter + signUpDate +
                     delimiter + cancellationDate + delimiter + activePassive + delimiter + competitiveCasual + delimiter +

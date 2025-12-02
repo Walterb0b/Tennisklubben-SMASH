@@ -5,7 +5,8 @@ import java.util.ArrayList;
 
 public class FileHandler {
 
-    public static void writeFile(String fileInput, String fileName){
+    public static void writeFile(ArrayList<String> fileInput, String fileName){
+        /*
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))){
 
             String[] lines = fileInput.split("\n");
@@ -16,8 +17,11 @@ public class FileHandler {
         } catch (IOException e) {
             System.out.println("Error writing file.");
         }
+
+ */
     }
-    public static ArrayList<String[]> readFromFile(String filename){
+/*
+    public static ArrayList<String> readFromFile(String filename){
         ArrayList<String[]> fileContent = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader(filename))){
             br.readLine();
@@ -33,4 +37,6 @@ public class FileHandler {
         }
         return fileContent;
     }
+
+ */
 }
