@@ -4,6 +4,7 @@ import main.java.membership.Member;
 import main.java.util.Validator;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class MemberManager {
