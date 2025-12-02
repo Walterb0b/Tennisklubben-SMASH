@@ -118,6 +118,9 @@ public class MemberManager {
             memberID = String.valueOf(m.getMemberID());
             phoneNumber = m.getPhoneNumber();
             birthday = Formatter.localDateToString(m.getBirthday());
+            signUpDate = Formatter.localDateToString(m.getSignUpDate());
+            cancellationDate = Formatter.localDateToString(m.getCancellationDate());
+            activePassive =
 
         }
 
