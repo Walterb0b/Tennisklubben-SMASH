@@ -95,49 +95,4 @@ public class ResultManager {
                 .map(Member::getName)
                 .collect(Collectors.joining(", "));
     }
-
-    public void saveResultsToCSV() {
-        ArrayList<String> parts = new ArrayList<>();
-        final String delimiter = ";";
-
-        for (PlayerResult r : results) {
-            parts.add(
-                    r.getMatchID() + delimiter
-                            + r.getPlayer().getMemberID() + delimiter
-                            + r.getDiscipline() + delimiter
-                            + r.getType() + delimiter
-                            + r.getOutcome() + delimiter
-                            + r.getOpponentInfo() + delimiter
-                            + r.getScore() + delimiter
-                            + Formatter.localDateToString(r.getDate()) + "\n");
-
-        }
-        FileHandler.writeFile(parts, "resultDatabase.csv");
-    }
-
-    public void readResultsCSV() {
-        ArrayList<String[]> fileContent = FileHandler.readFromFile("resultDatabase.csv");
-
-        for (String[] parts : fileContent) {
-            int matchID = Integer.parseInt(parts[0]);
-            int memberID = Integer.parseInt(parts[1]);
-            Disciplines discipline = Disciplines.valueOf(parts[2]);
-            MatchType type = MatchType.valueOf(parts[3]);
-            ResultOutcome outcome = ResultOutcome.valueOf(parts[4]);
-            String opponents = parts[5];
-            String score = parts[6];
-            LocalDate date = Formatter.stringToLocalDate(parts[7]);
-
-            Member m = memberManager.getMember(memberID);
-            if (m == null) {
-                System.out.println("Fejl ved indlæsning af resultater fra filen for medlem " + memberID);
-                continue;
-            }
-
-            results.add(new PlayerResult(matchID, m, discipline, type, outcome, opponents, score, date));
-
-            //nextMatchID = Math.max(nextMatchID, matchID + 1);
-        }
-
-    }
 }
