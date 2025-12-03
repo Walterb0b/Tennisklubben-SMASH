@@ -13,6 +13,10 @@ import main.java.tournaments.Tournament;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+
+import static main.java.tournaments.MatchType.TRÆNING;
+import static main.java.tournaments.MatchType.TURNERING;
 
 public class FileHandler {
     private MemberManager memberManager;
@@ -235,6 +239,21 @@ public class FileHandler {
 public void saveResultsToCSV() {
     ArrayList<String> parts = new ArrayList<>();
     final String delimiter = ";";
+    String singleLine;
+
+    String matchID = "KampID";
+    String memberID = "MedlemsID";
+    String discipline = "Discipline";
+    String type = "Type";
+    String outcome = "Resultat";
+    String opponents = "Modstander(ere)";
+    String score = "Score";
+    String date = "Dato";
+
+
+    singleLine = matchID + delimiter + memberID + delimiter + discipline + delimiter + type + delimiter + outcome +
+            delimiter + opponents + delimiter + score + delimiter + date;
+    parts.add(singleLine);
 
     for (PlayerResult r : resultManager.getAllResults()) {
         parts.add(
@@ -270,7 +289,17 @@ public void saveResultsToCSV() {
                 continue;
             }
 
-            results.add(new PlayerResult(matchID, m, discipline, type, outcome, opponents, score, date));
+            if (type == TURNERING) {
+                resultManager.addExternalMatchResult(
+                        List.of(m), discipline, type, opponents, score, date
+                );
+            } else if (type == TRÆNING) {
+                // You will need a way to get both teams. If you saved opponent IDs somewhere, reconstruct the teams:
+                List<Member> teamA = List.of(m); // placeholder
+                List<Member> teamB = List.of(); // parse opponents into Members
+                int winningTeam = outcome == ResultOutcome.VUNDET ? 1 : 2; // simple logic
+                resultManager.addInternalMatchResult(teamA, teamB, discipline, type, winningTeam, score, date);
+            }
 
             //nextMatchID = Math.max(nextMatchID, matchID + 1);
         }
