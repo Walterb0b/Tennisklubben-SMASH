@@ -116,101 +116,7 @@ public class FileHandler {
         writeFile(memberCSV, "memberDatabase.csv");
 
     }
-
-    public void savePaymentsToCSV() {
-        String name;
-        String memberID;
-        String paymentID;
-        String dueDate;
-        String seasonQuarter;
-        String amount;
-        String isPaid;
-
-
-        String singleLine;
-
-        ArrayList<String> paymentCSV = new ArrayList<>();
-
-
-        name = "Medlemsnavn";
-        memberID = "MedlemsID";
-        paymentID = "BetalingsID";
-        dueDate = "Betalingsdato";
-        seasonQuarter = "Sæsonskvartal";
-        amount = "Beløb";
-        isPaid = "Betalt";
-
-        singleLine = name + delimiter + memberID + delimiter + paymentID + delimiter + dueDate + delimiter + seasonQuarter +
-                delimiter + amount + delimiter + isPaid;
-
-
-        for (MembershipPayment p : paymentManager.getAllPaymentsSortedByDueDateMemberID()) {
-
-            Member m = p.getMember();
-
-            name = m.getName();
-            memberID = String.valueOf(m.getMemberID());
-            paymentID = String.valueOf(p.getPaymentID());
-            dueDate = Formatter.localDateToString(p.getDueDate());
-            seasonQuarter = p.getSeasonQuarter();
-            amount = String.valueOf(p.getAmount());
-            isPaid = String.valueOf(p.getIsPaid());
-
-            singleLine = name + delimiter + memberID + delimiter + paymentID + delimiter + dueDate + delimiter + seasonQuarter +
-                    delimiter + amount + delimiter + isPaid + delimiter ;
-
-            paymentCSV.add(singleLine);
-        }
-        writeFile(paymentCSV, "paymentDatabase.csv");
-    }
-
-    public void savePlayerStatsToCSV() {
-
-        final String delimiter = ";";
-        String singleLine;
-
-        ArrayList<String> playerStatsCSV = new ArrayList<>();
-
-        String name = "Medlemsnavn";
-        String memberID = "MedlemsID";
-        String winsSingle = "Single vundet";
-        String lossesSingle = "Single tabt";
-        String winsDouble = "Double vundet";
-        String lossesDouble = "Double tabt";
-        String winsMix = "MixDouble vundet";
-        String lossesMix = "MixDouble tabt";
-        String eloRating = "eloRating";
-        String smashPoints = "SmashPoints";
-
-
-        singleLine = name + delimiter + memberID + delimiter + winsSingle + delimiter + lossesSingle + delimiter + winsDouble +
-                delimiter + lossesDouble + delimiter + winsMix + delimiter + lossesMix + delimiter + eloRating + delimiter + smashPoints;
-        playerStatsCSV.add(singleLine);
-
-        for (Member m : memberManager.getAllMembersSortedByMemberIDName()) {
-
-            name = m.getName();
-            memberID = String.valueOf(m.getMemberID());
-            winsSingle = String.valueOf(playerStats.getWins(m, Disciplines.SINGLE));
-            lossesSingle = String.valueOf(playerStats.getLosses(m, Disciplines.SINGLE));
-            winsDouble = String.valueOf(playerStats.getWins(m, Disciplines.DOUBLE));
-            lossesDouble = String.valueOf(playerStats.getLosses(m, Disciplines.DOUBLE));
-            winsMix = String.valueOf(playerStats.getWins(m, Disciplines.MIXDOUBLE));
-            lossesMix = String.valueOf(playerStats.getLosses(m, Disciplines.MIXDOUBLE));
-            eloRating = String.valueOf(m.getEloRating());
-            smashPoints = String.valueOf(m.getSmashPoints());
-
-
-            singleLine = name + delimiter + memberID + delimiter + winsSingle + delimiter + lossesSingle + delimiter + winsDouble +
-                    delimiter + lossesDouble + delimiter + winsMix + delimiter + lossesMix + delimiter + eloRating + delimiter + smashPoints;
-
-            playerStatsCSV.add(singleLine);
-        }
-        writeFile(playerStatsCSV, "playerStatsDatabase.csv");
-    }
-
-/*
-    public static ArrayList<String> readFromFile(String filename){
+    public static ArrayList<String[]> readFromFile(String filename){
         ArrayList<String[]> fileContent = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader(filename))){
             br.readLine();
@@ -227,5 +133,6 @@ public class FileHandler {
         return fileContent;
     }
 
- */
+
+
 }

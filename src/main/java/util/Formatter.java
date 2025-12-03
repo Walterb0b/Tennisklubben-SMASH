@@ -31,31 +31,14 @@ public class Formatter {
         return boolString;
     }
 
-    public static String booleanStringToString(String boolString, String ifTrue, String ifFalse) {
-        String boolStringReturn = "";
-        try {
-            if (boolString.equalsIgnoreCase("true")) {
-                boolStringReturn = ifTrue;
-            } else if (boolString.equalsIgnoreCase("false")) {
-                boolStringReturn = ifFalse;
-            }
-        } catch (NullPointerException e) {
-            System.out.println("fejl");
-        }
-        return boolStringReturn;
+    public static LocalDate stringToLocalDate(String s){
+        String[] parts = s.split("/");
+        int year = Integer.parseInt(parts[0]);
+        int month = Integer.parseInt(parts[1]);
+        int day = Integer.parseInt(parts[2]);
+
+        return LocalDate.of(year, month, day);
+
     }
-
-    public static String csvEncode(Object value) {
-        if (value == null) return nullValue;
-
-        String s = value.toString();
-        if (s.contains(";") || s.contains("\"") || s.contains("\n")) {
-            s = "\"" + s.replace("\"", "\"\"") + "\"";
-        }
-        return s;
-    }
-
-
-
 
 }
