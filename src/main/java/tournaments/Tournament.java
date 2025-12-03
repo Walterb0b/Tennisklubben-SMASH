@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Klassen bruges af TourManager og TourController
+ *
+ */
 public class Tournament {
 
     private int tournamentID;
@@ -14,6 +18,14 @@ public class Tournament {
 
     private List<TournamentEntry> entries;
 
+    /**
+     *
+     * @param tournamentID ID for turnering for at skelne
+     * @param name, navn på turnering
+     * @param location, lokation for turnering
+     * @param startDate, Startdato for turnering
+     * @param endDate, Sidste dato for turnering
+     */
     public Tournament(int tournamentID, String name, String location,
                       LocalDate startDate, LocalDate endDate) {
         this.tournamentID = tournamentID;
@@ -24,6 +36,12 @@ public class Tournament {
         this.entries = new ArrayList<>();
     }
 
+    /**** @return Turnerings ID
+     * Navn på turnering
+     * Turneringsadresse
+     * Start dato
+     * Slut dato
+     * Tilføjer entry ID for medlem/konkurrencespiller*/
     public int getTournamentId() {return tournamentID;}
 
     public String getName() {return name;}
