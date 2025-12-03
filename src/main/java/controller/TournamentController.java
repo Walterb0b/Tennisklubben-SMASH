@@ -44,7 +44,8 @@ public class TournamentController {
             printTournamentMenu();
             int choice = sc.navigateMenu(3);   // 1–3 + 0
 
-            switch (choice) {case 1: createTournament();
+            switch (choice) {
+                case 1: createTournament();
                     break;
                 case 2: showAllTournaments();
                     break;
@@ -64,10 +65,10 @@ public class TournamentController {
      */
     private void printTournamentMenu() {
         System.out.println("\n=== TURNERINGS-MENU ===");
-        System.out.println("\n 1. Opret turnering");
-        System.out.println("\n 2. Vis alle turneringer");
-        System.out.println("\n 3. Tilmeld spiller til turnering");
-        System.out.println("\n 0. Tilbage");}
+        System.out.println(" 1. Opret turnering");
+        System.out.println(" 2. Vis alle turneringer");
+        System.out.println(" 3. Tilmeld spiller til turnering");
+        System.out.println(" 0. Tilbage");}
 
     /**
      * opretter turnering udfra brugerinput
