@@ -93,7 +93,6 @@ public class PlayerStats {
         return list.subList(0, limit);
     }
 
-    public void savePlayerStatsToCSV() {
 
         final String delimiter = ";";
         String singleLine;

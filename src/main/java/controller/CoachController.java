@@ -160,14 +160,14 @@ public class CoachController {
         MatchType type = MatchType.valueOf(sc.askQuestion("Er det en træning eller intern turnering").equalsIgnoreCase("Træning") ? "Træning".toUpperCase() : "Turnering".toUpperCase());
 
         List<Member> teamA = new ArrayList<>();
-        sc.printLn("Vælg spillere til hold A");
+        sc.printLn("Vælg spillere til hold A: ");
         if (!pickPlayersForTeam(perTeam, type, teamA, usedIDs)) return;
 
         List<Member> teamB = new ArrayList<>();
-        sc.printLn("Vælg spillere til hold B");
+        sc.printLn("Vælg spillere til hold B: ");
         if (!pickPlayersForTeam(perTeam, type, teamB, usedIDs)) return;
 
-        String score = sc.askQuestion("Indtast score (fx. 6-4 7-5 6-2): ");
+        String score = sc.askQuestion("Indtast score (fx. 6-4 7-5 6-2)");
 
         sc.printLn("Hvilket hold vandt?");
         sc.printLn("1. Team A");
@@ -203,8 +203,8 @@ public class CoachController {
             clubPlayers.add(m);
             usedIDs.add(m.getMemberID());
         }
-        String opponentInfo = sc.askQuestion("Indtast info om modstander(e) fx. (Spiller X fra klub Y): ");
-        String score = sc.askQuestion("Indtast score (fx. 6-4 7-5 6-2): ");
+        String opponentInfo = sc.askQuestion("Indtast info om modstander(e) fx. (Spiller X fra klub Y)");
+        String score = sc.askQuestion("Indtast score (fx. 6-4 7-5 6-2)");
 
         resultManager.addExternalMatchResult(clubPlayers, discipline, MatchType.TURNERING, opponentInfo, score, LocalDate.now());
 
@@ -225,7 +225,7 @@ public class CoachController {
      */
     private boolean pickPlayersForTeam(int perTeam, MatchType type, List<Member> team, Set<Integer> forbiddenIDs) {
         for(int i = 1; i <= perTeam; i++) {
-            Member m = null;
+            Member m;
             while (true) {
                 if (type == MatchType.TURNERING) {
                     m = askCompetitiveMember(forbiddenIDs);
@@ -267,7 +267,8 @@ public class CoachController {
             }
         }
         while(true) {
-            Member m = memberManager.getMember(sc.selectMemberFromList());
+            int choice = sc.askNumber("Vælg: ");
+            Member m = memberManager.getMember(choice);
 
             if (forbiddenIDs.contains(m.getMemberID())){
                 sc.printLn("Denne spiller er allerede valgt! Prøv igen");

@@ -8,6 +8,8 @@ import main.java.membership.Disciplines;
 import main.java.tournaments.Tournament;
 import main.java.tournaments.TournamentEntry;
 import main.java.util.ScannerHelper;
+import main.java.util.Validator;
+
 
 import java.time.LocalDate;
 
@@ -59,14 +61,13 @@ public class TournamentController {
         System.out.println("Indtast turnerings-ID: ");
         int id = sc.askNumber(9999);
 
-        String name = sc.askQuestion("Indtast turneringsnav: ");
-        String location = sc.askQuestion("Indtasst lokation: ");
+        String name = sc.askQuestion("Indtast turneringsnavn: ");
+        String location = sc.askQuestion("Indtast lokation: ");
 
-        String startInput = sc.askQuestion("Indtasst startdato i formatet YYYY-MM-DD: ");
-        String endInput   = sc.askQuestion("Indtast slutdato i formatet YYYY-MM-DD: ");
 
-        LocalDate startDate = LocalDate.parse(startInput);
-        LocalDate endDate   = LocalDate.parse(endInput);
+        LocalDate startDate = Validator.dateValidatorWithScanner(sc, "Indtast startdato i formatet DD/MM/YYYY: ");
+
+        LocalDate endDate = Validator.dateValidatorWithScanner(sc, "Indtast slutdato i formatet DD/MM/YYYY: ");
 
         Tournament t = new Tournament(id, name, location, startDate, endDate);
         tournamentManager.addTournament(t);

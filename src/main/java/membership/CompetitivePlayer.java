@@ -3,7 +3,7 @@ package main.java.membership;
 import java.util.ArrayList;
 import java.util.List;
 
-/*public class CompetitivePlayer {
+public class CompetitivePlayer {
 
     private int playerId;
     private String name;
@@ -53,4 +53,4 @@ import java.util.List;
                 ", disciplines=" + disciplines +
                 '}';
     }
-}*/
+}

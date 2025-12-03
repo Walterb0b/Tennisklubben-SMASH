@@ -1,0 +1,6 @@
+Medlemsnavn;MedlemsID;Telefonnummer;Fødselsdag;Medlemsskab Startdato;Medlemsskab Slutdato;Aktivt/Passivt Medlemsskab;Konkurrencespiller/Motionist;Disciplin: Spiller Single;Disciplin: Spiller Double;Disciplin: Spiller MixDouble;Antal SmashPoint
+John Nielsen;1;12345678;1968/10/22;2025/01/01;;Aktivt;Konkurrencespiller;Ja;;;0
+Rasmus Johnsen;2;87126732;1954/11/21;2025/01/01;;Aktivt;Konkurrencespiller;Ja;Ja;;0
+Lizzie Okdal;3;78249712;2005/03/20;2025/01/01;;Aktivt;Motionist;Ja;;;0
+Preben Kaas;4;14085287;1983/03/20;2025/01/01;;Passivt;Motionist;Ja;Ja;Ja;0
+Olga Findsen;5;13082587;2000/04/01;2025/11/01;;Aktivt;Konkurrencespiller;Ja;Ja;;0
