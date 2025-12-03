@@ -23,7 +23,7 @@ public class TournamentEntry {
      *
      * @param entryID, Tjekker for deltagelse i bestemt turnering
      * @param memberID, Tjekker hvilken spiller
-     * @param tournament, Hvad er medlemmet tilmedlt
+     * @param tournament, Hvad er medlemmet tilmeldt
      * @param discipline, Hvad skal medlemmet spille
      */
     public TournamentEntry(int entryID, int memberID, Tournament tournament, Disciplines discipline) {

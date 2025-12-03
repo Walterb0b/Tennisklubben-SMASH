@@ -41,7 +41,7 @@ public class Tournament {
      * Turneringsadresse
      * Start dato
      * Slut dato
-     * Tilføjer entry ID for medlem/konkurrencespiller */
+     * Tilføjer entry ID for medlem/konkurrencespiller  */
     public int getTournamentId() {return tournamentID;}
 
     public String getName() {return name;}
