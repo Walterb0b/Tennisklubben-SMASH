@@ -32,7 +32,7 @@ public class PlayerResult {
         this.score = score;
         this.date = date;
     }
-
+    //Getters
     public int getMatchID(){return matchID;}
     public Member getPlayer(){return player;}
     public Disciplines getDiscipline(){return discipline;}
@@ -41,6 +41,19 @@ public class PlayerResult {
     public String getOpponentInfo(){return opponentInfo;}
     public String getScore(){return score;}
     public LocalDate getDate(){return date;}
+
+    //Setters
+    public void setScore(String score) {
+        this.score = score;
+    }
+
+    public void setOpponentInfo(String newOpponentInfo) {
+        this.opponentInfo = newOpponentInfo;
+    }
+
+    public void setOutcome(ResultOutcome outcome) {
+        this.outcome = outcome;
+    }
 
     @Override
     public String toString(){
