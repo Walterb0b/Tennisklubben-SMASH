@@ -1,10 +1,11 @@
-/*package main.java.logic;
+package main.java.logic;
 
 import main.java.tournaments.Tournament;
 
 import java.util.HashMap;
 
 public class TournamentManager {
+
 
     public HashMap<Integer, Tournament> tournaments;
 
@@ -19,4 +20,6 @@ public class TournamentManager {
     public void printAllTournaments() {
         for (Tournament tournament : tournaments.values()) {System.out.println(tournament);}
     }
-}*/
+
+
+}

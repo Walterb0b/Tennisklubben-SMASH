@@ -8,6 +8,7 @@ import main.java.membership.Disciplines;
 import main.java.tournaments.Tournament;
 import main.java.tournaments.TournamentEntry;
 import main.java.util.ScannerHelper;
+import main.java.util.Validator;
 
 import java.time.LocalDate;
 
@@ -47,11 +48,10 @@ public class TournamentController {
 
     private void printTournamentMenu() {
         System.out.println("\n=== TURNERINGS-MENU ===");
-        System.out.println("1. Opret turnering");
-        System.out.println("2. Vis alle turneringer");
-        System.out.println("3. Tilmeld spiller til turnering");
-        System.out.println("0. Tilbage");
-    }
+        System.out.println("\n 1. Opret turnering");
+        System.out.println("\n 2. Vis alle turneringer");
+        System.out.println("\n 3. Tilmeld spiller til turnering");
+        System.out.println("\n 0. Tilbage");}
 
     private void createTournament() {
         System.out.println("Du har valgt at oprette en turnering");
@@ -59,26 +59,46 @@ public class TournamentController {
         System.out.println("Indtast turnerings-ID: ");
         int id = sc.askNumber(9999);
 
-        String name = sc.askQuestion("Indtast turneringsnav: ");
-        String location = sc.askQuestion("Indtasst lokation: ");
+        String name = sc.askQuestion("Indtast turneringsnavn: ");
+        String location = sc.askQuestion("Indtast lokation: ");
 
-        String startInput = sc.askQuestion("Indtasst startdato i formatet YYYY-MM-DD: ");
-        String endInput   = sc.askQuestion("Indtast slutdato i formatet YYYY-MM-DD: ");
+        LocalDate startDate = Validator.dateValidatorWithScanner(sc, "Indtast startdato i formatet DD/MM/YYYY: ");
 
-        LocalDate startDate = LocalDate.parse(startInput);
-        LocalDate endDate   = LocalDate.parse(endInput);
+        LocalDate endDate = Validator.dateValidatorWithScanner(sc, "Indtast slutdato i formatet DD/MM/YYYY: ");
 
         Tournament t = new Tournament(id, name, location, startDate, endDate);
         tournamentManager.addTournament(t);
 
-        System.out.println("Turnering oprettet: " + t);}
+        System.out.println("Turnering oprettet: " + t);
+    }
+
+
+//    private void createTournament() {
+//        System.out.println("Du har valgt at oprette en turnering");
+//
+//        System.out.println("Indtast turnerings-ID: ");
+//        int id = sc.askNumber(9999);
+//
+//        String name = sc.askQuestion("Indtast turneringsnavn: ");
+//        String location = sc.askQuestion("Indtast lokation: ");
+//
+//        String startInput = sc.askQuestion("Indtast startdato i formatet YYYY-MM-DD: ");
+//        String endInput   = sc.askQuestion("Indtast slutdato i formatet YYYY-MM-DD: ");
+//
+//        LocalDate startDate = LocalDate.parse(startInput);
+//        LocalDate endDate   = LocalDate.parse(endInput);
+//
+//        Tournament t = new Tournament(id, name, location, startDate, endDate);
+//        tournamentManager.addTournament(t);
+//
+//        System.out.println("Turnering oprettet: " + t);}
 
     private void showAllTournaments() {
         System.out.println("\nDu har valgt at se alle turneringer");
         tournamentManager.printAllTournaments();}
 
     private void registerTournamentEntry() {
-        System.out.println("Du har valgt at tilmelde en spiller til en turnering");
+        System.out.println("Du har valgt at tilmelde en spiller til en turnering ");
 
         System.out.println("Indtast turnerings ID: ");
         int tournamentId = sc.askNumber(9999);
