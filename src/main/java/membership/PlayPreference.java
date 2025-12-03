@@ -1,6 +1,7 @@
 package main.java.membership;
 
 import java.util.HashSet;
+import java.util.List;
 
 public class PlayPreference {
     private boolean isCompetetiveMember;
@@ -28,4 +29,8 @@ public class PlayPreference {
         this.disciplines = disciplines;
     }
 
+    @Override
+    public String toString(){
+        return isCompetetiveMember ? "Konkurrencespiller" : "Motionist" + List.of(getGamePreference());
+    }
 }

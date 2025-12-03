@@ -7,10 +7,10 @@ import main.java.logic.ResultManager;
 import main.java.membership.Disciplines;
 import main.java.membership.Member;
 import main.java.tournaments.MatchType;
+import main.java.tournaments.PlayerResult;
 import main.java.tournaments.ResultOutcome;
 import main.java.util.ScannerHelper;
 
-import java.security.Security;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -22,7 +22,7 @@ public class CoachController {
     private PlayerStats playerStats;
     private RatingService ratingService;
 
-
+    //Constructor
     public CoachController(ScannerHelper sc, MemberManager memberManager, ResultManager resultManager, PlayerStats playerStats, RatingService ratingService){
         this.sc = sc;
         this.memberManager = memberManager;
@@ -48,9 +48,8 @@ public class CoachController {
                     playerStats();
                     break;
                 case 3 :
-                playerMatches();
-                    System.out.println("Turneringskampe for spiller");
-                        break;
+                    playerMatches();
+                    break;
 
                 case 0 :
                     running = false;
@@ -69,30 +68,20 @@ public class CoachController {
 
         while (running) {
             sc.printResultMenu();
-            int choice = sc.navigateMenu(6);
+            int choice = sc.navigateMenu(4);
             switch (choice) {
-                case 1 : addMatch();
+                case 1 :
+                    addMatch();
                     break;
                 case 2 :
-                // CoachManager.editMatch();
-                    System.out.println("Rediger turneringskamp");
-                break;
+                    editMatch();
+                    break;
                 case 3 :
-                removeMatch();
-                    System.out.println("Slet turneringskamp");
-                break;
+                    removeMatch();
+                    break;
                 case 4 :
-                // CoachManager.addTrainingResult();
-                    System.out.println("Tilføj træningsresultat");
-                break;
-                case 5 :
-                // CoachManager.editTrainingResult();
-                    System.out.println("Rediger træningsresultat");
-                break;
-                case 6 :
-                // CoachManager.removeTrainingResult();
-                    System.out.println("Slet træningsresultat");
-                break;
+                    showMatchDetails();
+                    break;
                 case 0 :
                     running = false;
                     break;
@@ -103,17 +92,82 @@ public class CoachController {
 
     }
 
-    private void removeMatch() {
-        sc.printLn("\n=== Fjern en kamp ===");
-        int matchID = sc.askNumber("Hvilken kamp vil du gerne slette? (Indtast ID): ");
+    /**
+     * Viser detaljer fra en kamp
+     */
+    private void showMatchDetails() {
+        Integer matchID = chooseMatchID();
+        if(matchID == null) return;
 
-        try{
-            //resultManager.deleteResults(matchID);
-        } catch (IndexOutOfBoundsException IOE){
-            sc.printLn("Der findes ingen kamp med dette ID");
+        List<PlayerResult> list = resultManager.getResultsFromMatch(matchID);
+        if(list.isEmpty()){
+            sc.printLn("Der blev ikke fundet nogen resultater for denne kamp.");
+            return;
         }
 
-        sc.printLn("Kamp " + matchID + " er blevet slettet");
+        sc.printLn("\nKamp " + matchID + ":");
+        PlayerResult first = list.getFirst();
+        sc.printLn("Dato: " + first.getDate());
+        sc.printLn("Kamptype: " + first.getType());
+        sc.printLn("Disciplin: " + first.getDiscipline());
+        sc.printLn("Modstander(e): " + first.getOpponentInfo());
+        sc.printLn("Score: " + first.getScore());
+
+        sc.printLn("Spillere:");
+        for(PlayerResult r : list){
+            sc.printLn("- " + r.getPlayer().getName() + " (" + r.getOutcome() + ")");
+        }
+    }
+
+    /**
+     * Redigerer en kamp. Kan kun ændre modstander info og score.
+     */
+    private void editMatch() {
+        Integer matchID = chooseMatchID();
+        if (matchID == null) return;
+
+        String newOpponent = sc.askQuestion("Ny modstander-tekst (tom = uændret)");
+        String newScore    = sc.askQuestion("Ny score (tom = uændret)");
+
+        List<PlayerResult> list = resultManager.getResultsFromMatch(matchID);
+        if (list.isEmpty()) {
+            sc.printLn("Ingen resultater fundet.");
+            return;
+        }
+
+        PlayerResult first = list.get(0);
+        if (newOpponent.isBlank()) newOpponent = first.getOpponentInfo();
+        if (newScore.isBlank()) newScore = first.getScore();
+
+        boolean ok = resultManager.updateMatchScoreAndOpponent(matchID, newScore, newOpponent);
+        if (ok) sc.printLn("Kamp opdateret.");
+        else sc.printLn("Kunne ikke opdatere kampen.");
+    }
+
+    /**
+     * Sletter en kamp ud fra brugerinput
+     */
+    private void removeMatch() {
+        sc.printLn("\n=== Fjern en kamp ===");
+        Integer matchID = chooseMatchID();
+        if(matchID == null) return;
+
+        sc.printLn("Er du sikker på du vil slette kamp " + matchID + "?");
+        sc.printLn("1. Ja");
+        sc.printLn("2. Nej");
+        int choice = sc.askNumber("Vælg: ");
+
+        if(choice != 1){
+            sc.printLn("Sletning afbrudt");
+            return;
+        }
+
+        boolean ok = resultManager.deleteMatch(matchID);
+        if(ok) {
+            sc.printLn("Kamp " + matchID + " er blevet slettet");
+        } else {
+            sc.printLn("Kunne ikke finde kampen");
+        }
     }
 
     /**
@@ -250,6 +304,24 @@ public class CoachController {
         return true;
     }
 
+    private Integer chooseMatchID(){
+        Set<Integer> ids = resultManager.getAllMatchIDs();
+        if(ids.isEmpty()){
+            sc.printLn("Der er ingen registrerede kampe");
+            return null;
+        }
+
+        sc.printLn("Tilgængelige match IDs: " + ids);
+        int id = sc.askNumber("Vælg et ID: ");
+
+        if(!ids.contains(id)){
+            sc.printLn("Ukendt ID.");
+            return null;
+        }
+
+        return id;
+    }
+
     /**
      * Hjælper metode til at filtrere konkurrencespillere
      * @return Member
@@ -344,8 +416,8 @@ public class CoachController {
     private void topFive() {
         sc.printLn("\n=== Top 5 ===");
         sc.printLn("Hvad vil du gerne se top 5 over?");
-        sc.printLn("1. Elo - ranking");
-        sc.printLn("2. Smash point - ranking");
+        sc.printLn("1. Elo - ranking (Kun konkurrencespillere)");
+        sc.printLn("2. Smash point - ranking (Kun træning)");
         sc.printLn("3. En specifik disciplin (flest sejre)");
         int choice = sc.askNumber("Vælg: ");
 
@@ -373,7 +445,7 @@ public class CoachController {
             return;
         }
 
-        sc.printLn("\n=== TOP 5 SMASH-point ===");
+        sc.printLn("\n=== TOP 5 SMASH-point (Kun træning) ===");
         int rank = 1;
         for (Member m : top5) {
             sc.printLn(rank + ". " + m.getName() + " (SMASH: " + m.getSmashPoints() + ")");
