@@ -5,7 +5,6 @@ import main.java.membership.*;
 import main.java.tournaments.MatchType;
 import main.java.tournaments.PlayerResult;
 import main.java.tournaments.ResultOutcome;
-import main.java.tournaments.Tournament;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -100,15 +99,15 @@ public class FileHandler {
             cancellationDate = Formatter.localDateToString(m.getCancellationDate());
             activePassive = Formatter.booleanToString(m.getMembership().isActive(), "Aktivt", "Passivt");
             if (m.getPlayPreference() == null) {
-                competitiveCasual = "";
-                playsSingle = "";
-                playsDouble = "";
-                playsMixDouble = "";
+                competitiveCasual = "Motionist";
+                playsSingle = "Nej";
+                playsDouble = "Nej";
+                playsMixDouble = "Nej";
             } else {
                 competitiveCasual =  Formatter.booleanToString(m.getPlayPreference().isCompetetiveMember(), "Konkurrencespiller", "Motionist");
-                playsSingle = Formatter.booleanToString(m.getPlayPreference().getGamePreference().contains(Disciplines.SINGLE), "Ja", "");
-                playsDouble = Formatter.booleanToString(m.getPlayPreference().getGamePreference().contains(Disciplines.DOUBLE), "Ja", "");
-                playsMixDouble = Formatter.booleanToString(m.getPlayPreference().getGamePreference().contains(Disciplines.MIXDOUBLE), "Ja", "");
+                playsSingle = Formatter.booleanToString(m.getPlayPreference().getGamePreference().contains(Disciplines.SINGLE), "Ja", "Nej");
+                playsDouble = Formatter.booleanToString(m.getPlayPreference().getGamePreference().contains(Disciplines.DOUBLE), "Ja", "Nej");
+                playsMixDouble = Formatter.booleanToString(m.getPlayPreference().getGamePreference().contains(Disciplines.MIXDOUBLE), "Ja", "Nej");
             }
 
             singleLine = name + delimiter + memberID + delimiter + phoneNumber + delimiter + birthday + delimiter + signUpDate +
@@ -172,7 +171,6 @@ public class FileHandler {
 
     public void savePlayerStatsToCSV() {
 
-        final String delimiter = ";";
         String singleLine;
 
         ArrayList<String> playerStatsCSV = new ArrayList<>();
@@ -217,7 +215,6 @@ public class FileHandler {
 
     public void saveResultsToCSV() {
         ArrayList<String> parts = new ArrayList<>();
-        final String delimiter = ";";
         String singleLine;
 
         String matchID = "KampID";
@@ -266,41 +263,41 @@ public class FileHandler {
         return fileContent;
     }
 
-    public void readMemberCSV() {
+    public void createMembersFromCSV() {
         ArrayList<String[]> fileContent = readFromFile(memberDatabaseFilePath);
         for (String[] parts : fileContent) {
+
             String memberName = parts[0];
             int memberID = Integer.parseInt(parts[1]);
             String phoneNumber = parts[2];
             LocalDate birthday = Formatter.stringToLocalDate(parts[3]);
             LocalDate signUpDate = Formatter.stringToLocalDate(parts[4]);
-            LocalDate cancellationDate = Formatter.stringToLocalDate(parts[5]);
+
+            LocalDate cancellationDate = null;
+            if (!parts[5].isBlank()) {
+                cancellationDate = Formatter.stringToLocalDate(parts[5]);
+            }
+
             boolean isActive = parts[6].equalsIgnoreCase("aktivt");
             boolean isCompetitive = parts[7].equalsIgnoreCase("konkurrencespiller");
             boolean playsSingle = parts[8].equalsIgnoreCase("ja");
             boolean playsDouble = parts[9].equalsIgnoreCase("ja");
             boolean playsMixDouble = parts[10].equalsIgnoreCase("ja");
 
-            memberManager.addMember(new Member(memberName, phoneNumber, birthday, signUpDate,
+            HashSet<Disciplines> disciplinesSet = new HashSet<>();
+            if (playsSingle) disciplinesSet.add(Disciplines.SINGLE);
+            if (playsDouble) disciplinesSet.add(Disciplines.DOUBLE);
+            if (playsMixDouble) disciplinesSet.add(Disciplines.MIXDOUBLE);
+
+            Member m = new Member(memberName, phoneNumber, birthday, signUpDate,
                     isActive ? new ActiveMembership() : new PassiveMembership(),
-                    new PlayPreference(
-                            isCompetitive,
-                            new HashSet<>(List.of(
-                                    playsSingle ? Disciplines.SINGLE,
-                                    playsDouble ? Disciplines.DOUBLE,
-                                    playsMixDouble ? Disciplines.MIXDOUBLE)
+                    new PlayPreference(isCompetitive, disciplinesSet));
 
-                            ))
-                    )));
+            memberManager.addMember(m);
 
-
-
-
-
-
-
-
-
+            if (cancellationDate != null) {
+                m.setCancellationDate(cancellationDate);
+            }
         }
     }
 
