@@ -148,6 +148,8 @@ public class FileHandler {
         singleLine = name + delimiter + memberID + delimiter + paymentID + delimiter + dueDate + delimiter + seasonQuarter +
                 delimiter + amount + delimiter + isPaid;
 
+        paymentCSV.add(singleLine);
+
 
         for (MembershipPayment p : paymentManager.getAllPaymentsSortedByDueDateMemberID()) {
 
