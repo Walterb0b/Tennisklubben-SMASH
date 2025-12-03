@@ -32,13 +32,15 @@ public class Main {
 
         MemberManager mm = new MemberManager();
         ScannerHelper sh = new ScannerHelper(mm);
-        FileHandler fh = new FileHandler(mm);
+
         PaymentManager pm = new PaymentManager(mm);
         StamDataManager sdm = new StamDataManager(mm);
         ResultManager rm = new ResultManager();
         TournamentManager tm = new TournamentManager();
         PlayerStats ps = new PlayerStats(rm, mm);
         RatingService rs = new RatingService();
+
+        FileHandler fh = new FileHandler(mm, pm, rm, tm, ps);
 
         MainController mainController = new MainController(sh, mm, sdm, pm, rm, tm,ps, rs);
 
@@ -56,6 +58,8 @@ public class Main {
         pm.createSeasonQuarterPayment(2026);
 
         fh.saveMembersToCSV();
+        fh.savePaymentsToCSV();
+        fh.savePlayerStatsToCSV();
 
 
 

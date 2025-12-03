@@ -169,47 +169,4 @@ public class PaymentManager {
         }
     }
     */
-    public void savePaymentsToCSV() {
-        String name;
-        String memberID;
-        String paymentID;
-        String dueDate;
-        String seasonQuarter;
-        String amount;
-        String isPaid;
-
-
-        final String delimiter = ";";
-        String singleLine;
-
-        ArrayList<String> paymentCSV = new ArrayList<>();
-
-        name = "Medlemsnavn";
-        memberID = "MedlemsID";
-        paymentID = "BetalingsID";
-        dueDate = "Betalingsdato";
-        seasonQuarter = "Sæsonskvartal";
-        amount = "Beløb";
-        isPaid = "Betalt";
-
-
-        for (MembershipPayment p : payments.values()) {
-
-            Member m = p.getMember();
-
-            name = m.getName();
-            memberID = String.valueOf(m.getMemberID());
-            paymentID = String.valueOf(p.getPaymentID());
-            dueDate = Formatter.localDateToString(p.getDueDate());
-            seasonQuarter = p.getSeasonQuarter();
-            amount = String.valueOf(p.getAmount());
-            isPaid = String.valueOf(p.getIsPaid());
-
-            singleLine = name + delimiter + memberID + delimiter + paymentID + delimiter + dueDate + delimiter + seasonQuarter +
-                    delimiter + amount + delimiter + isPaid + delimiter ;
-
-            paymentCSV.add(singleLine + "\n");
-        }
-        FileHandler.writeFile(paymentCSV, "paymentDatabase.csv");
-    }
 }

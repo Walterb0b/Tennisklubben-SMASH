@@ -92,32 +92,5 @@ public class PlayerStats {
         return list.subList(0, limit);
     }
 
-    public void savePlayerStatsToCSV() {
 
-        final String delimiter = ";";
-        String singleLine;
-
-        ArrayList<String> playerStatsCSV = new ArrayList<>();
-
-        for (Member m : memberManager.getAllMembersSortedByMemberIDName()) {
-
-            String name = m.getName();
-            String memberID = String.valueOf(m.getMemberID());
-            int winsSingle = getWins(m, Disciplines.SINGLE);
-            int lossesSingle = getLosses(m, Disciplines.SINGLE);
-            int winsDouble = getWins(m, Disciplines.DOUBLE);
-            int lossesDouble = getLosses(m, Disciplines.DOUBLE);
-            int winsMix = getWins(m, Disciplines.MIXDOUBLE);
-            int lossesMix = getLosses(m, Disciplines.MIXDOUBLE);
-            String eloRating = String.valueOf(m.getEloRating());
-            String smashPoints = String.valueOf(m.getSmashPoints());
-
-
-            singleLine = name + delimiter + memberID + delimiter + winsSingle + delimiter + lossesSingle + delimiter + winsDouble +
-                    delimiter + lossesDouble + delimiter + winsMix + delimiter + lossesMix + delimiter + eloRating + delimiter + smashPoints;
-
-            playerStatsCSV.add(singleLine + "\n");
-        }
-        FileHandler.writeFile(playerStatsCSV, "playerStatsDatabase.csv");
-    }
 }
