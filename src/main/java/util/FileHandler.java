@@ -5,10 +5,18 @@ import main.java.membership.Disciplines;
 import main.java.membership.Member;
 import main.java.membership.MembershipPayment;
 import main.java.membership.PlayPreference;
+import main.java.tournaments.MatchType;
+import main.java.tournaments.PlayerResult;
+import main.java.tournaments.ResultOutcome;
 import main.java.tournaments.Tournament;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+
+import static main.java.tournaments.MatchType.TRÆNING;
+import static main.java.tournaments.MatchType.TURNERING;
 
 public class FileHandler {
     private MemberManager memberManager;
@@ -116,7 +124,101 @@ public class FileHandler {
         writeFile(memberCSV, "memberDatabase.csv");
 
     }
-    public static ArrayList<String[]> readFromFile(String filename){
+
+    public void savePaymentsToCSV() {
+        String name;
+        String memberID;
+        String paymentID;
+        String dueDate;
+        String seasonQuarter;
+        String amount;
+        String isPaid;
+
+
+        String singleLine;
+
+        ArrayList<String> paymentCSV = new ArrayList<>();
+
+
+        name = "Medlemsnavn";
+        memberID = "MedlemsID";
+        paymentID = "BetalingsID";
+        dueDate = "Betalingsdato";
+        seasonQuarter = "Sæsonskvartal";
+        amount = "Beløb";
+        isPaid = "Betalt";
+
+        singleLine = name + delimiter + memberID + delimiter + paymentID + delimiter + dueDate + delimiter + seasonQuarter +
+                delimiter + amount + delimiter + isPaid;
+
+
+        for (MembershipPayment p : paymentManager.getAllPaymentsSortedByDueDateMemberID()) {
+
+            Member m = p.getMember();
+
+            name = m.getName();
+            memberID = String.valueOf(m.getMemberID());
+            paymentID = String.valueOf(p.getPaymentID());
+            dueDate = Formatter.localDateToString(p.getDueDate());
+            seasonQuarter = p.getSeasonQuarter();
+            amount = String.valueOf(p.getAmount());
+            isPaid = String.valueOf(p.getIsPaid());
+
+            singleLine = name + delimiter + memberID + delimiter + paymentID + delimiter + dueDate + delimiter + seasonQuarter +
+                    delimiter + amount + delimiter + isPaid + delimiter ;
+
+            paymentCSV.add(singleLine);
+        }
+        writeFile(paymentCSV, "paymentDatabase.csv");
+    }
+
+    public void savePlayerStatsToCSV() {
+
+        final String delimiter = ";";
+        String singleLine;
+
+        ArrayList<String> playerStatsCSV = new ArrayList<>();
+
+        String name = "Medlemsnavn";
+        String memberID = "MedlemsID";
+        String winsSingle = "Single vundet";
+        String lossesSingle = "Single tabt";
+        String winsDouble = "Double vundet";
+        String lossesDouble = "Double tabt";
+        String winsMix = "MixDouble vundet";
+        String lossesMix = "MixDouble tabt";
+        String eloRating = "eloRating";
+        String smashPoints = "SmashPoints";
+
+
+        singleLine = name + delimiter + memberID + delimiter + winsSingle + delimiter + lossesSingle + delimiter + winsDouble +
+                delimiter + lossesDouble + delimiter + winsMix + delimiter + lossesMix + delimiter + eloRating + delimiter + smashPoints;
+        playerStatsCSV.add(singleLine);
+
+        for (Member m : memberManager.getAllMembersSortedByMemberIDName()) {
+
+            name = m.getName();
+            memberID = String.valueOf(m.getMemberID());
+            winsSingle = String.valueOf(playerStats.getWins(m, Disciplines.SINGLE));
+            lossesSingle = String.valueOf(playerStats.getLosses(m, Disciplines.SINGLE));
+            winsDouble = String.valueOf(playerStats.getWins(m, Disciplines.DOUBLE));
+            lossesDouble = String.valueOf(playerStats.getLosses(m, Disciplines.DOUBLE));
+            winsMix = String.valueOf(playerStats.getWins(m, Disciplines.MIXDOUBLE));
+            lossesMix = String.valueOf(playerStats.getLosses(m, Disciplines.MIXDOUBLE));
+            eloRating = String.valueOf(m.getEloRating());
+            smashPoints = String.valueOf(m.getSmashPoints());
+
+
+            singleLine = name + delimiter + memberID + delimiter + winsSingle + delimiter + lossesSingle + delimiter + winsDouble +
+                    delimiter + lossesDouble + delimiter + winsMix + delimiter + lossesMix + delimiter + eloRating + delimiter + smashPoints;
+
+            playerStatsCSV.add(singleLine);
+        }
+        writeFile(playerStatsCSV, "playerStatsDatabase.csv");
+    }
+
+
+    public ArrayList<String[]> readFromFile(String filename){
         ArrayList<String[]> fileContent = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader(filename))){
             br.readLine();
@@ -134,5 +236,72 @@ public class FileHandler {
     }
 
 
+public void saveResultsToCSV() {
+    ArrayList<String> parts = new ArrayList<>();
+    final String delimiter = ";";
+    String singleLine;
 
+    String matchID = "KampID";
+    String memberID = "MedlemsID";
+    String discipline = "Discipline";
+    String type = "Type";
+    String outcome = "Resultat";
+    String opponents = "Modstander(ere)";
+    String score = "Score";
+    String date = "Dato";
+
+
+    singleLine = matchID + delimiter + memberID + delimiter + discipline + delimiter + type + delimiter + outcome +
+            delimiter + opponents + delimiter + score + delimiter + date;
+    parts.add(singleLine);
+
+    for (PlayerResult r : resultManager.getAllResults()) {
+        parts.add(
+                r.getMatchID() + delimiter
+                        + r.getPlayer().getMemberID() + delimiter
+                        + r.getDiscipline() + delimiter
+                        + r.getType() + delimiter
+                        + r.getOutcome() + delimiter
+                        + r.getOpponentInfo() + delimiter
+                        + r.getScore() + delimiter
+                        + Formatter.localDateToString(r.getDate()) + "\n");
+
+    }
+    writeFile(parts, "resultDatabase.csv");
+}
+
+    public void readResultsCSV() {
+        ArrayList<String[]> fileContent = readFromFile("resultDatabase.csv");
+
+        for (String[] parts : fileContent) {
+            int matchID = Integer.parseInt(parts[0]);
+            int memberID = Integer.parseInt(parts[1]);
+            Disciplines discipline = Disciplines.valueOf(parts[2]);
+            MatchType type = MatchType.valueOf(parts[3]);
+            ResultOutcome outcome = ResultOutcome.valueOf(parts[4]);
+            String opponents = parts[5];
+            String score = parts[6];
+            LocalDate date = Formatter.stringToLocalDate(parts[7]);
+
+            Member m = memberManager.getMember(memberID);
+            if (m == null) {
+                System.out.println("Fejl ved indlæsning af resultater fra filen for medlem " + memberID);
+                continue;
+            }
+
+            if (type == TURNERING) {
+                resultManager.addExternalMatchResult(
+                        List.of(m), discipline, type, opponents, score, date
+                );
+            } else if (type == TRÆNING) {
+                // You will need a way to get both teams. If you saved opponent IDs somewhere, reconstruct the teams:
+                List<Member> teamA = List.of(m); // placeholder
+                List<Member> teamB = List.of(); // parse opponents into Members
+                int winningTeam = outcome == ResultOutcome.VUNDET ? 1 : 2; // simple logic
+                resultManager.addInternalMatchResult(teamA, teamB, discipline, type, winningTeam, score, date);
+            }
+
+            //nextMatchID = Math.max(nextMatchID, matchID + 1);
+        }
+    }
 }
