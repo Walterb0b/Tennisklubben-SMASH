@@ -8,6 +8,7 @@ import main.java.tournaments.ResultOutcome;
 import main.java.util.FileHandler;
 import main.java.util.Formatter;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -93,4 +94,51 @@ public class PlayerStats {
     }
 
 
+        final String delimiter = ";";
+        String singleLine;
+
+        ArrayList<String> playerStatsCSV = new ArrayList<>();
+
+        for (Member m : memberManager.getAllMembersSortedByMemberIDName()) {
+
+            String name = m.getName();
+            String memberID = String.valueOf(m.getMemberID());
+            //int winsSingle = getWins(m, Disciplines.SINGLE);
+            //int lossesSingle = getLosses(m, Disciplines.SINGLE);
+            //int winsDouble = getWins(m, Disciplines.DOUBLE);
+            //int lossesDouble = getLosses(m, Disciplines.DOUBLE);
+            //int winsMix = getWins(m, Disciplines.MIXDOUBLE);
+            //int lossesMix = getLosses(m, Disciplines.MIXDOUBLE);
+            String eloRating = String.valueOf(m.getEloRating());
+            String smashPoints = String.valueOf(m.getSmashPoints());
+
+
+            singleLine = name + delimiter + memberID + delimiter + eloRating + delimiter + smashPoints;
+
+            playerStatsCSV.add(singleLine + "\n");
+        }
+        FileHandler.writeFile(playerStatsCSV, "playerStatsDatabase.csv");
+    }
+
+    public void readPlayerStatsCSV () {
+        ArrayList<String[]> fileContent = FileHandler.readFromFile("playerStatsDatabase.csv");
+
+        for(String[] parts : fileContent) {
+            String name = parts[0];
+            int memberID = Integer.parseInt(parts[1]);
+            int eloRating = Integer.parseInt(parts[2]);
+            int smashPoints = Integer.parseInt(parts[3]);
+
+            Member m = memberManager.getMember(memberID);
+            if (m == null) {
+                System.out.println("Fejl ved indlæsning af spillerstatistik fra filen for medlem " + memberID);
+                continue;
+            }
+
+            m.setEloRating(eloRating);
+            m.setSmashPoints(smashPoints);
+
+
+        }
+    }
 }
