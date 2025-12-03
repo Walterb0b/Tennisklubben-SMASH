@@ -5,6 +5,9 @@ import main.java.membership.Member;
 import main.java.tournaments.MatchType;
 import main.java.tournaments.PlayerResult;
 import main.java.tournaments.ResultOutcome;
+import main.java.util.FileHandler;
+import main.java.util.Formatter;
+import main.java.logic.MemberManager;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,7 +20,7 @@ public class ResultManager {
     private final List<PlayerResult> results = new ArrayList<>();
     private int nextMatchID = 1;
 
-    public List<PlayerResult> getAllResults(){
+    public List<PlayerResult> getAllResults() {
         return results;
     }
 
@@ -35,7 +38,7 @@ public class ResultManager {
 
         ResultOutcome outcome = calculateOutcomeFromScore(score);
 
-        for(Member player : clubPlayers){
+        for (Member player : clubPlayers) {
             results.add(new PlayerResult(matchID, player, discipline, type, outcome, opponentInfo, score, date));
         }
     }
@@ -56,10 +59,10 @@ public class ResultManager {
         List<Member> winners = (winningTeam == 1) ? teamA : teamB;
         List<Member> losers = (winningTeam == 1) ? teamB : teamA;
 
-        for(Member w : winners){
+        for (Member w : winners) {
             results.add(new PlayerResult(matchID, w, discipline, type, ResultOutcome.VUNDET, buildOpponentNameString(losers), score, date));
         }
-        for(Member l : losers){
+        for (Member l : losers) {
             results.add(new PlayerResult(matchID, l, discipline, type, ResultOutcome.TABT, buildOpponentNameString(winners), score, date));
         }
     }
@@ -93,22 +96,22 @@ public class ResultManager {
 
         String[] sets = score.trim().split("\\s+");
 
-        for(String set : sets){
+        for (String set : sets) {
             String[] parts = set.split("-");
-            if(parts.length != 2) {
+            if (parts.length != 2) {
                 continue;
             }
 
-            try{
+            try {
                 int ours = Integer.parseInt(parts[0]);
                 int theirs = Integer.parseInt(parts[1]);
 
-                if(ours > theirs){
+                if (ours > theirs) {
                     setsWon++;
                 } else {
                     setsLost++;
                 }
-            } catch (NumberFormatException nfe){
+            } catch (NumberFormatException nfe) {
                 System.out.println("Fejl i scoreinput");
             }
         }

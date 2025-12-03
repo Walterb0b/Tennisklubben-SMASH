@@ -70,6 +70,18 @@ public class MembershipPayment {
         return amount;
     }
 
+    public void setPaymentID(int paymentID) {
+        this.paymentID = this.paymentID;
+    }
+
+    public void setSeasonQuarter(String seasonQuarter){
+        this.seasonQuarter = this.seasonQuarter;
+    }
+
+    public void setAmount(double amount){
+        this.amount = this.amount;
+    }
+
     public String paymentString() {
         return "Kvartal: " + seasonQuarter + ", Beløb: " + amount + " kr." + ", BetalingsID: " + paymentID;
     }
@@ -109,5 +121,13 @@ public class MembershipPayment {
                 "Kvartal: " + seasonQuarter + "\n" +
                 "Medlem: " + member + "\n" +
                 "Beløb: " + amount + " kr." + "\n";
+    }
+
+    public Member getMember() {
+        return member;
+    }
+
+    public void setMember(Member member) {
+        this.member = member;
     }
 }

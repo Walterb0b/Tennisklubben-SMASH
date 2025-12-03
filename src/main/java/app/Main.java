@@ -9,6 +9,8 @@ import main.java.logic.TournamentManager;
 import main.java.logic.*;
 import main.java.membership.*;
 import main.java.tournaments.Tournament;
+import main.java.util.FileHandler;
+import main.java.util.Formatter;
 import main.java.util.ScannerHelper;
 import main.java.membership.StamDataManager;
 
@@ -30,12 +32,15 @@ public class Main {
 
         MemberManager mm = new MemberManager();
         ScannerHelper sh = new ScannerHelper(mm);
+
         PaymentManager pm = new PaymentManager(mm);
         StamDataManager sdm = new StamDataManager(mm);
         ResultManager rm = new ResultManager();
         TournamentManager tm = new TournamentManager();
         PlayerStats ps = new PlayerStats(rm, mm);
         RatingService rs = new RatingService();
+
+        FileHandler fh = new FileHandler(mm, pm, rm, tm, ps);
 
         MainController mainController = new MainController(sh, mm, sdm, pm, rm, tm,ps, rs);
 
@@ -51,6 +56,10 @@ public class Main {
         mm.addMember(m5);
         pm.createSeasonQuarterPayment(2025);
         pm.createSeasonQuarterPayment(2026);
+
+        fh.saveMembersToCSV();
+        fh.savePaymentsToCSV();
+        fh.savePlayerStatsToCSV();
 
 
 
