@@ -294,10 +294,9 @@ public void saveResultsToCSV() {
                         List.of(m), discipline, type, opponents, score, date
                 );
             } else if (type == TRÆNING) {
-                // You will need a way to get both teams. If you saved opponent IDs somewhere, reconstruct the teams:
-                List<Member> teamA = List.of(m); // placeholder
-                List<Member> teamB = List.of(); // parse opponents into Members
-                int winningTeam = outcome == ResultOutcome.VUNDET ? 1 : 2; // simple logic
+                List<Member> teamA = List.of(m);
+                List<Member> teamB = List.of();
+                int winningTeam = outcome == ResultOutcome.VUNDET ? 1 : 2;
                 resultManager.addInternalMatchResult(teamA, teamB, discipline, type, winningTeam, score, date);
             }
 
