@@ -1,10 +1,7 @@
 package main.java.util;
 
 import main.java.logic.*;
-import main.java.membership.Disciplines;
-import main.java.membership.Member;
-import main.java.membership.MembershipPayment;
-import main.java.membership.PlayPreference;
+import main.java.membership.*;
 import main.java.tournaments.MatchType;
 import main.java.tournaments.PlayerResult;
 import main.java.tournaments.ResultOutcome;
@@ -13,6 +10,7 @@ import main.java.tournaments.Tournament;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import static main.java.tournaments.MatchType.TRÆNING;
@@ -25,6 +23,10 @@ public class FileHandler {
     private TournamentManager tournamentManager;
     private PlayerStats playerStats;
     private final String delimiter = ";";
+    private String memberDatabaseFilePath = "memberDatabase.csv";
+    private String paymentDatabaseFilePath = "paymentDatabase.csv";
+    private String playerStatsDatabaseFilePath = "paymentDatabase.csv";
+
 
     public FileHandler (MemberManager memberManager, PaymentManager paymentManager, ResultManager resultManager, TournamentManager tournamentManager, PlayerStats playerStats) {
         this.memberManager = memberManager;
@@ -65,7 +67,6 @@ public class FileHandler {
         String playsSingle;
         String playsDouble;
         String playsMixDouble;
-        String smashPoint;
 
 
         String singleLine;
@@ -83,11 +84,10 @@ public class FileHandler {
         playsSingle = "Disciplin: Spiller Single";
         playsDouble = "Disciplin: Spiller Double";
         playsMixDouble = "Disciplin: Spiller MixDouble";
-        smashPoint = "Antal SmashPoint";
 
         singleLine = name + delimiter + memberID + delimiter + phoneNumber + delimiter + birthday + delimiter + signUpDate +
                 delimiter + cancellationDate + delimiter + activePassive + delimiter + competitiveCasual + delimiter +
-                playsSingle + delimiter + playsDouble + delimiter + playsMixDouble + delimiter + smashPoint;
+                playsSingle + delimiter + playsDouble + delimiter + playsMixDouble;
 
         memberCSV.add(singleLine);
 
@@ -111,17 +111,15 @@ public class FileHandler {
                 playsMixDouble = Formatter.booleanToString(m.getPlayPreference().getGamePreference().contains(Disciplines.MIXDOUBLE), "Ja", "");
             }
 
-            smashPoint = String.valueOf(m.getSmashPoints());
-
             singleLine = name + delimiter + memberID + delimiter + phoneNumber + delimiter + birthday + delimiter + signUpDate +
                     delimiter + cancellationDate + delimiter + activePassive + delimiter + competitiveCasual + delimiter +
-                    playsSingle + delimiter + playsDouble + delimiter + playsMixDouble + delimiter + smashPoint;
+                    playsSingle + delimiter + playsDouble + delimiter + playsMixDouble;
 
             memberCSV.add(singleLine);
 
         }
 
-        writeFile(memberCSV, "memberDatabase.csv");
+        writeFile(memberCSV, memberDatabaseFilePath);
 
     }
 
@@ -217,6 +215,39 @@ public class FileHandler {
         writeFile(playerStatsCSV, "playerStatsDatabase.csv");
     }
 
+    public void saveResultsToCSV() {
+        ArrayList<String> parts = new ArrayList<>();
+        final String delimiter = ";";
+        String singleLine;
+
+        String matchID = "KampID";
+        String memberID = "MedlemsID";
+        String discipline = "Discipline";
+        String type = "Type";
+        String outcome = "Resultat";
+        String opponents = "Modstander(ere)";
+        String score = "Score";
+        String date = "Dato";
+
+
+        singleLine = matchID + delimiter + memberID + delimiter + discipline + delimiter + type + delimiter + outcome +
+                delimiter + opponents + delimiter + score + delimiter + date;
+        parts.add(singleLine);
+
+        for (PlayerResult r : resultManager.getAllResults()) {
+            parts.add(
+                    r.getMatchID() + delimiter
+                            + r.getPlayer().getMemberID() + delimiter
+                            + r.getDiscipline() + delimiter
+                            + r.getType() + delimiter
+                            + r.getOutcome() + delimiter
+                            + r.getOpponentInfo() + delimiter
+                            + r.getScore() + delimiter
+                            + Formatter.localDateToString(r.getDate()));
+
+        }
+        writeFile(parts, "resultDatabase.csv");
+    }
 
     public ArrayList<String[]> readFromFile(String filename){
         ArrayList<String[]> fileContent = new ArrayList<>();
@@ -235,40 +266,43 @@ public class FileHandler {
         return fileContent;
     }
 
+    public void readMemberCSV() {
+        ArrayList<String[]> fileContent = readFromFile(memberDatabaseFilePath);
+        for (String[] parts : fileContent) {
+            String memberName = parts[0];
+            int memberID = Integer.parseInt(parts[1]);
+            String phoneNumber = parts[2];
+            LocalDate birthday = Formatter.stringToLocalDate(parts[3]);
+            LocalDate signUpDate = Formatter.stringToLocalDate(parts[4]);
+            LocalDate cancellationDate = Formatter.stringToLocalDate(parts[5]);
+            boolean isActive = parts[6].equalsIgnoreCase("aktivt");
+            boolean isCompetitive = parts[7].equalsIgnoreCase("konkurrencespiller");
+            boolean playsSingle = parts[8].equalsIgnoreCase("ja");
+            boolean playsDouble = parts[9].equalsIgnoreCase("ja");
+            boolean playsMixDouble = parts[10].equalsIgnoreCase("ja");
 
-public void saveResultsToCSV() {
-    ArrayList<String> parts = new ArrayList<>();
-    final String delimiter = ";";
-    String singleLine;
+            memberManager.addMember(new Member(memberName, phoneNumber, birthday, signUpDate,
+                    isActive ? new ActiveMembership() : new PassiveMembership(),
+                    new PlayPreference(
+                            isCompetitive,
+                            new HashSet<>(List.of(
+                                    playsSingle ? Disciplines.SINGLE,
+                                    playsDouble ? Disciplines.DOUBLE,
+                                    playsMixDouble ? Disciplines.MIXDOUBLE)
 
-    String matchID = "KampID";
-    String memberID = "MedlemsID";
-    String discipline = "Discipline";
-    String type = "Type";
-    String outcome = "Resultat";
-    String opponents = "Modstander(ere)";
-    String score = "Score";
-    String date = "Dato";
+                            ))
+                    )));
 
 
-    singleLine = matchID + delimiter + memberID + delimiter + discipline + delimiter + type + delimiter + outcome +
-            delimiter + opponents + delimiter + score + delimiter + date;
-    parts.add(singleLine);
 
-    for (PlayerResult r : resultManager.getAllResults()) {
-        parts.add(
-                r.getMatchID() + delimiter
-                        + r.getPlayer().getMemberID() + delimiter
-                        + r.getDiscipline() + delimiter
-                        + r.getType() + delimiter
-                        + r.getOutcome() + delimiter
-                        + r.getOpponentInfo() + delimiter
-                        + r.getScore() + delimiter
-                        + Formatter.localDateToString(r.getDate()) + "\n");
 
+
+
+
+
+
+        }
     }
-    writeFile(parts, "resultDatabase.csv");
-}
 
     public void readResultsCSV() {
         ArrayList<String[]> fileContent = readFromFile("resultDatabase.csv");
@@ -304,4 +338,6 @@ public void saveResultsToCSV() {
             //nextMatchID = Math.max(nextMatchID, matchID + 1);
         }
     }
+
+
 }
