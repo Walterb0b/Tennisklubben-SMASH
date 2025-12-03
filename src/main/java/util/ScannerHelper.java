@@ -24,7 +24,7 @@ public class ScannerHelper {
                 │   1. Medlemskab                    │
                 │   2. Økonomi                       │
                 │   3. Spillerstatistik              │
-                │   4. Trænings- og turneringsdata   │
+                │   4. Kampdata                      │
                 │   5. Turneringsadministration      │
                 │   9. Luk programmet                │
                 └────────────────────────────────────┘
@@ -97,14 +97,12 @@ public class ScannerHelper {
     public void printResultMenu(){
         System.out.println();
         System.out.println("""
-                🎾=== Træning og turneringsdata ===🎾
+                        🎾=== Kampdata ===🎾
                 ┌────────────────────────────────────┐
-                │     1. Tilføj turneringskamp       │
-                │     2. Rediger turneringskamp      │
-                │     3. Slet turneringskamp         │
-                │     4. Tilføj træningsresultat     │
-                │     5. Rediger træningsresultat    │
-                │     6. Slet træningsresultat       │
+                │     1. Tilføj kamp                 │
+                │     2. Rediger kamp                │
+                │     3. Slet kamp                   │
+                │     4. Se Kamp                     │
                 │     0. Gå tilbage                  │
                 └────────────────────────────────────┘
                 """);
