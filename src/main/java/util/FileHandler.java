@@ -17,6 +17,7 @@ public class FileHandler {
 
     public void writeFile(ArrayList<String> fileInput, String fileName){
 
+    public void writeFile(ArrayList<String> fileInput, String fileName){
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(fileName))){
 
             //String[] lines = fileInput.split("\n");
