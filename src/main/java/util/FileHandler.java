@@ -17,7 +17,7 @@ public class FileHandler {
             System.out.println("Error writing file.");
         }
     }
-    public ArrayList<String[]> readFromFile(String filename){
+    public static ArrayList<String[]> readFromFile(String filename){
         ArrayList<String[]> fileContent = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader(filename))){
             br.readLine();
@@ -33,4 +33,7 @@ public class FileHandler {
         }
         return fileContent;
     }
+
+
+
 }

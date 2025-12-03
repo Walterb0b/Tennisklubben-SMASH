@@ -212,4 +212,32 @@ public class PaymentManager {
         }
         FileHandler.writeFile(paymentCSV, "paymentDatabase.csv");
     }
+
+    public void readPaymentsCSV () {
+        ArrayList<String[]> fileContent = FileHandler.readFromFile("paymentDatabase.csv");
+
+        for(String[] parts : fileContent){
+            String name = parts[0];
+            int memberID = Integer.parseInt(parts[1]);
+            int paymentID = Integer.parseInt(parts[2]);
+            LocalDate dueDate = Formatter.stringToLocalDate(parts[3]);
+            String seasonQuarter = parts[4];
+            double amount = Double.parseDouble(parts[5]);
+            boolean isPaid = Boolean.parseBoolean(parts[6]);
+
+            Member m = memberManager.getMember(memberID);
+            if(m == null) {
+                System.out.println("Fejl ved indlæsning af indbetalinger fra filen for medlem " + memberID);
+                continue;
+            }
+
+            MembershipPayment payment = new MembershipPayment(m, dueDate);
+            payment.setPaymentID(paymentID);
+            payment.setAmount(amount);
+            payment.setSeasonQuarter(seasonQuarter);
+            payment.setIsPaid(isPaid);
+
+            payments.put(paymentID, payment);
+        }
+    }
 }
