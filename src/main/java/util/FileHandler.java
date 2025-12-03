@@ -5,9 +5,13 @@ import main.java.membership.Disciplines;
 import main.java.membership.Member;
 import main.java.membership.MembershipPayment;
 import main.java.membership.PlayPreference;
+import main.java.tournaments.MatchType;
+import main.java.tournaments.PlayerResult;
+import main.java.tournaments.ResultOutcome;
 import main.java.tournaments.Tournament;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class FileHandler {
@@ -209,8 +213,8 @@ public class FileHandler {
         writeFile(playerStatsCSV, "playerStatsDatabase.csv");
     }
 
-/*
-    public static ArrayList<String> readFromFile(String filename){
+
+    public ArrayList<String[]> readFromFile(String filename){
         ArrayList<String[]> fileContent = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader(filename))){
             br.readLine();
@@ -227,5 +231,48 @@ public class FileHandler {
         return fileContent;
     }
 
- */
+
+public void saveResultsToCSV() {
+    ArrayList<String> parts = new ArrayList<>();
+    final String delimiter = ";";
+
+    for (PlayerResult r : resultManager.getAllResults()) {
+        parts.add(
+                r.getMatchID() + delimiter
+                        + r.getPlayer().getMemberID() + delimiter
+                        + r.getDiscipline() + delimiter
+                        + r.getType() + delimiter
+                        + r.getOutcome() + delimiter
+                        + r.getOpponentInfo() + delimiter
+                        + r.getScore() + delimiter
+                        + Formatter.localDateToString(r.getDate()) + "\n");
+
+    }
+    writeFile(parts, "resultDatabase.csv");
+}
+
+    public void readResultsCSV() {
+        ArrayList<String[]> fileContent = readFromFile("resultDatabase.csv");
+
+        for (String[] parts : fileContent) {
+            int matchID = Integer.parseInt(parts[0]);
+            int memberID = Integer.parseInt(parts[1]);
+            Disciplines discipline = Disciplines.valueOf(parts[2]);
+            MatchType type = MatchType.valueOf(parts[3]);
+            ResultOutcome outcome = ResultOutcome.valueOf(parts[4]);
+            String opponents = parts[5];
+            String score = parts[6];
+            LocalDate date = Formatter.stringToLocalDate(parts[7]);
+
+            Member m = memberManager.getMember(memberID);
+            if (m == null) {
+                System.out.println("Fejl ved indlæsning af resultater fra filen for medlem " + memberID);
+                continue;
+            }
+
+            results.add(new PlayerResult(matchID, m, discipline, type, outcome, opponents, score, date));
+
+            //nextMatchID = Math.max(nextMatchID, matchID + 1);
+        }
+    }
 }
