@@ -32,8 +32,8 @@ public class TournamentManager {
     }
 
     /**
-     * @param id, Henter turnering ID
-     * @return, Tournament-Objekt
+     * @param id Henter turnering ID
+     * @return Tournament-Objekt
      */
     public Tournament getTournament(int id) {
         return tournaments.get(id);
@@ -54,6 +54,7 @@ public class TournamentManager {
         t.addMatchID(matchID);
         return true;
     }
+
     /**
      * Udskriver turneringer til konsol
      */

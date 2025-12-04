@@ -3,6 +3,10 @@ package main.java.membership;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * Håndterer medlemmets præference for spil. Er medlemmet konkurrencespiller eller motionist og spiller medlemmet Single,
+ * Double og/eller mixDouble
+ */
 public class PlayPreference {
     private boolean isCompetetiveMember;
     private HashSet<Disciplines> disciplines;
