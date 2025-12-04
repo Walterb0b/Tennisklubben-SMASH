@@ -363,6 +363,7 @@ public class FileHandler {
             MembershipPayment payment = new MembershipPayment(m, dueDate);
             payment.setPaymentID(paymentID);
             payment.setAmount(amount);
+            payment.setIsPaidDate(paidDate);
             payment.setSeasonQuarter(seasonQuarter);
             payment.setIsPaid(isPaid);
 

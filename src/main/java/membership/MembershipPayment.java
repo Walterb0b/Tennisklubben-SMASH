@@ -41,7 +41,7 @@ public class MembershipPayment {
     }
 
     public LocalDate getIsPaidDate() {
-        return dueDate;
+        return paidDate;
     }
 
     public void setIsPaidDate(LocalDate paidDate) {
@@ -61,11 +61,11 @@ public class MembershipPayment {
     }
 
     public void setPaymentID(int paymentID) {
-        this.paymentID = this.paymentID;
+        this.paymentID = paymentID;
     }
 
     public void setSeasonQuarter(String seasonQuarter) {
-        this.seasonQuarter = this.seasonQuarter;
+        this.seasonQuarter = seasonQuarter;
     }
 
     public void setAmount(double amount) {

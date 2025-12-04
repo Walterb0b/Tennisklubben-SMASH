@@ -90,23 +90,10 @@ public class PaymentManager {
         return payments.get(paymentID);
     }
 
-    public void addNextSeason(){
-        for (Member m : memberManager.getAllMembers().values()) {
-          //
-        }
-    }
-
     Comparator<MembershipPayment> byDueDate = Comparator.comparing(MembershipPayment::getDueDate);
     Comparator<MembershipPayment> byMemberID = Comparator.comparing(MembershipPayment::getMemberID);
     Comparator<MembershipPayment> byDueDateThenMemberID = byDueDate.thenComparing(byMemberID);
     Comparator<MembershipPayment> byMemberIDThenDueDate = byMemberID.thenComparing(byDueDate);
-
-    public void payFuturePayments(int memberID){}
-
-    private void addQuarterlyPayment(){}
-
-    private void missingPaymentsList(){}
-
 
     public ArrayList<Integer> notPaidIDs(){
         ArrayList<Integer> membersNotPaid = new ArrayList<>();
@@ -155,16 +142,5 @@ public class PaymentManager {
         }
         return sum;
     }
-    /*
-    public ArrayList<String> futureSeasonQuarters() {
-        ArrayList<String> seasonQuarters;
-
-        for (MembershipPayment p : payments.values()) {
-            if (p.getSeasonQuarter().equalsIgnoreCase(seasonQuarter)) {
-                sum = sum + p.getAmount();
-            }
-        }
-    }
-    */
 
 }
