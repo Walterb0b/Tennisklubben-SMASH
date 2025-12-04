@@ -31,6 +31,6 @@ public class PlayPreference {
 
     @Override
     public String toString(){
-        return isCompetetiveMember ? "Konkurrencespiller" : "Motionist" + List.of(getGamePreference());
+        return (isCompetetiveMember ? "Konkurrencespiller" : "Motionist") + List.of(getGamePreference());
     }
 }
