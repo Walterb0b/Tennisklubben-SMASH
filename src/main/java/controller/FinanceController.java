@@ -4,6 +4,7 @@ import main.java.logic.MemberManager;
 import main.java.logic.PaymentManager;
 import main.java.membership.MembershipPayment;
 import main.java.util.FileHandler;
+import main.java.util.Formatter;
 import main.java.util.ScannerHelper;
 
 import java.util.ArrayList;
@@ -106,15 +107,83 @@ public class FinanceController {
 
     private void missingPaymentsList() {
         ArrayList<Integer> membersNotPaid = paymentManager.notPaidIDs();
+        ArrayList<String> restanceList = new ArrayList<>();
+        String singleLine = "";
         System.out.println("\n" + futurePaymentHeader());
-        for (Integer p : membersNotPaid) {
-            MembershipPayment thisPayment = paymentManager.getPayment(p);
-            System.out.println(thisPayment.displayPaymentString());
+        String name = "";
+        int memberID = 0;
+        String notPaidQuarters = "";
+        double notPaidSum = 0.0;
+        for (int i = 0; i < membersNotPaid.size(); i++) {
+            MembershipPayment thisPayment = paymentManager.getPayment(membersNotPaid.get(i));
+
+            if (i == 0) {
+                name = thisPayment.getMember().getName();
+                memberID = thisPayment.getMemberID();
+                notPaidQuarters = thisPayment.getSeasonQuarter();
+                notPaidSum = thisPayment.getAmount();
+
+            } else {
+                if (thisPayment.getMemberID() == memberID) {
+                    notPaidSum = notPaidSum + thisPayment.getAmount();
+                    notPaidQuarters = notPaidQuarters + ", " + thisPayment.getSeasonQuarter();
+                } else {
+                    singleLine = Formatter.displayPaymentString(name, memberID, notPaidQuarters, notPaidSum);
+                    System.out.println(singleLine);
+                    name = thisPayment.getMember().getName();
+                    memberID = thisPayment.getMemberID();
+                    notPaidQuarters = thisPayment.getSeasonQuarter();
+                    notPaidSum = thisPayment.getAmount();
+                }
+
+            }
+
+
+            //System.out.println(thisPayment.displayPaymentString());
         }
         System.out.println("\n");
     }
 
     private void futurePaymentsList() {
+        ArrayList<Integer> membersNotPaid = paymentManager.futurePaymentsList();
+
+        String singleLine = "";
+        System.out.println("\n" + futurePaymentHeader());
+        String name = "";
+        int memberID = 0;
+        String notPaidQuarters = "";
+        double notPaidSum = 0.0;
+        for (int i = 0; i < membersNotPaid.size(); i++) {
+            MembershipPayment thisPayment = paymentManager.getPayment(membersNotPaid.get(i));
+
+            if (i == 0) {
+                name = thisPayment.getMember().getName();
+                memberID = thisPayment.getMemberID();
+                notPaidQuarters = thisPayment.getSeasonQuarter();
+                notPaidSum = thisPayment.getAmount();
+
+            } else {
+                if (thisPayment.getMemberID() == memberID) {
+                    notPaidSum = notPaidSum + thisPayment.getAmount();
+                    notPaidQuarters = notPaidQuarters + ", " + thisPayment.getSeasonQuarter();
+                } else {
+                    singleLine = Formatter.displayPaymentString(name, memberID, notPaidQuarters, notPaidSum);
+                    System.out.println(singleLine);
+                    name = thisPayment.getMember().getName();
+                    memberID = thisPayment.getMemberID();
+                    notPaidQuarters = thisPayment.getSeasonQuarter();
+                    notPaidSum = thisPayment.getAmount();
+                }
+
+            }
+
+
+            //System.out.println(thisPayment.displayPaymentString());
+        }
+        System.out.println("\n");
+    }
+
+    private void futurePaymentsListOLD() {
         ArrayList<Integer> futurePayments = paymentManager.futurePaymentsList();
         System.out.println("\n" + futurePaymentHeader());
         for (Integer p : futurePayments) {

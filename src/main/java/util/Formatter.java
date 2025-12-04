@@ -40,4 +40,14 @@ public class Formatter {
         return LocalDate.of(year, month, day);
 
     }
+
+    public static String displayPaymentString(String name, int memberID, String seasonQuarter, double amount){
+        return String.format("%-10s | %-30s | %4.0f kr. | %-8s ",
+                memberID,
+                name,
+                amount,
+                seasonQuarter) +
+        "\n" + "----------------------------------------------------------------------------------";
+
+    }
 }

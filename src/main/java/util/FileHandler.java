@@ -151,7 +151,7 @@ public class FileHandler {
         paymentCSV.add(singleLine);
 
 
-        for (MembershipPayment p : paymentManager.getAllPaymentsSortedByDueDateMemberID()) {
+        for (MembershipPayment p : paymentManager.getAllPaymentsSortedByMemberIDDueDate()) {
 
             Member m = p.getMember();
 

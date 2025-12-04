@@ -1,11 +1,7 @@
 package main.java.logic;
 
-import main.java.membership.ActiveMembership;
 import main.java.membership.Member;
 import main.java.membership.MembershipPayment;
-import main.java.membership.PassiveMembership;
-import main.java.util.FileHandler;
-import main.java.util.Formatter;
 import main.java.util.Validator;
 
 import java.time.LocalDate;
@@ -84,9 +80,9 @@ public class PaymentManager {
     }
 
 
-    public ArrayList<MembershipPayment> getAllPaymentsSortedByDueDateMemberID() {
+    public ArrayList<MembershipPayment> getAllPaymentsSortedByMemberIDDueDate() {
         ArrayList<MembershipPayment> paymentsSorted = new ArrayList<MembershipPayment>(payments.values());
-        paymentsSorted.sort(byDueDateThenMemberID);
+        paymentsSorted.sort(byMemberIDThenDueDate);
         return paymentsSorted;
     }
 
@@ -103,6 +99,7 @@ public class PaymentManager {
     Comparator<MembershipPayment> byDueDate = Comparator.comparing(MembershipPayment::getDueDate);
     Comparator<MembershipPayment> byMemberID = Comparator.comparing(MembershipPayment::getMemberID);
     Comparator<MembershipPayment> byDueDateThenMemberID = byDueDate.thenComparing(byMemberID);
+    Comparator<MembershipPayment> byMemberIDThenDueDate = byMemberID.thenComparing(byDueDate);
 
     public void payFuturePayments(int memberID){}
 
@@ -113,7 +110,7 @@ public class PaymentManager {
 
     public ArrayList<Integer> notPaidIDs(){
         ArrayList<Integer> membersNotPaid = new ArrayList<>();
-        for (MembershipPayment payment : getAllPaymentsSortedByDueDateMemberID()){
+        for (MembershipPayment payment : getAllPaymentsSortedByMemberIDDueDate()){
             boolean pastPayment = payment.getDueDate().isBefore(LocalDate.now());
             if(!payment.getIsPaid() && pastPayment){
                 int paymentID = payment.getPaymentID();
@@ -138,7 +135,7 @@ public class PaymentManager {
 
     public ArrayList<Integer> futurePaymentsList(){
         ArrayList<Integer> futurePayments = new ArrayList<>();
-        for (MembershipPayment payment : getAllPaymentsSortedByDueDateMemberID()){
+        for (MembershipPayment payment : getAllPaymentsSortedByMemberIDDueDate()){
             boolean futurePayment = payment.getDueDate().isAfter(LocalDate.now());
             if(futurePayment){
                 int paymentID = payment.getPaymentID();

@@ -104,13 +104,13 @@ public class MembershipPayment {
 
     public static String futurePaymentHeader() {
         return String.format(
-                "%-30s | %-10s | %-8s | %s",
-                "NAVN",
+                "%-10s | %-30s | %-8s | %s",
                 "MEDLEMS-ID",
-                "KVARTAL",
-                "BELØB"
+                "NAVN",
+                "BELØB",
+                "KVARTAL"
         ) + "\n" +
-                "----------------------------------------------------------------";
+                "----------------------------------------------------------------------------------";
     }
 
     @Override

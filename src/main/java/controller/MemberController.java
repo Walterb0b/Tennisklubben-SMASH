@@ -231,38 +231,4 @@ public class MemberController {
         }
     }
 
-    private int selectMemberFromList() {
-        boolean inputCorrect = false;
-        int viewCount = 1;
-        int memberID = 0;
-        while (!inputCorrect) {
-            String query = sc.askQuestion("Indtast MedlemsID eller søg på navn");
-            if (query.isEmpty() || query.isBlank()) {
-                System.out.println("Din søgestreng er tom. Prøv igen.");
-            } else {
-                ArrayList<Integer> memberList = memberManager.searchForMemberIDs(query);
-                if (memberList.isEmpty()) {
-                    System.out.println("Der findes ikke medlemmer, der opfylder dine søgekriterier. Prøv igen.");
-
-                } else {
-                    for (int m : memberList) {
-                        System.out.println(viewCount + ". " + memberManager.getMember(m));
-                        viewCount++;
-                    }
-                    System.out.println();
-                    System.out.println("Vælg medlem fra listen");
-                    int userSelect = sc.navigateMenu(memberList.size());
-                    userSelect = userSelect - 1;
-                    memberID = memberList.get(userSelect);
-                    memberManager.getMember(memberID);
-                    inputCorrect = true;
-                }
-
-            }
-
-        }
-        return memberID;
-
-    }
-
 }
