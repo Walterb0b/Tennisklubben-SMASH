@@ -128,6 +128,10 @@ public class Member {
         this.smashPoints = smashPoints;
     }
 
+    public String memberNameAndIDString() {
+        return "Navn: " + name + ", MedlemsID: " + memberID;
+    }
+
 
     @Override
     public String toString() {

@@ -260,7 +260,13 @@ public class ScannerHelper {
                 if (memberList.isEmpty()) {
                     System.out.println("Der findes ikke medlemmer, der opfylder dine søgekriterier. Prøv igen.");
 
-                } else {
+                } else if (memberList.size()==1) {
+                    System.out.println("Du har valgt " + memberManager.getMember(memberList.getFirst()).memberNameAndIDString());
+                    memberID = memberList.getFirst();
+                    inputCorrect = true;
+
+
+                }else {
                     for (int m : memberList) {
                         System.out.println(viewCount + ". " + memberManager.getMember(m));
                         viewCount++;

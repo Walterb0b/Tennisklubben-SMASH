@@ -65,7 +65,7 @@ public class MemberController {
     }
 
     private void showMember() {
-        int memberID = selectMemberFromList();
+        int memberID = sc.selectMemberFromList();
 
         System.out.println(memberManager.getMember(memberID));
 
