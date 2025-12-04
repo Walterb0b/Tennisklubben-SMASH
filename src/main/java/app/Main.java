@@ -65,7 +65,7 @@ public class Main {
 
         //fh.saveMembersToCSV();
         //fh.savePaymentsToCSV();
-        //fh.savePlayerStatsToCSV();
+        fh.savePlayerStatsToCSV();
 
 
 
