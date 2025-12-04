@@ -10,15 +10,26 @@ import java.util.HashMap;
 public class TournamentManager {
 
     public HashMap<Integer, Tournament> tournaments;
+    private int nextTournamentID = 1;
 
-    /**
+/**
      * Opretter ny TourManager
      */
     public TournamentManager() {this.tournaments = new HashMap<Integer, Tournament>();}
 
     /**
+     *
+     * @return næste turneringsID
+     */
+    public int generateNextTournamentID(){
+        return nextTournamentID++;
+    }
+
+    /**
      * @param tournament, tilføjer turneringer
      */
+
+
     public void addTournament(Tournament tournament) {tournaments.put(tournament.getTournamentId(), tournament);}
 
     /**
