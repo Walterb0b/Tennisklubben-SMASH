@@ -3,6 +3,7 @@ package main.java.controller;
 import main.java.logic.MemberManager;
 import main.java.logic.PaymentManager;
 import main.java.membership.*;
+import main.java.util.FileHandler;
 import main.java.util.ScannerHelper;
 import main.java.util.Validator;
 
@@ -13,12 +14,14 @@ import java.util.Scanner;
 
 public class MemberController {
     private ScannerHelper sc;
+    private FileHandler fh;
     private MemberManager memberManager;
     private StamDataManager stamDataManager;
     private PaymentManager paymentManager;
 
-    public MemberController(ScannerHelper sc, MemberManager memberManager, StamDataManager stamDataManager, PaymentManager paymentManager) {
+    public MemberController(ScannerHelper sc, FileHandler fh, MemberManager memberManager, StamDataManager stamDataManager, PaymentManager paymentManager) {
         this.sc = sc;
+        this.fh = fh;
         this.memberManager = memberManager;
         this.stamDataManager = stamDataManager;
         this.paymentManager = paymentManager;
@@ -42,9 +45,11 @@ public class MemberController {
                     break;
                 case 3:
                     createMember();
+                    fh.saveMembersToCSV();
                     break;
                 case 4:
                     editMember();
+                    fh.saveMembersToCSV();
                     break;
                 case 5:
                     removeMember();
@@ -103,15 +108,19 @@ public class MemberController {
             switch (choice) {
                 case 1:
                     editName();
+                    fh.saveMembersToCSV();
                     break;
                 case 2:
                     editBirthday();
+                    fh.saveMembersToCSV();
                     break;
                 case 3:
                     editPhoneNumber();
+                    fh.saveMembersToCSV();
                     break;
                 case 4:
                     editMembership();
+                    fh.saveMembersToCSV();
                     break;
                 case 0:
                     running = false;

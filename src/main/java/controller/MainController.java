@@ -4,20 +4,22 @@ import main.java.logic.*;
 import main.java.membership.StamDataManager;
 import main.java.util.ScannerHelper;
 import main.java.logic.TournamentManager;
+import main.java.util.FileHandler;
 
 
 public class MainController {
     private ScannerHelper sc;
+    private FileHandler fh;
     private MemberController memberController;
     private FinanceController financeController;
     private CoachController coachController;
     private TournamentController tournamentController;
 
-    public MainController(ScannerHelper sc, MemberManager memberManager, StamDataManager stamDataManager, PaymentManager paymentManager, ResultManager resultManager, TournamentManager tournamentManager, PlayerStats playerStats, RatingService ratingService){
+    public MainController(ScannerHelper sc, FileHandler fh, MemberManager memberManager, StamDataManager stamDataManager, PaymentManager paymentManager, ResultManager resultManager, TournamentManager tournamentManager, PlayerStats playerStats, RatingService ratingService){
         this.sc = sc;
-        this.memberController = new MemberController(sc, memberManager, stamDataManager, paymentManager);
-        this.financeController = new FinanceController(sc, memberManager, paymentManager);
-        this.coachController = new CoachController(sc, memberManager, resultManager, playerStats, ratingService);
+        this.memberController = new MemberController(sc, fh, memberManager, stamDataManager, paymentManager);
+        this.financeController = new FinanceController(sc, fh, memberManager, paymentManager);
+        this.coachController = new CoachController(sc, memberManager, resultManager, playerStats, ratingService, fh);
         this.tournamentController = new TournamentController(sc,memberManager, tournamentManager);
     }
 
@@ -44,6 +46,10 @@ public class MainController {
                     tournamentController.run();
                     break;
                 case 9:
+                    fh.saveMembersToCSV();
+                    fh.savePaymentsToCSV();
+                    fh.savePlayerStatsToCSV();
+                    fh.saveResultsToCSV();
                     running = false;
                     System.out.println("Farvel!");
                     break;

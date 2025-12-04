@@ -1,6 +1,7 @@
 Medlemsnavn;MedlemsID;Telefonnummer;Fødselsdag;Medlemsskab Startdato;Medlemsskab Slutdato;Aktivt/Passivt Medlemsskab;Konkurrencespiller/Motionist;Disciplin: Spiller Single;Disciplin: Spiller Double;Disciplin: Spiller MixDouble
-John Nielsen;1;12345678;1968/10/22;2025/01/01;;Aktivt;Konkurrencespiller;Ja;Nej;Nej
-Rasmus Johnsen;2;87126732;1954/11/21;2025/01/01;;Aktivt;Konkurrencespiller;Ja;Ja;Nej
+John Nielsen;1;12345678;1968/10/22;2024/01/01;;Aktivt;Konkurrencespiller;Ja;Nej;Nej
+Rasmus Johnsen;2;87126732;1954/11/21;2023/04/01;;Aktivt;Konkurrencespiller;Ja;Ja;Nej
 Lizzie Okdal;3;78249712;2005/03/20;2025/01/01;;Aktivt;Motionist;Ja;Nej;Nej
-Preben Kaas;4;14085287;1983/03/20;2025/01/01;;Passivt;Motionist;Ja;Ja;Ja
-Olga Findsen;5;13082587;2000/04/01;2025/11/01;;Aktivt;Konkurrencespiller;Ja;Ja;Nej
+Preben Kaas;4;14085287;1983/03/20;2025/04/01;;Passivt;Motionist;Ja;Ja;Ja
+Olga Findsen;5;13082587;2000/04/01;2023/01/01;;Aktivt;Konkurrencespiller;Ja;Ja;Nej
+Søren Gregersen;6;82641742;1998/02/22;2025/12/04;;Aktivt;Konkurrencespiller;Ja;Ja;Ja

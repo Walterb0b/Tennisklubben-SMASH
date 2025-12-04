@@ -42,7 +42,7 @@ public class Main {
 
         FileHandler fh = new FileHandler(mm, pm, rm, tm, ps);
 
-        MainController mainController = new MainController(sh, mm, sdm, pm, rm, tm,ps, rs);
+        MainController mainController = new MainController(sh, fh, mm, sdm, pm, rm, tm,ps, rs);
 
 //        Member m1 = new Member("John Nielsen", "12345678",LocalDate.of(1968,10,22), LocalDate.of(2025,1,1), new ActiveMembership(), new PlayPreference(true, new HashSet<>(List.of(Disciplines.SINGLE))));
 //        Member m2 = new Member("Rasmus Johnsen", "87126732",LocalDate.of(1954,11,21), LocalDate.of(2025,1,1), new ActiveMembership(), new PlayPreference(true, new HashSet<>(List.of(Disciplines.SINGLE, Disciplines.DOUBLE))));
@@ -57,6 +57,7 @@ public class Main {
 
 
         fh.createMembersFromCSV();
+        fh.readResultsCSV();
 
         pm.createSeasonQuarterPayment(2025);
         pm.createSeasonQuarterPayment(2026);

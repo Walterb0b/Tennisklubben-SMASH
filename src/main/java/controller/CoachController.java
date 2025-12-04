@@ -10,6 +10,7 @@ import main.java.tournaments.MatchType;
 import main.java.tournaments.PlayerResult;
 import main.java.tournaments.ResultOutcome;
 import main.java.util.ScannerHelper;
+import main.java.util.FileHandler;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -21,14 +22,16 @@ public class CoachController {
     private ResultManager resultManager;
     private PlayerStats playerStats;
     private RatingService ratingService;
+    private FileHandler fh;
 
     //Constructor
-    public CoachController(ScannerHelper sc, MemberManager memberManager, ResultManager resultManager, PlayerStats playerStats, RatingService ratingService){
+    public CoachController(ScannerHelper sc, MemberManager memberManager, ResultManager resultManager, PlayerStats playerStats, RatingService ratingService, FileHandler fh){
         this.sc = sc;
         this.memberManager = memberManager;
         this.resultManager = resultManager;
         this.playerStats = playerStats;
         this.ratingService = ratingService;
+        this.fh = fh;
     }
 
     /**
@@ -50,7 +53,6 @@ public class CoachController {
                 case 3 :
                     playerMatches();
                     break;
-
                 case 0 :
                     running = false;
                     break;
@@ -72,12 +74,18 @@ public class CoachController {
             switch (choice) {
                 case 1 :
                     addMatch();
+                    fh.saveResultsToCSV();
+                    fh.savePlayerStatsToCSV();
                     break;
                 case 2 :
                     editMatch();
+                    fh.saveResultsToCSV();
+                    fh.savePlayerStatsToCSV();
                     break;
                 case 3 :
                     removeMatch();
+                    fh.saveResultsToCSV();
+                    fh.savePlayerStatsToCSV();
                     break;
                 case 4 :
                     showMatchDetails();
