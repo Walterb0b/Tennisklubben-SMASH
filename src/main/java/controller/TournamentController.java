@@ -9,6 +9,7 @@ import main.java.logic.TournamentManager;
 import main.java.membership.Disciplines;
 import main.java.membership.Member;
 import main.java.tournaments.*;
+import main.java.util.FileHandler;
 import main.java.util.ScannerHelper;
 import main.java.util.Validator;
 
@@ -23,6 +24,7 @@ import java.util.*;
 public class TournamentController {
 
     private ScannerHelper sc;
+    private FileHandler fh;
     private MemberManager memberManager;
     private TournamentManager tournamentManager;
     private CoachController coachController;
@@ -35,8 +37,9 @@ public class TournamentController {
      * @param memberManager,     håndterer medlemmer
      * @param tournamentManager, håndterer turneringer
      */
-    public TournamentController(ScannerHelper sc, MemberManager memberManager, TournamentManager tournamentManager, CoachController coachController, ResultManager resultManager, RatingService ratingService) {
+    public TournamentController(ScannerHelper sc, FileHandler fh, MemberManager memberManager, TournamentManager tournamentManager, CoachController coachController, ResultManager resultManager, RatingService ratingService) {
         this.sc = sc;
+        this.fh = fh;
         this.memberManager = memberManager;
         this.tournamentManager = tournamentManager;
         this.coachController = coachController;
@@ -57,9 +60,11 @@ public class TournamentController {
             switch (choice) {
                 case 1:
                     createTournament();
+                    fh.saveTournamentsToCSV();
                     break;
                 case 2:
                     addMatchToTournament();
+                    fh.saveTournamentsToCSV();
                     break;
                 case 3:
                     showAllTournaments();
