@@ -3,6 +3,7 @@ package main.java.controller;
 import main.java.logic.MemberManager;
 import main.java.logic.PaymentManager;
 import main.java.membership.MembershipPayment;
+import main.java.util.FileHandler;
 import main.java.util.ScannerHelper;
 
 import java.util.ArrayList;
@@ -12,11 +13,13 @@ import static main.java.membership.MembershipPayment.futurePaymentHeader;
 
 public class FinanceController {
     private ScannerHelper sh;
+    private FileHandler fh;
     private MemberManager memberManager;
     private PaymentManager paymentManager;
 
-    public FinanceController(ScannerHelper sc, MemberManager memberManager, PaymentManager paymentManager) {
-        this.sh = sc;
+    public FinanceController(ScannerHelper sh, FileHandler fh, MemberManager memberManager, PaymentManager paymentManager) {
+        this.sh = sh;
+        this.fh = fh;
         this.memberManager = memberManager;
         this.paymentManager = paymentManager;
     }
@@ -32,6 +35,7 @@ public class FinanceController {
                 case 1:
                     //tilføj betaling
                     registerPayment();
+                    fh.savePaymentsToCSV();
                     break;
                 case 2:
                     //vis medlemmer i restance

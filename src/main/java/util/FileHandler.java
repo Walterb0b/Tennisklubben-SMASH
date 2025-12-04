@@ -220,30 +220,33 @@ public class FileHandler {
         String singleLine;
 
         String matchID = "KampID";
-        String memberID = "MedlemsID";
+        String player = "Spiller";
         String discipline = "Discipline";
         String type = "Type";
         String outcome = "Resultat";
-        String opponents = "Modstander(ere)";
+        String opponents = "Modstander(e)";
         String score = "Score";
         String date = "Dato";
 
 
-        singleLine = matchID + delimiter + memberID + delimiter + discipline + delimiter + type + delimiter + outcome +
+        singleLine = matchID + delimiter + player + delimiter + discipline + delimiter + type + delimiter + outcome +
                 delimiter + opponents + delimiter + score + delimiter + date;
         parts.add(singleLine);
 
         for (PlayerResult r : resultManager.getAllResults()) {
-            parts.add(
-                    r.getMatchID() + delimiter
-                            + r.getPlayer().getMemberID() + delimiter
-                            + r.getDiscipline() + delimiter
-                            + r.getType() + delimiter
-                            + r.getOutcome() + delimiter
-                            + r.getOpponentInfo() + delimiter
-                            + r.getScore() + delimiter
-                            + Formatter.localDateToString(r.getDate()));
 
+            String playerLabel = r.getPlayer().getName() + " (ID: " + r.getPlayer().getMemberID() + ")";
+
+            parts.add(
+                    r.getMatchID() + delimiter +
+                            playerLabel + delimiter +
+                            r.getDiscipline() + delimiter +
+                            r.getType() + delimiter +
+                            r.getOutcome() + delimiter +
+                            r.getOpponentInfo() + delimiter +
+                            r.getScore() + delimiter +
+                            Formatter.localDateToString(r.getDate())
+            );
         }
         writeFile(parts, "resultDatabase.csv");
     }
