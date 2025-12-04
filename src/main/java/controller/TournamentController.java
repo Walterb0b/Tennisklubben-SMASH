@@ -10,6 +10,7 @@ import main.java.tournaments.TournamentEntry;
 import main.java.util.ScannerHelper;
 import main.java.util.Validator;
 
+
 import java.time.LocalDate;
 
 /**
@@ -82,6 +83,7 @@ public class TournamentController {
         String name = sc.askQuestion("Indtast turneringsnavn: ");
         String location = sc.askQuestion("Indtast lokation: ");
 
+
         LocalDate startDate = Validator.dateValidatorWithScanner(sc, "Indtast startdato i formatet DD/MM/YYYY: ");
 
         LocalDate endDate = Validator.dateValidatorWithScanner(sc, "Indtast slutdato i formatet DD/MM/YYYY: ");
@@ -105,7 +107,7 @@ public class TournamentController {
      * laver entry id for medlem
      */
     private void registerTournamentEntry() {
-        System.out.println("Du har valgt at tilmelde en spiller til en turnering ");
+        System.out.println("Du har valgt at tilmelde en spiller til en turnering");
 
         System.out.println("Indtast turnerings ID: ");
         int tournamentId = sc.askNumber(9999);

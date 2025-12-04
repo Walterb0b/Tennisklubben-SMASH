@@ -4,6 +4,8 @@ import main.java.membership.ActiveMembership;
 import main.java.membership.Member;
 import main.java.membership.MembershipPayment;
 import main.java.membership.PassiveMembership;
+import main.java.util.FileHandler;
+import main.java.util.Formatter;
 import main.java.util.Validator;
 
 import java.time.LocalDate;
@@ -167,8 +169,5 @@ public class PaymentManager {
         }
     }
     */
-
-
-
 
 }

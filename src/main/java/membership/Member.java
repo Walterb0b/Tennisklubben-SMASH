@@ -124,6 +124,10 @@ public class Member {
         smashPoints += points;
     }
 
+    public void setSmashPoints(int smashPoints){
+        this.smashPoints = smashPoints;
+    }
+
 
     @Override
     public String toString() {
