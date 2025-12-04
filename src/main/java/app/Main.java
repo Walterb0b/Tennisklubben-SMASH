@@ -58,13 +58,14 @@ public class Main {
 
         fh.createMembersFromCSV();
         fh.readResultsCSV();
+        fh.readPaymentsCSV();
 
         pm.createSeasonQuarterPayment(2025);
         pm.createSeasonQuarterPayment(2026);
 
         //fh.saveMembersToCSV();
-        fh.savePaymentsToCSV();
-        fh.savePlayerStatsToCSV();
+        //fh.savePaymentsToCSV();
+        //fh.savePlayerStatsToCSV();
 
 
 

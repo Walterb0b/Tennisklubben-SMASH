@@ -311,7 +311,7 @@ public class FileHandler {
 
         for (String[] parts : fileContent) {
             int matchID = Integer.parseInt(parts[0]);
-            int memberID = Integer.parseInt(parts[1]);
+            int memberID = extractMemberID(parts[1]);
             Disciplines discipline = Disciplines.valueOf(parts[2]);
             MatchType type = MatchType.valueOf(parts[3]);
             ResultOutcome outcome = ResultOutcome.valueOf(parts[4]);
@@ -335,10 +335,44 @@ public class FileHandler {
                 int winningTeam = outcome == ResultOutcome.VUNDET ? 1 : 2;
                 resultManager.addInternalMatchResult(teamA, teamB, discipline, type, winningTeam, score, date);
             }
-
-            //nextMatchID = Math.max(nextMatchID, matchID + 1);
         }
     }
 
+    public void readPaymentsCSV () {
+        ArrayList<String[]> fileContent = readFromFile("paymentDatabase.csv");
+
+        for(String[] parts : fileContent){
+            String name = parts[0];
+            int memberID = Integer.parseInt(parts[1]);
+            int paymentID = Integer.parseInt(parts[2]);
+            LocalDate dueDate = Formatter.stringToLocalDate(parts[3]);
+            String seasonQuarter = parts[4];
+            double amount = Double.parseDouble(parts[5]);
+            boolean isPaid = Boolean.parseBoolean(parts[6]);
+
+            Member m = memberManager.getMember(memberID);
+            if(m == null) {
+                System.out.println("Fejl ved indlæsning af indbetalinger fra filen for medlem " + memberID);
+                continue;
+            }
+
+            MembershipPayment payment = new MembershipPayment(m, dueDate);
+            payment.setPaymentID(paymentID);
+            payment.setAmount(amount);
+            payment.setSeasonQuarter(seasonQuarter);
+            payment.setIsPaid(isPaid);
+
+            paymentManager.getAllPayments().put(paymentID, payment);
+        }
+    }
+
+    private int extractMemberID(String s) {
+        try {
+            String[] parts = s.split("ID: ");
+            return Integer.parseInt(parts[1].replace(")", "").trim());
+        } catch (Exception e) {
+            return -1;
+        }
+    }
 
 }
