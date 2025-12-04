@@ -13,18 +13,31 @@ import main.java.util.Validator;
 
 import java.time.LocalDate;
 
+/**
+ * Controller der håndterer turneringer
+ * oprettelse, vise turneringer, tilmeld spiller
+ */
 public class TournamentController {
 
     private ScannerHelper sc;
     private MemberManager memberManager;
     private TournamentManager tournamentManager;
 
+    /**
+     *
+     * @param sc, håndterer brugerinput
+     * @param memberManager, håndterer medlemmer
+     * @param tournamentManager, håndterer turneringer
+     */
     public TournamentController(ScannerHelper sc, MemberManager memberManager, TournamentManager tournamentManager) {
         this.sc = sc;
         this.memberManager = memberManager;
         this.tournamentManager = tournamentManager;
     }
 
+    /**
+     * loop for turneringsmenu
+     */
     public void run() {
         boolean back = false;
 
@@ -32,7 +45,8 @@ public class TournamentController {
             printTournamentMenu();
             int choice = sc.navigateMenu(3);   // 1–3 + 0
 
-            switch (choice) {case 1: createTournament();
+            switch (choice) {
+                case 1: createTournament();
                     break;
                 case 2: showAllTournaments();
                     break;
@@ -47,14 +61,19 @@ public class TournamentController {
         }
     }
 
+    /**
+     * printer turneringsmenu
+     */
     private void printTournamentMenu() {
         System.out.println("\n=== TURNERINGS-MENU ===");
-        System.out.println("1. Opret turnering");
-        System.out.println("2. Vis alle turneringer");
-        System.out.println("3. Tilmeld spiller til turnering");
-        System.out.println("0. Tilbage");
-    }
+        System.out.println(" 1. Opret turnering");
+        System.out.println(" 2. Vis alle turneringer");
+        System.out.println(" 3. Tilmeld spiller til turnering");
+        System.out.println(" 0. Tilbage");}
 
+    /**
+     * opretter turnering udfra brugerinput
+     */
     private void createTournament() {
         System.out.println("Du har valgt at oprette en turnering");
 
@@ -72,12 +91,21 @@ public class TournamentController {
         Tournament t = new Tournament(id, name, location, startDate, endDate);
         tournamentManager.addTournament(t);
 
-        System.out.println("Turnering oprettet: " + t);}
+        System.out.println("Turnering oprettet: " + t);
+    }
 
+    /**
+     * printer turneringer skabt fra brugerinput
+     * gemmer data om turneringer
+     */
     private void showAllTournaments() {
         System.out.println("\nDu har valgt at se alle turneringer");
         tournamentManager.printAllTournaments();}
 
+    /**
+     * tilmelder spiller til turnering
+     * laver entry id for medlem
+     */
     private void registerTournamentEntry() {
         System.out.println("Du har valgt at tilmelde en spiller til en turnering");
 

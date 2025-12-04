@@ -42,6 +42,7 @@ public class MainController {
                     break;
                case 5:
                     tournamentController.run();
+                    break;
                 case 9:
                     running = false;
                     System.out.println("Farvel!");
