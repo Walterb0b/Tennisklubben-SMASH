@@ -77,8 +77,9 @@ public class TournamentController {
     private void createTournament() {
         System.out.println("Du har valgt at oprette en turnering");
 
-        System.out.println("Indtast turnerings-ID: ");
-        int id = sc.askNumber(9999);
+        int id = tournamentManager.generateNextTournamentID();
+        System.out.println("Turnerings-ID genereret automatisk: " + id);
+
 
         String name = sc.askQuestion("Indtast turneringsnavn: ");
         String location = sc.askQuestion("Indtast lokation: ");
