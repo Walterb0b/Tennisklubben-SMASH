@@ -32,13 +32,16 @@ public class Formatter {
     }
 
     public static LocalDate stringToLocalDate(String s){
-        String[] parts = s.split("/");
-        int year = Integer.parseInt(parts[0]);
-        int month = Integer.parseInt(parts[1]);
-        int day = Integer.parseInt(parts[2]);
+        if (s.isBlank()) {
+            return null;
+        } else {
+            String[] parts = s.split("/");
+            int year = Integer.parseInt(parts[0]);
+            int month = Integer.parseInt(parts[1]);
+            int day = Integer.parseInt(parts[2]);
 
-        return LocalDate.of(year, month, day);
-
+            return LocalDate.of(year, month, day);
+        }
     }
 
     public static String displayPaymentString(String name, int memberID, String seasonQuarter, double amount){

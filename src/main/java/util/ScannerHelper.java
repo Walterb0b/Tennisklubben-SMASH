@@ -285,7 +285,7 @@ public class ScannerHelper {
 
                 }else {
                     for (int m : memberList) {
-                        System.out.println(viewCount + ". " + memberManager.getMember(m));
+                        System.out.println(viewCount + ". " + memberManager.getMember(m).memberNameAndIDString());
                         viewCount++;
                     }
                     System.out.println();
