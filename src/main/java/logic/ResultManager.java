@@ -33,7 +33,7 @@ public class ResultManager {
      * @param score kampens score
      * @param date kampens dato
      */
-    public void addExternalMatchResult(List<Member> clubPlayers, Disciplines discipline, MatchType type, String opponentInfo, String score, LocalDate date) {
+    public int addExternalMatchResult(List<Member> clubPlayers, Disciplines discipline, MatchType type, String opponentInfo, String score, LocalDate date) {
         int matchID = nextMatchID++;
 
         ResultOutcome outcome = calculateOutcomeFromScore(score);
@@ -41,6 +41,8 @@ public class ResultManager {
         for (Member player : clubPlayers) {
             results.add(new PlayerResult(matchID, player, discipline, type, outcome, opponentInfo, score, date));
         }
+
+        return matchID;
     }
 
     /**
@@ -53,7 +55,7 @@ public class ResultManager {
      * @param score scoren for kampen
      * @param date kampens dato
      */
-    public void addInternalMatchResult(List<Member> teamA, List<Member> teamB, Disciplines discipline, MatchType type,  int winningTeam, String score, LocalDate date){
+    public int addInternalMatchResult(List<Member> teamA, List<Member> teamB, Disciplines discipline, MatchType type,  int winningTeam, String score, LocalDate date){
         int matchID = nextMatchID++;
 
         List<Member> winners = (winningTeam == 1) ? teamA : teamB;
@@ -65,6 +67,8 @@ public class ResultManager {
         for (Member l : losers) {
             results.add(new PlayerResult(matchID, l, discipline, type, ResultOutcome.TABT, buildOpponentNameString(winners), score, date));
         }
+
+        return matchID;
     }
 
     /**

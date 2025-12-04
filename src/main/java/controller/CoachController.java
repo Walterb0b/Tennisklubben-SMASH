@@ -285,7 +285,7 @@ public class CoachController {
      * @param forbiddenIDs Et HashSet med de ID'er der allerede er brugt
      * @return true, hvis alt er godt
      */
-    private boolean pickPlayersForTeam(int perTeam, MatchType type, List<Member> team, Set<Integer> forbiddenIDs) {
+    protected boolean pickPlayersForTeam(int perTeam, MatchType type, List<Member> team, Set<Integer> forbiddenIDs) {
         for(int i = 1; i <= perTeam; i++) {
             Member m;
             while (true) {
@@ -384,7 +384,7 @@ public class CoachController {
      * Hjælper metode der spørger brugeren om hvilken disciplin der spilles
      * @return Disciplines.SINGLE, Disciplines.DOUBLE, Disciplines.MIXDOUBLE alt efter hvad brugeren indtaster
      */
-    private Disciplines askDiscipline() {
+    public Disciplines askDiscipline() {
         sc.printLn("Vælg disciplin:");
         sc.printLn("1. SINGLE");
         sc.printLn("2. DOUBLE");
