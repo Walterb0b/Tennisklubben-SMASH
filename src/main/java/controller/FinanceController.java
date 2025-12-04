@@ -76,9 +76,14 @@ public class FinanceController {
 
             }
         }
+        int userSelect = 0;
+        if (viewCount>1) {
+            System.out.println("\nVælg betaling fra listen");
+            userSelect = sh.navigateMenu(viewCount);
+        } else {
+            userSelect = 1;
+        }
 
-        System.out.println("\nVælg betaling fra listen");
-        int userSelect = sh.navigateMenu(viewCount);
         userSelect--;
         paymentID = paymentList.get(userSelect);
         payment = paymentManager.getPayment(paymentID);

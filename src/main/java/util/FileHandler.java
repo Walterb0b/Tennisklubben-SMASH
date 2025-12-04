@@ -24,7 +24,8 @@ public class FileHandler {
     private final String delimiter = ";";
     private String memberDatabaseFilePath = "memberDatabase.csv";
     private String paymentDatabaseFilePath = "paymentDatabase.csv";
-    private String playerStatsDatabaseFilePath = "paymentDatabase.csv";
+    private String playerStatDatabaseFilePath = "playerStatsDatabase.csv";
+    private String resultDatabaseFilePath = "resultDatabase.csv";
 
 
     public FileHandler (MemberManager memberManager, PaymentManager paymentManager, ResultManager resultManager, TournamentManager tournamentManager, PlayerStats playerStats) {
@@ -171,7 +172,7 @@ public class FileHandler {
 
             paymentCSV.add(singleLine);
         }
-        writeFile(paymentCSV, "paymentDatabase.csv");
+        writeFile(paymentCSV, paymentDatabaseFilePath);
     }
 
     public void savePlayerStatsToCSV() {
@@ -215,7 +216,7 @@ public class FileHandler {
 
             playerStatsCSV.add(singleLine);
         }
-        writeFile(playerStatsCSV, "playerStatsDatabase.csv");
+        writeFile(playerStatsCSV, playerStatDatabaseFilePath);
     }
 
     public void saveResultsToCSV() {
@@ -251,7 +252,7 @@ public class FileHandler {
                             Formatter.localDateToString(r.getDate())
             );
         }
-        writeFile(parts, "resultDatabase.csv");
+        writeFile(parts, resultDatabaseFilePath);
     }
 
     public ArrayList<String[]> readFromFile(String filename){
@@ -309,8 +310,8 @@ public class FileHandler {
         }
     }
 
-    public void readResultsCSV() {
-        ArrayList<String[]> fileContent = readFromFile("resultDatabase.csv");
+    public void createResultsFromCSV() {
+        ArrayList<String[]> fileContent = readFromFile(resultDatabaseFilePath);
 
         for (String[] parts : fileContent) {
             int matchID = Integer.parseInt(parts[0]);
@@ -341,8 +342,8 @@ public class FileHandler {
         }
     }
 
-    public void readPaymentsCSV () {
-        ArrayList<String[]> fileContent = readFromFile("paymentDatabase.csv");
+    public void createPaymentsFromCSV() {
+        ArrayList<String[]> fileContent = readFromFile(paymentDatabaseFilePath);
 
         for(String[] parts : fileContent){
             String name = parts[0];

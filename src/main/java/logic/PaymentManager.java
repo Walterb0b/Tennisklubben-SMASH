@@ -12,12 +12,10 @@ import java.util.HashMap;
 public class PaymentManager {
     private MemberManager memberManager;
     private HashMap<Integer, MembershipPayment> payments;
-    private int firstQuarterWeekdays;
 
     public PaymentManager(MemberManager memberManager){
         this.memberManager = memberManager;
         this.payments = new HashMap<>();
-        //this.firstQuarterWeekdays = 5;
     }
 
     public void addPayment(MembershipPayment membershipPayment) {
@@ -92,7 +90,6 @@ public class PaymentManager {
 
     Comparator<MembershipPayment> byDueDate = Comparator.comparing(MembershipPayment::getDueDate);
     Comparator<MembershipPayment> byMemberID = Comparator.comparing(MembershipPayment::getMemberID);
-    Comparator<MembershipPayment> byDueDateThenMemberID = byDueDate.thenComparing(byMemberID);
     Comparator<MembershipPayment> byMemberIDThenDueDate = byMemberID.thenComparing(byDueDate);
 
     public ArrayList<Integer> notPaidIDs(){
