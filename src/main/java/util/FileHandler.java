@@ -127,6 +127,7 @@ public class FileHandler {
         String memberID;
         String paymentID;
         String dueDate;
+        String paidDate;
         String seasonQuarter;
         String amount;
         String isPaid;
@@ -140,13 +141,14 @@ public class FileHandler {
         name = "Medlemsnavn";
         memberID = "MedlemsID";
         paymentID = "BetalingsID";
-        dueDate = "Betalingsdato";
+        dueDate = "Opkrævnings dato";
+        paidDate = "Betaling modtaget dato";
         seasonQuarter = "Sæsonskvartal";
         amount = "Beløb";
         isPaid = "Betalt";
 
-        singleLine = name + delimiter + memberID + delimiter + paymentID + delimiter + dueDate + delimiter + seasonQuarter +
-                delimiter + amount + delimiter + isPaid;
+        singleLine = name + delimiter + memberID + delimiter + paymentID + delimiter + dueDate + delimiter +
+                paidDate + delimiter + seasonQuarter + delimiter + amount + delimiter + isPaid;
 
         paymentCSV.add(singleLine);
 
@@ -159,12 +161,13 @@ public class FileHandler {
             memberID = String.valueOf(m.getMemberID());
             paymentID = String.valueOf(p.getPaymentID());
             dueDate = Formatter.localDateToString(p.getDueDate());
+            paidDate = Formatter.localDateToString(p.getIsPaidDate());
             seasonQuarter = p.getSeasonQuarter();
             amount = String.valueOf(p.getAmount());
             isPaid = String.valueOf(p.getIsPaid());
 
-            singleLine = name + delimiter + memberID + delimiter + paymentID + delimiter + dueDate + delimiter + seasonQuarter +
-                    delimiter + amount + delimiter + isPaid + delimiter ;
+            singleLine = name + delimiter + memberID + delimiter + paymentID + delimiter + dueDate + delimiter +
+                    paidDate + delimiter + seasonQuarter + delimiter + amount + delimiter + isPaid;
 
             paymentCSV.add(singleLine);
         }
@@ -346,9 +349,10 @@ public class FileHandler {
             int memberID = Integer.parseInt(parts[1]);
             int paymentID = Integer.parseInt(parts[2]);
             LocalDate dueDate = Formatter.stringToLocalDate(parts[3]);
-            String seasonQuarter = parts[4];
-            double amount = Double.parseDouble(parts[5]);
-            boolean isPaid = Boolean.parseBoolean(parts[6]);
+            LocalDate paidDate = Formatter.stringToLocalDate(parts[4]);
+            String seasonQuarter = parts[5];
+            double amount = Double.parseDouble(parts[6]);
+            boolean isPaid = Boolean.parseBoolean(parts[7]);
 
             Member m = memberManager.getMember(memberID);
             if(m == null) {

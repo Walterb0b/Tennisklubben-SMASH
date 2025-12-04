@@ -64,8 +64,18 @@ public class Main {
         //pm.createSeasonQuarterPayment(2026);
 
         //fh.saveMembersToCSV();
-        //fh.savePaymentsToCSV();
+        fh.savePaymentsToCSV();
         fh.savePlayerStatsToCSV();
+
+        //pm.printAllPayments();
+
+
+        ArrayList<Integer> notPaid = pm.notPaidIDs();
+        for (Integer p : notPaid) {
+            System.out.println(pm.getPayment(p));
+        }
+
+
 
 
 
