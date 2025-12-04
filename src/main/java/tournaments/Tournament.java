@@ -10,30 +10,28 @@ import java.util.List;
  */
 public class Tournament {
 
-    private int tournamentID;
+    private Integer tournamentID;
     private String name;
-    private String location;
+    private TournamentLevel level;
     private LocalDate startDate;
     private LocalDate endDate;
 
-    private List<TournamentEntry> entries;
+    private List<Integer> matchIDs = new ArrayList<>();
 
     /**
      *
      * @param tournamentID ID for turnering for at skelne
      * @param name, navn på turnering
-     * @param location, lokation for turnering
+     * @param level, Turneringens niveau
      * @param startDate, Startdato for turnering
      * @param endDate, Sidste dato for turnering
      */
-    public Tournament(int tournamentID, String name, String location,
-                      LocalDate startDate, LocalDate endDate) {
+    public Tournament(int tournamentID, String name, TournamentLevel level, LocalDate startDate, LocalDate endDate) {
         this.tournamentID = tournamentID;
         this.name = name;
-        this.location = location;
+        this.level = level;
         this.startDate = startDate;
         this.endDate = endDate;
-        this.entries = new ArrayList<>();
     }
 
     /**** @return Turnerings ID
@@ -42,29 +40,34 @@ public class Tournament {
      * Start dato
      * Slut dato
      * Tilføjer entry ID for medlem/konkurrencespiller  */
-    public int getTournamentId() {return tournamentID;}
+    public Integer getTournamentID() {
+        return tournamentID;
+    }
 
     public String getName() {return name;}
 
-    public String getLocation() {return location;}
+    public TournamentLevel getLevel() {return level;}
 
     public LocalDate getStartDate() {return startDate;}
 
     public LocalDate getEndDate() {return endDate;}
 
-    public List<TournamentEntry> getEntries() {return entries;}
+    public List<Integer> getMatchIDs() {return matchIDs;}
 
-    public void addEntry(TournamentEntry entry) {entries.add(entry);}
+    public void addMatchID(int matchID) {
+        if(!matchIDs.contains(matchID)){
+            matchIDs.add(matchID);
+        }
+    }
 
     @Override
     public String toString() {
         return "Tournament{" +
                 "id=" + tournamentID +
                 ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
+                ", niveau='" + level + '\'' +
                 ", startDate=" + startDate +
                 ", endDate=" + endDate +
-                ", entries=" + entries.size() +
                 '}';
     }
 }

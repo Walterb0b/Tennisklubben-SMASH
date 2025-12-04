@@ -20,7 +20,7 @@ public class MainController {
         this.memberController = new MemberController(sc, fh, memberManager, stamDataManager, paymentManager);
         this.financeController = new FinanceController(sc, fh, memberManager, paymentManager);
         this.coachController = new CoachController(sc, memberManager, resultManager, playerStats, ratingService, fh);
-        this.tournamentController = new TournamentController(sc,memberManager, tournamentManager);
+        this.tournamentController = new TournamentController(sc, memberManager, tournamentManager, coachController, resultManager, ratingService);
     }
 
     public void run(){
@@ -42,7 +42,7 @@ public class MainController {
                 case 4:
                     coachController.runResult();
                     break;
-               case 5:
+                case 5:
                     tournamentController.run();
                     break;
                 case 9:

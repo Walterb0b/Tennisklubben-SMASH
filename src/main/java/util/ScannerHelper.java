@@ -136,6 +136,23 @@ public class ScannerHelper {
         //System.out.println("0. Gå tilbage");
     }
 
+    /**
+     * printer turneringsmenu
+     */
+    public void printTournamentMenu() {
+        System.out.println();
+        System.out.println("""
+                      🎾=== Turnerings-Menu ===🎾
+                ┌────────────────────────────────────┐
+                │     1. Opret turnering             │
+                |     2. Tilføj kamp til turnering   |
+                │     3. Vis alle turneringer        │
+                │     4. Vis kampe i en turnering    │
+                │     0. Gå tilbage                  │
+                └────────────────────────────────────┘
+                """);
+    }
+
     public void printLn(String prompt){
         System.out.println(prompt);
     }

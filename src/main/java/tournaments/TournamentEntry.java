@@ -8,7 +8,7 @@ import java.time.LocalDate;
  * Klasse registrer deltagelse i bestemt konkurrence
  * MemberID, EntryID, Discipliner og kampresultater
  */
-public class TournamentEntry {
+/*public class TournamentEntry {
 
     private int entryID;
     private int memberID;
@@ -17,7 +17,7 @@ public class TournamentEntry {
     private String tournamentName;
     private String location;
     private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDate endDate;*/
 
     /**
      *
@@ -26,7 +26,7 @@ public class TournamentEntry {
      * @param tournament, Hvad er medlemmet tilmeldt
      * @param discipline, Hvad skal medlemmet spille
      */
-    public TournamentEntry(int entryID, int memberID, Tournament tournament, Disciplines discipline) {
+    /*public TournamentEntry(int entryID, int memberID, Tournament tournament, Disciplines discipline) {
         this.entryID = entryID;
         this.memberID = memberID;
         this.tournamentID = tournament.getTournamentId();
@@ -35,7 +35,7 @@ public class TournamentEntry {
         this.location = tournament.getLocation();
         this.startDate = tournament.getStartDate();
         this.endDate = tournament.getEndDate();
-    }
+    }*/
 
 //    public int getEntryID() {return entryID;}
 //
@@ -45,7 +45,7 @@ public class TournamentEntry {
 //
 //    public Disciplines getDiscipline() {return discipline;}
 
-    @Override
+   /* @Override
     public String toString() {
         return "TournamentEntry{" +
                 "entryID=" + entryID +
@@ -55,3 +55,4 @@ public class TournamentEntry {
                 '}';
     }
 }
+*/
