@@ -259,11 +259,12 @@ public class FileHandler {
 
         String tournamentID = "TurneringsID";
         String name = "Navn";
+        String level = "Niveau";
         String startDate = "Startdato";
         String endDate = "Slutdato";
         String matchIDs = "KampID'er";
 
-        singleLine =  tournamentID + delimiter + name + delimiter + startDate + delimiter + endDate
+        singleLine =  tournamentID + delimiter + name + delimiter + level + delimiter + startDate + delimiter + endDate
                 + delimiter + matchIDs;
         parts.add(singleLine);
 
@@ -276,8 +277,9 @@ public class FileHandler {
 
             singleLine = t.getTournamentID() + delimiter +
                     t.getName() + delimiter +
-                    t.getStartDate() + delimiter +
-                    t.getEndDate() + delimiter +
+                    t.getLevel() + delimiter +
+                    Formatter.localDateToString(t.getStartDate()) + delimiter +
+                    Formatter.localDateToString(t.getEndDate()) + delimiter +
                     matchIDs;
 
             parts.add(singleLine);
@@ -364,11 +366,20 @@ public class FileHandler {
                         List.of(m), discipline, type, opponents, score, date
                 );
             } else if (type == TRÆNING) {
-                List<Member> teamA = List.of(m);
-                List<Member> teamB = List.of();
-                int winningTeam = outcome == ResultOutcome.VUNDET ? 1 : 2;
-                resultManager.addInternalMatchResult(teamA, teamB, discipline, type, winningTeam, score, date);
+                resultManager.getAllResults().add(
+                        new PlayerResult(
+                                matchID,
+                                m,
+                                discipline,
+                                type,
+                                outcome,
+                                opponents,
+                                score,
+                                date
+                        )
+                );
             }
+
         }
     }
 
