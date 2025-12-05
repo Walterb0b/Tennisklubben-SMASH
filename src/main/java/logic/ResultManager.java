@@ -39,7 +39,7 @@ public class ResultManager {
         ResultOutcome outcome = calculateOutcomeFromScore(score);
 
         for (Member player : clubPlayers) {
-            results.add(new PlayerResult(matchID, player, discipline, type, outcome, opponentInfo, score, date));
+            results.add(new PlayerResult(player, discipline, type, outcome, opponentInfo, score, date));
         }
 
         return matchID;
@@ -62,10 +62,10 @@ public class ResultManager {
         List<Member> losers = (winningTeam == 1) ? teamB : teamA;
 
         for (Member w : winners) {
-            results.add(new PlayerResult(matchID, w, discipline, type, ResultOutcome.VUNDET, buildOpponentNameString(losers), score, date));
+            results.add(new PlayerResult(w, discipline, type, ResultOutcome.VUNDET, buildOpponentNameString(losers), score, date));
         }
         for (Member l : losers) {
-            results.add(new PlayerResult(matchID, l, discipline, type, ResultOutcome.TABT, buildOpponentNameString(winners), score, date));
+            results.add(new PlayerResult(l, discipline, type, ResultOutcome.TABT, buildOpponentNameString(winners), score, date));
         }
 
         return matchID;

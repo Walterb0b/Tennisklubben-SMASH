@@ -368,7 +368,6 @@ public class FileHandler {
             } else if (type == TRÆNING) {
                 resultManager.getAllResults().add(
                         new PlayerResult(
-                                matchID,
                                 m,
                                 discipline,
                                 type,

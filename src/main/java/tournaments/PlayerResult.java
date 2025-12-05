@@ -6,7 +6,8 @@ import main.java.membership.Member;
 import java.time.LocalDate;
 
 public class PlayerResult {
-    private int matchID;
+    private static int nextID = 1;
+    private final int matchID;
     private Member player;
     private Disciplines discipline;
     private MatchType type;
@@ -15,7 +16,7 @@ public class PlayerResult {
     private String score;
     private LocalDate date;
 
-    public PlayerResult(int matchID,
+    public PlayerResult(
                         Member player,
                         Disciplines discipline,
                         MatchType type,
@@ -23,7 +24,7 @@ public class PlayerResult {
                         String opponentInfo,
                         String score,
                         LocalDate date){
-        this.matchID = matchID;
+        this.matchID = nextID++;
         this.player = player;
         this.discipline = discipline;
         this.type = type;
