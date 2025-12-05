@@ -68,7 +68,7 @@ public class Tournament {
                 " niveau: " + level + '\n' +
                 " Start Dato: " + startDate + '\n' +
                 " Slut Dato: " + endDate + '\n' +
-                ' ';
+                ' ' ;
     }
 }
 
