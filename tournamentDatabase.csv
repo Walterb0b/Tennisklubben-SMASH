@@ -1,1 +1,2 @@
-TurneringsID;Navn;Startdato;Slutdato;KampID'er
+TurneringsID;Navn;Niveau;Startdato;Slutdato;KampID'er
+1;Wimbledon;NATIONAL;2025/12/05;2025/12/10;9
