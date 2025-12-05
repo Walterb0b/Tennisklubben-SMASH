@@ -270,9 +270,9 @@ public class CoachController {
 
         resultManager.addExternalMatchResult(clubPlayers, discipline, MatchType.TURNERING, opponentInfo, score, LocalDate.now());
 
-        boolean clubWon = (calculateOutComeFromScore(score) == ResultOutcome.VUNDET);
+        ResultOutcome outcome = calculateOutComeFromScore(score);
 
-        ratingService.updateAfterExternalMatch(clubPlayers, clubWon, MatchType.TURNERING);
+        ratingService.updateAfterExternalMatch(clubPlayers, outcome, MatchType.TURNERING);
 
         sc.printLn("Ekstern kamp mod " + opponentInfo + " registreret og Elo rating opdateret");
     }

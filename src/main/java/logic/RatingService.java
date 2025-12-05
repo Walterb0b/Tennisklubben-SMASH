@@ -2,6 +2,7 @@ package main.java.logic;
 
 import main.java.membership.Member;
 import main.java.tournaments.MatchType;
+import main.java.tournaments.ResultOutcome;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,14 +38,14 @@ public class RatingService {
     /**
      * Opdaterer Elo-rating eller Smashpoints efter intern kamp
      * @param clubPlayers Liste over spillerne fra klubben
-     * @param clubWon True hvis holdet fra klubben har vundet
+     * @param outcome True hvis holdet fra klubben har vundet
      * @param type Er det en træningkamp eller turneringskamp
      */
-    public void updateAfterExternalMatch(List<Member> clubPlayers, boolean clubWon, MatchType type){
+    public void updateAfterExternalMatch(List<Member> clubPlayers, ResultOutcome outcome, MatchType type){
         if(type == MatchType.TURNERING){
-            updateEloAfterExternalTournament(clubPlayers, clubWon);
+            updateEloAfterExternalTournament(clubPlayers, outcome);
         } else if (type == MatchType.TRÆNING) {
-            updateSmashPointsAfterExternalTraining(clubPlayers, clubWon);
+            updateSmashPointsAfterExternalTraining(clubPlayers, outcome);
         }
     }
 
@@ -88,7 +89,7 @@ public class RatingService {
         }
     }
 
-    private void updateEloAfterExternalTournament(List<Member> clubPlayers, boolean clubWon) {
+    private void updateEloAfterExternalTournament(List<Member> clubPlayers, ResultOutcome outcome) {
 
         List<Member> compPlayers = filterCompetitive(clubPlayers);
         if(compPlayers.isEmpty()) return;
@@ -97,7 +98,7 @@ public class RatingService {
         double opponentRating = 1500;
 
         double expected = expectedScore(teamRating, opponentRating);
-        double score = clubWon ? 1.0 : 0.0;
+        double score = outcome == ResultOutcome.VUNDET ? 1.0 : 0.0;
         double delta = K * (score - expected);
 
         for(Member m : compPlayers){
@@ -182,12 +183,12 @@ public class RatingService {
     /**
      * Kan bruges til at opdatere smash point ved træninger mod eksterne spillere
      * @param clubPlayers Medlemmer fra klubben
-     * @param clubWon True hvis holdet fra klubben vandt
+     * @param outcome True hvis holdet fra klubben vandt
      */
-    private void updateSmashPointsAfterExternalTraining(List<Member> clubPlayers, boolean clubWon) {
+    private void updateSmashPointsAfterExternalTraining(List<Member> clubPlayers, ResultOutcome outcome) {
 
         for(Member m : clubPlayers){
-            if(clubWon){
+            if(outcome == ResultOutcome.VUNDET){
                 m.addSmashPoints(trainingWinPoints);
             } else {
                 m.addSmashPoints(trainingLossPoints);

@@ -147,7 +147,7 @@ public class TournamentController {
             );
 
             ratingService.updateAfterExternalMatch(
-                    clubPlayers, clubWon, MatchType.TURNERING
+                    clubPlayers, outcome, MatchType.TURNERING
             );
 
             tournamentManager.addMatchToTournament(t.getTournamentID(), matchId, resultManager);

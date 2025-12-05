@@ -25,7 +25,7 @@ public class Main {
         PlayerStats ps = new PlayerStats(rm, mm);
         RatingService rs = new RatingService();
 
-        FileHandler fh = new FileHandler(mm, pm, rm, tm, ps);
+        FileHandler fh = new FileHandler(mm, pm, rm, tm, rs, ps);
 
         MainController mainController = new MainController(sh, fh, mm, sdm, pm, rm, tm,ps, rs);
 

@@ -6,9 +6,7 @@ import main.java.tournaments.*;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import static main.java.tournaments.MatchType.TRÆNING;
 import static main.java.tournaments.MatchType.TURNERING;
@@ -18,6 +16,7 @@ public class FileHandler {
     private PaymentManager paymentManager;
     private ResultManager resultManager;
     private TournamentManager tournamentManager;
+    private RatingService ratingService;
     private PlayerStats playerStats;
     private final String delimiter = ";";
     private String memberDatabaseFilePath = "memberDatabase.csv";
@@ -26,11 +25,12 @@ public class FileHandler {
     private String resultDatabaseFilePath = "resultDatabase.csv";
 
 
-    public FileHandler (MemberManager memberManager, PaymentManager paymentManager, ResultManager resultManager, TournamentManager tournamentManager, PlayerStats playerStats) {
+    public FileHandler (MemberManager memberManager, PaymentManager paymentManager, ResultManager resultManager, TournamentManager tournamentManager, RatingService ratingService, PlayerStats playerStats) {
         this.memberManager = memberManager;
         this.paymentManager = paymentManager;
         this.resultManager = resultManager;
         this.tournamentManager = tournamentManager;
+        this.ratingService = ratingService;
         this.playerStats = playerStats;
     }
 
@@ -346,6 +346,10 @@ public class FileHandler {
         ArrayList<String[]> fileContent = readFromFile(resultDatabaseFilePath);
 
         for (String[] parts : fileContent) {
+
+            // Spring header over
+            if (parts[0].equalsIgnoreCase("KampID")) continue;
+
             int matchID = Integer.parseInt(parts[0]);
             int memberID = extractMemberID(parts[1]);
             Disciplines discipline = Disciplines.valueOf(parts[2]);
@@ -357,30 +361,32 @@ public class FileHandler {
 
             Member m = memberManager.getMember(memberID);
             if (m == null) {
-                System.out.println("Fejl ved indlæsning af resultater fra filen for medlem " + memberID);
+                System.out.println("Fejl ved indlæsning af resultater for medlem " + memberID);
                 continue;
             }
 
-            if (type == TURNERING) {
-                resultManager.addExternalMatchResult(
-                        List.of(m), discipline, type, opponents, score, date
-                );
-            } else if (type == TRÆNING) {
-                resultManager.getAllResults().add(
-                        new PlayerResult(
-                                m,
-                                discipline,
-                                type,
-                                outcome,
-                                opponents,
-                                score,
-                                date
-                        )
-                );
-            }
+            // 1️⃣ Opret PlayerResult
+            PlayerResult pr = new PlayerResult(
+                    m,
+                    discipline,
+                    type,
+                    outcome,
+                    opponents,
+                    score,
+                    date
+            );
 
+            resultManager.getAllResults().add(pr);
+
+            if (type == MatchType.TURNERING) {
+                ratingService.updateAfterExternalMatch(List.of(m), outcome, type);
+            }
+            else if (type == MatchType.TRÆNING) {
+                ratingService.updateAfterExternalMatch(List.of(m), outcome, type);
+            }
         }
     }
+
 
     public void createPaymentsFromCSV() {
         ArrayList<String[]> fileContent = readFromFile(paymentDatabaseFilePath);
