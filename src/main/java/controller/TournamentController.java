@@ -205,10 +205,13 @@ public class TournamentController {
 
     /**
      * printer turneringer skabt fra brugerinput
-     * gemmer data om turneringer
      */
     private void showAllTournaments() {
         System.out.println("\nDu har valgt at se alle turneringer");
+        if(tournamentManager.tournaments.isEmpty()){
+            sc.printLn("Der er ikke oprettet nogen turneringer");
+            return;
+        }
         tournamentManager.printAllTournaments();
     }
 
