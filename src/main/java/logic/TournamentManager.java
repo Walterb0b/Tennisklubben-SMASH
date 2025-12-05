@@ -62,6 +62,4 @@ public class TournamentManager {
             System.out.println(tournament);
         }
     }
-
-
 }
