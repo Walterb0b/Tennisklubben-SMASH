@@ -226,13 +226,21 @@ public class FileHandler {
         String discipline = "Discipline";
         String type = "Type";
         String outcome = "Resultat";
+        String location = "Lokation";
         String opponents = "Modstander(e)";
         String score = "Score";
         String date = "Dato";
 
 
-        singleLine = matchID + delimiter + player + delimiter + discipline + delimiter + type + delimiter + outcome +
-                delimiter + opponents + delimiter + score + delimiter + date;
+        singleLine = matchID + delimiter
+                + player + delimiter +
+                discipline + delimiter +
+                type + delimiter +
+                outcome + delimiter +
+                location + delimiter +
+                opponents + delimiter +
+                score + delimiter +
+                date;
         parts.add(singleLine);
 
         for (PlayerResult r : resultManager.getAllResults()) {
@@ -245,6 +253,7 @@ public class FileHandler {
                             r.getDiscipline() + delimiter +
                             r.getType() + delimiter +
                             r.getOutcome() + delimiter +
+                            r.getLocation() + delimiter +
                             r.getOpponentInfo() + delimiter +
                             r.getScore() + delimiter +
                             Formatter.localDateToString(r.getDate())
@@ -352,9 +361,10 @@ public class FileHandler {
             Disciplines discipline = Disciplines.valueOf(parts[2]);
             MatchType type = MatchType.valueOf(parts[3]);
             ResultOutcome outcome = ResultOutcome.valueOf(parts[4]);
-            String opponents = parts[5];
-            String score = parts[6];
-            LocalDate date = Formatter.stringToLocalDate(parts[7]);
+            MatchLocation location = MatchLocation.valueOf(parts[5]);
+            String opponents = parts[6];
+            String score = parts[7];
+            LocalDate date = Formatter.stringToLocalDate(parts[8]);
 
             Member m = memberManager.getMember(memberID);
             if (m == null) {
@@ -368,6 +378,7 @@ public class FileHandler {
                     discipline,
                     type,
                     outcome,
+                    location,
                     opponents,
                     score,
                     date
@@ -381,7 +392,7 @@ public class FileHandler {
                 List<Member> teamA = List.of(m);
                 List<Member> teamB = new ArrayList<>();
 
-                if (opponents != null && !opponents.isBlank()) {
+                if (opponents != null && !opponents.isBlank() && location == MatchLocation.INTERN) {
                     Member opponent = memberManager.findMemberByName(opponents);
                     if (opponent != null) {
                         teamB.add(opponent);

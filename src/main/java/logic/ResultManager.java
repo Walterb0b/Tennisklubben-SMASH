@@ -2,6 +2,7 @@ package main.java.logic;
 
 import main.java.membership.Disciplines;
 import main.java.membership.Member;
+import main.java.tournaments.MatchLocation;
 import main.java.tournaments.MatchType;
 import main.java.tournaments.PlayerResult;
 import main.java.tournaments.ResultOutcome;
@@ -33,13 +34,13 @@ public class ResultManager {
      * @param score kampens score
      * @param date kampens dato
      */
-    public int addExternalMatchResult(List<Member> clubPlayers, Disciplines discipline, MatchType type, String opponentInfo, String score, LocalDate date) {
+    public int addExternalMatchResult(List<Member> clubPlayers, Disciplines discipline, MatchType type, MatchLocation location, String opponentInfo, String score, LocalDate date) {
         int matchID = nextMatchID++;
 
         ResultOutcome outcome = calculateOutcomeFromScore(score);
 
         for (Member player : clubPlayers) {
-            results.add(new PlayerResult(player, discipline, type, outcome, opponentInfo, score, date));
+            results.add(new PlayerResult(player, discipline, type, outcome, location, opponentInfo, score, date));
         }
 
         return matchID;
@@ -55,17 +56,17 @@ public class ResultManager {
      * @param score scoren for kampen
      * @param date kampens dato
      */
-    public int addInternalMatchResult(List<Member> teamA, List<Member> teamB, Disciplines discipline, MatchType type,  int winningTeam, String score, LocalDate date){
+    public int addInternalMatchResult(List<Member> teamA, List<Member> teamB, Disciplines discipline, MatchType type, int winningTeam, String score, LocalDate date){
         int matchID = nextMatchID++;
 
         List<Member> winners = (winningTeam == 1) ? teamA : teamB;
         List<Member> losers = (winningTeam == 1) ? teamB : teamA;
 
         for (Member w : winners) {
-            results.add(new PlayerResult(w, discipline, type, ResultOutcome.VUNDET, buildOpponentNameString(losers), score, date));
+            results.add(new PlayerResult(w, discipline, type, ResultOutcome.VUNDET, MatchLocation.INTERN, buildOpponentNameString(losers), score, date));
         }
         for (Member l : losers) {
-            results.add(new PlayerResult(l, discipline, type, ResultOutcome.TABT, buildOpponentNameString(winners), score, date));
+            results.add(new PlayerResult(l, discipline, type, ResultOutcome.TABT, MatchLocation.INTERN, buildOpponentNameString(winners), score, date));
         }
 
         return matchID;

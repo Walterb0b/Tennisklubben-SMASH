@@ -12,6 +12,7 @@ public class PlayerResult {
     private Disciplines discipline;
     private MatchType type;
     private ResultOutcome outcome;
+    private MatchLocation location;
     private String opponentInfo;
     private String score;
     private LocalDate date;
@@ -21,6 +22,7 @@ public class PlayerResult {
                         Disciplines discipline,
                         MatchType type,
                         ResultOutcome outcome,
+                        MatchLocation location,
                         String opponentInfo,
                         String score,
                         LocalDate date){
@@ -29,6 +31,7 @@ public class PlayerResult {
         this.discipline = discipline;
         this.type = type;
         this.outcome = outcome;
+        this.location = location;
         this.opponentInfo = opponentInfo;
         this.score = score;
         this.date = date;
@@ -39,6 +42,7 @@ public class PlayerResult {
     public Disciplines getDiscipline(){return discipline;}
     public MatchType getType(){return type;}
     public ResultOutcome getOutcome(){return outcome;}
+    public MatchLocation getLocation(){return location;}
     public String getOpponentInfo(){return opponentInfo;}
     public String getScore(){return score;}
     public LocalDate getDate(){return date;}

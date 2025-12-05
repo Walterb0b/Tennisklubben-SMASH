@@ -6,6 +6,7 @@ import main.java.logic.RatingService;
 import main.java.logic.ResultManager;
 import main.java.membership.Disciplines;
 import main.java.membership.Member;
+import main.java.tournaments.MatchLocation;
 import main.java.tournaments.MatchType;
 import main.java.tournaments.PlayerResult;
 import main.java.tournaments.ResultOutcome;
@@ -268,7 +269,7 @@ public class CoachController {
         String opponentInfo = sc.askQuestion("Indtast info om modstander(e) fx. (Spiller X fra klub Y)");
         String score = sc.askQuestion("Indtast score (fx. 6-4 7-5 6-2)");
 
-        resultManager.addExternalMatchResult(clubPlayers, discipline, MatchType.TURNERING, opponentInfo, score, LocalDate.now());
+        resultManager.addExternalMatchResult(clubPlayers, discipline, MatchType.TURNERING, MatchLocation.EKSTERN,opponentInfo, score, LocalDate.now());
 
         ResultOutcome outcome = calculateOutComeFromScore(score);
 

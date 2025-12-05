@@ -1,18 +1,18 @@
-KampID;Spiller;Discipline;Type;Resultat;Modstander(e);Score;Dato
-1;Preben Kaas (ID: 4);DOUBLE;TRÆNING;VUNDET;;7-5 5-3 6-4 ;2025/12/04
-2;Søren Gregersen (ID: 6);DOUBLE;TRÆNING;VUNDET;;7-5 5-3 6-4 ;2025/12/04
-3;John Nielsen (ID: 1);DOUBLE;TRÆNING;TABT;;7-5 5-3 6-4 ;2025/12/04
-4;Rasmus Johnsen (ID: 2);DOUBLE;TRÆNING;TABT;;7-5 5-3 6-4 ;2025/12/04
-5;Søren Gregersen (ID: 6);SINGLE;TURNERING;VUNDET;Brian fra KB Tennis;6-4 4-6 6-0;2025/12/04
-6;Kira Holmgren (ID: 50);SINGLE;TURNERING;TABT;Lars Preben fra KB Tennis;0-6 6-4 6-8;2025/12/04
-7;Nikolaj Kold (ID: 87);SINGLE;TRÆNING;VUNDET;Daniel Juhl;6-4 4-6 2-6;2025/12/04
-8;Daniel Juhl (ID: 63);SINGLE;TRÆNING;TABT;Nikolaj Kold;6-4 4-6 2-6;2025/12/04
-9;Søren Gregersen (ID: 6);SINGLE;TURNERING;VUNDET;Lars Rasmussen fra KB Tennis;4-1;2025/12/05
-10;Jens Krogh (ID: 27);SINGLE;TRÆNING;VUNDET;Kasper Nyborg;6-4 8-6 6-2;2025/12/05
-11;Kasper Nyborg (ID: 37);SINGLE;TRÆNING;TABT;Jens Krogh;6-4 8-6 6-2;2025/12/05
-12;Benjamin Kok (ID: 95);SINGLE;TURNERING;VUNDET;Jesper Timm;6-4 8-6 9-7;2025/12/05
-13;Jesper Timm (ID: 69);SINGLE;TURNERING;TABT;Benjamin Kok;6-4 8-6 9-7;2025/12/05
-14;Benjamin Kok (ID: 95);SINGLE;TURNERING;VUNDET;Søren Gregersen;9-7 6-4 7-5;2025/12/05
-15;Søren Gregersen (ID: 6);SINGLE;TURNERING;TABT;Benjamin Kok;9-7 6-4 7-5;2025/12/05
-16;Benjamin Kok (ID: 95);SINGLE;TURNERING;VUNDET;Søren Gregersen;4-6 4-6 4-6;2025/12/05
-17;Søren Gregersen (ID: 6);SINGLE;TURNERING;TABT;Benjamin Kok;4-6 4-6 4-6;2025/12/05
+KampID;Spiller;Discipline;Type;Resultat;Lokation;Modstander(e);Score;Dato
+1;Preben Kaas (ID: 4);DOUBLE;TRÆNING;VUNDET;INTERN;;7-5 5-3 6-4 ;2025/12/04
+2;Søren Gregersen (ID: 6);DOUBLE;TRÆNING;VUNDET;INTERN;;7-5 5-3 6-4 ;2025/12/04
+3;John Nielsen (ID: 1);DOUBLE;TRÆNING;TABT;INTERN;;7-5 5-3 6-4 ;2025/12/04
+4;Rasmus Johnsen (ID: 2);DOUBLE;TRÆNING;TABT;INTERN;;7-5 5-3 6-4 ;2025/12/04
+5;Søren Gregersen (ID: 6);SINGLE;TURNERING;VUNDET;EKSTERN;Brian fra KB Tennis;6-4 4-6 6-0;2025/12/04
+6;Kira Holmgren (ID: 50);SINGLE;TURNERING;TABT;EKSTERN;Lars Preben fra KB Tennis;0-6 6-4 6-8;2025/12/04
+7;Nikolaj Kold (ID: 87);SINGLE;TRÆNING;VUNDET;INTERN;Daniel Juhl;6-4 4-6 2-6;2025/12/04
+8;Daniel Juhl (ID: 63);SINGLE;TRÆNING;TABT;INTERN;Nikolaj Kold;6-4 4-6 2-6;2025/12/04
+9;Søren Gregersen (ID: 6);SINGLE;TURNERING;VUNDET;EKSTERN;Lars Rasmussen fra KB Tennis;4-1;2025/12/05
+10;Jens Krogh (ID: 27);SINGLE;TRÆNING;VUNDET;INTERN;Kasper Nyborg;6-4 8-6 6-2;2025/12/05
+11;Kasper Nyborg (ID: 37);SINGLE;TRÆNING;TABT;INTERN;Jens Krogh;6-4 8-6 6-2;2025/12/05
+12;Benjamin Kok (ID: 95);SINGLE;TURNERING;VUNDET;INTERN;Jesper Timm;6-4 8-6 9-7;2025/12/05
+13;Jesper Timm (ID: 69);SINGLE;TURNERING;TABT;INTERN;Benjamin Kok;6-4 8-6 9-7;2025/12/05
+14;Benjamin Kok (ID: 95);SINGLE;TURNERING;VUNDET;INTERN;Søren Gregersen;9-7 6-4 7-5;2025/12/05
+15;Søren Gregersen (ID: 6);SINGLE;TURNERING;TABT;INTERN;Benjamin Kok;9-7 6-4 7-5;2025/12/05
+16;Benjamin Kok (ID: 95);SINGLE;TURNERING;VUNDET;INTERN;Søren Gregersen;4-6 4-6 4-6;2025/12/05
+17;Søren Gregersen (ID: 6);SINGLE;TURNERING;TABT;INTERN;Benjamin Kok;4-6 4-6 4-6;2025/12/05

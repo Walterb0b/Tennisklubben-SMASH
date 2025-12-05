@@ -143,7 +143,7 @@ public class TournamentController {
             boolean clubWon = (outcome == ResultOutcome.VUNDET);
 
             int matchId = resultManager.addExternalMatchResult(
-                    clubPlayers, discipline, MatchType.TURNERING, opponentInfo, score, LocalDate.now()
+                    clubPlayers, discipline, MatchType.TURNERING, MatchLocation.EKSTERN, opponentInfo, score, LocalDate.now()
             );
 
             ratingService.updateAfterExternalMatch(
