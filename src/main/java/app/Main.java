@@ -34,6 +34,7 @@ public class Main {
         fh.createMembersFromCSV();
         fh.createResultsFromCSV();
         fh.createPaymentsFromCSV();
+        fh.createTournamentsFromCSV();
 
 
         //fh.saveMembersToCSV();

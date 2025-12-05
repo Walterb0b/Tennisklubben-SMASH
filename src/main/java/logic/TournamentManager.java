@@ -1,5 +1,6 @@
 package main.java.logic;
 
+import main.java.membership.MembershipPayment;
 import main.java.tournaments.MatchType;
 import main.java.tournaments.PlayerResult;
 import main.java.tournaments.Tournament;
@@ -41,6 +42,10 @@ public class TournamentManager {
 
     public Collection<Tournament> getAllTournaments(){
         return tournaments.values();
+    }
+
+    public HashMap<Integer, Tournament> getAllTournamentsForFileHandling() {
+        return tournaments;
     }
 
     public boolean addMatchToTournament(int tournamentID, int matchID, ResultManager resultManager){

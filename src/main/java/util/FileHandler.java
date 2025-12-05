@@ -2,9 +2,7 @@ package main.java.util;
 
 import main.java.logic.*;
 import main.java.membership.*;
-import main.java.tournaments.MatchType;
-import main.java.tournaments.PlayerResult;
-import main.java.tournaments.ResultOutcome;
+import main.java.tournaments.*;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -255,6 +253,38 @@ public class FileHandler {
         writeFile(parts, resultDatabaseFilePath);
     }
 
+    public void saveTournamentsToCSV(){
+        ArrayList<String> parts = new ArrayList<>();
+        String singleLine;
+
+        String tournamentID = "TurneringsID";
+        String name = "Navn";
+        String startDate = "Startdato";
+        String endDate = "Slutdato";
+        String matchIDs = "KampID'er";
+
+        singleLine =  tournamentID + delimiter + name + delimiter + startDate + delimiter + endDate
+                + delimiter + matchIDs;
+        parts.add(singleLine);
+
+        for(Tournament t : tournamentManager.getAllTournaments()) {
+            matchIDs = t.getMatchIDs().isEmpty()
+                    ? ""
+                    : String.join(",", t.getMatchIDs().stream()
+                    .map(String::valueOf)
+                    .toList());
+
+            singleLine = t.getTournamentID() + delimiter +
+                    t.getName() + delimiter +
+                    t.getStartDate() + delimiter +
+                    t.getEndDate() + delimiter +
+                    matchIDs;
+
+            parts.add(singleLine);
+        }
+        writeFile(parts, "tournamentDatabase.csv");
+    }
+
     public ArrayList<String[]> readFromFile(String filename){
         ArrayList<String[]> fileContent = new ArrayList<>();
         try(BufferedReader br = new BufferedReader(new FileReader(filename))){
@@ -369,6 +399,30 @@ public class FileHandler {
             payment.setIsPaid(isPaid);
 
             paymentManager.getAllPayments().put(paymentID, payment);
+        }
+    }
+
+    public void createTournamentsFromCSV() {
+        ArrayList<String[]> fileContent = readFromFile("tournamentDatabase.csv");
+
+        for(String[] parts : fileContent) {
+            if(parts.length < 5) continue;
+
+            int matchID = Integer.parseInt(parts[0]);
+            String name = parts[1];
+            TournamentLevel level = TournamentLevel.valueOf(parts[2]);
+            LocalDate startDate = Formatter.stringToLocalDate(parts[3]);
+            LocalDate endDate = Formatter.stringToLocalDate(parts[4]);
+
+            Tournament t = new Tournament(matchID, name, level, startDate, endDate);
+
+            if(parts.length > 5 && parts[5] != null && !parts[5].isBlank()){
+                String[] matchIDs = parts[5].split(",");
+                for(String m : matchIDs) {
+                    t.addMatchID(Integer.parseInt(m));
+                }
+            }
+            tournamentManager.getAllTournamentsForFileHandling().put(matchID, t);
         }
     }
 

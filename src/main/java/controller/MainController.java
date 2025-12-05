@@ -17,10 +17,11 @@ public class MainController {
 
     public MainController(ScannerHelper sc, FileHandler fh, MemberManager memberManager, StamDataManager stamDataManager, PaymentManager paymentManager, ResultManager resultManager, TournamentManager tournamentManager, PlayerStats playerStats, RatingService ratingService){
         this.sc = sc;
+        this.fh = fh;
         this.memberController = new MemberController(sc, fh, memberManager, stamDataManager, paymentManager);
         this.financeController = new FinanceController(sc, fh, memberManager, paymentManager);
         this.coachController = new CoachController(sc, memberManager, resultManager, playerStats, ratingService, fh);
-        this.tournamentController = new TournamentController(sc, memberManager, tournamentManager, coachController, resultManager, ratingService);
+        this.tournamentController = new TournamentController(sc, fh, memberManager, tournamentManager, coachController, resultManager, ratingService);
     }
 
     public void run(){
@@ -50,6 +51,7 @@ public class MainController {
                     fh.savePaymentsToCSV();
                     fh.savePlayerStatsToCSV();
                     fh.saveResultsToCSV();
+                    fh.saveTournamentsToCSV();
                     running = false;
                     System.out.println("Farvel!");
                     break;
