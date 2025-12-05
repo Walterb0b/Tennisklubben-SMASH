@@ -18,6 +18,11 @@ public class PaymentManager {
         this.payments = new HashMap<>();
     }
 
+    /**
+     * Tilføjer membershipPayment til HashMap med betalinger.
+     * Betalingen får unikt paymentID og paymentID bruges som key i HashMap
+     * @param membershipPayment betaling, som tilføjes til HashMap
+     */
     public void addPayment(MembershipPayment membershipPayment) {
         payments.put(membershipPayment.getPaymentID(), membershipPayment);
     }

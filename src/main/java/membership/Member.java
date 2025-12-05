@@ -3,6 +3,11 @@ package main.java.membership;
 import java.time.LocalDate;
 import java.time.Period;
 
+/**
+ * Håndterer Stamdata på medlemmer.
+ * Klassen bruges af MemberManager
+ *
+ */
 public class Member {
     private static int nextID = 1;
     private final int memberID;
@@ -16,6 +21,16 @@ public class Member {
     private Integer eloRating = null;
     private int smashPoints = 0;
 
+    /**Konstruktør til oprettelse af medlem med spilpræference
+     *
+     * @param name Medlemmets navn
+     * @param phoneNumber Medlemmets telefonnummer
+     * @param birthday Medlemmets fødselsdag
+     * @param signUpDate Dato for start af medlemsskab
+     * @param membership Vælg om medlemsskabet er aktivt eller passivt
+     * @param playPreference Opret information for medlemmets spilpræferencer
+     */
+
     public Member(String name, String phoneNumber, LocalDate birthday, LocalDate signUpDate, Membership membership,
                   PlayPreference playPreference) {
         this.memberID = nextID++;
@@ -26,6 +41,15 @@ public class Member {
         this.membership = membership;
         this.playPreference = playPreference;
     }
+
+    /**Konstruktør til oprettelse af medlem uden spillerpræference
+     *
+     * @param name Medlemmets navn
+     * @param phoneNumber Medlemmets telefonnummer
+     * @param birthday Medlemmets fødselsdag
+     * @param signUpDate Dato for start af medlemsskab
+     * @param membership Vælg om medlemsskabet er aktivt eller passivt
+     */
 
     public Member(String name, String phoneNumber, LocalDate birthday, LocalDate signUpDate, Membership membership) {
         this.memberID = nextID++;
@@ -68,7 +92,6 @@ public class Member {
 
     public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
-    //ingen setBirthday? Bør ikke kunne ændres, når brugeren først er oprettet??
     public void setBirthday(LocalDate birthday) { this.birthday = birthday; }
 
     public void setCancellationDate(LocalDate cancellationDate) { this.cancellationDate = cancellationDate; }
@@ -82,25 +105,12 @@ public class Member {
         this.eloRating += newRating;
     }
 
+    /**
+     * Opdaterer spillerens alderskategori baseret på spillerens nuværende alder
+     * @return alderskategori "Junior"/"Senior"/"60+"
+     */
     public String getAgeCategory() {
         int age = getAge();
-        /*
-
-        String ageCategory = switch(age) {
-            case (age < 18):
-                yield "Junior";
-            case age >= 18 && age < 60:
-                yield "Senior";
-            case age >= 60:
-                yield "60+";
-            default:
-                throw new IllegalStateException("Ugyldig alder: " + age);
-
-
-        };
-        return ageCategory;
-
-         */
         if (age < 18) {
             return "Junior";
         } else if (age >=18 && age < 60) {
@@ -116,6 +126,9 @@ public class Member {
         return playPreference.isCompetetiveMember();
     }
 
+    /**
+     * Tilføjer default eloRating på 1500, hvis spilleren er Konkurrencespiller og ikke har fået eloRating endnu
+     */
     public void initializeEloIfNeeded(){
         if(isCompetitive() && eloRating == null) eloRating = 1500;
     }

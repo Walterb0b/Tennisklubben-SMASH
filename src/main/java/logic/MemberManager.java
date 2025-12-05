@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 
+/**
+ * Håndterer listen over medlemmer
+ */
 public class MemberManager {
     private HashMap<Integer, Member> members;
 
@@ -42,6 +45,12 @@ public class MemberManager {
         }
     }
 
+    /**
+     * Fritekst søgning på medlemsnavn eller medlemsID
+     * @param query søgestrengen, som søger på medlemsnavn eller medlemsID
+     * @return ArrayList over medlemsID, der lever op til søgestrengen
+     */
+
     public ArrayList<Integer> searchForMemberIDs(String query) {
         ArrayList<Integer> memberList = new ArrayList<>();
 
@@ -63,14 +72,16 @@ public class MemberManager {
 
         return memberList;
     }
-    public int membersSize(){
-        return  members.size();
-    }
+
 
     Comparator<Member> byMemberID = Comparator.comparing(Member::getMemberID);
     Comparator<Member> byMemberName = Comparator.comparing(Member::getName);
     Comparator<Member> byMemberIDMemberName = byMemberID.thenComparing(byMemberName);
 
+    /**
+     * En liste over medlemmer sorteret efter først medlemsID og derefter medlemsnavn
+     * @return sorteret ArrayList over Members
+     */
     public ArrayList<Member> getAllMembersSortedByMemberIDName() {
         ArrayList<Member> membersSorted = new ArrayList<Member>(members.values());
         membersSorted.sort(byMemberIDMemberName);
