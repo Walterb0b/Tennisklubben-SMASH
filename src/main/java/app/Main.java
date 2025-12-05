@@ -24,6 +24,7 @@ public class Main {
         TournamentManager tm = new TournamentManager();
         PlayerStats ps = new PlayerStats(rm, mm);
         RatingService rs = new RatingService();
+        EloInitializer eloInitializer = new EloInitializer(mm, rs);
 
         FileHandler fh = new FileHandler(mm, pm, rm, tm, rs, ps);
 
@@ -35,6 +36,7 @@ public class Main {
         fh.createResultsFromCSV();
         fh.createPaymentsFromCSV();
         fh.createTournamentsFromCSV();
+        eloInitializer.initializeEloFromCSV("resultDatabase.csv");
 
 
         //fh.saveMembersToCSV();

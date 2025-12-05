@@ -385,37 +385,8 @@ public class FileHandler {
             );
 
             resultManager.getAllResults().add(pr);
-
-            // Opdater rating
-            if (type == MatchType.TURNERING) {
-                // Hvis interne turneringer (modstander findes i klubben)
-                List<Member> teamA = List.of(m);
-                List<Member> teamB = new ArrayList<>();
-
-                if (opponents != null && !opponents.isBlank() && location == MatchLocation.INTERN) {
-                    Member opponent = memberManager.findMemberByName(opponents);
-                    if (opponent != null) {
-                        teamB.add(opponent);
-                    } else {
-                        System.out.println("Kunne ikke finde intern modstander: " + opponents);
-                    }
-                }
-
-                if (!teamB.isEmpty()) {
-                    int winningTeam = (outcome == ResultOutcome.VUNDET) ? 1 : 2;
-                    ratingService.updateAfterInternalMatch(teamA, teamB, winningTeam, type);
-                } else {
-                    // Ekstern kamp mod ikke-klub spiller
-                    ratingService.updateAfterExternalMatch(teamA, outcome, type);
-                }
-
-            } else if (type == MatchType.TRÆNING) {
-                // Træningskampe: kun smash points
-                ratingService.updateAfterInternalMatch(List.of(m), List.of(), (outcome == ResultOutcome.VUNDET) ? 1 : 2, type);
-            }
         }
-
-}
+    }
 
 
     public void createPaymentsFromCSV() {

@@ -110,9 +110,7 @@ public class RatingService {
      * @return Elo ratingen for en spiller
      */
     private int ensureEloInitialized(Member m) {
-        if(m.getEloRating() == null){
-            m.setEloRating(1500);
-        }
+        m.initializeEloIfNeeded();
         return m.getEloRating();
     }
 
