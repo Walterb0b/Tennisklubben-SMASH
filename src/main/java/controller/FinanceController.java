@@ -69,41 +69,51 @@ public class FinanceController {
             MembershipPayment payment;
             int viewCount = 0;
             int paymentID = 0;
+            ArrayList<Integer> notPaidList = new ArrayList<>();
             for (int id : paymentList) {
                 payment = paymentManager.getPayment(id);
                 boolean isPaid = payment.getIsPaid();
 
                 if (!isPaid) {
-                    viewCount++;
-                    System.out.println(viewCount + ". " + payment.paymentString());
-
+                    notPaidList.add(id);
                 }
             }
+
+
             int userSelect = 0;
-            if (viewCount > 1) {
+            if (notPaidList.isEmpty()) {
+                System.out.println("Denne bruger har ingen udestående betalinger");
+                registerCorrect = true;
+            } else if (notPaidList.size()==1) {
+                System.out.println(paymentManager.getPayment(notPaidList.getFirst()).paymentString());
+                userSelect = 1;
+            } else {
+                for (int p : notPaidList) {
+                    viewCount++;
+                    System.out.println(viewCount + ". " + paymentManager.getPayment(p).paymentString());
+                }
                 System.out.println("\nVælg betaling fra listen");
                 userSelect = sh.navigateMenu(viewCount);
-            } else if (viewCount == 0) {
-                    System.out.println("Denne bruger har ingen udestående betalinger");
-                    registerPayment();
-
-            } else {
-                userSelect = 1;
             }
 
-            userSelect--;
-            paymentID = paymentList.get(userSelect);
-            payment = paymentManager.getPayment(paymentID);
+            if (!notPaidList.isEmpty()) {
+                userSelect--;
+
+                paymentID = notPaidList.get(userSelect);
+                payment = paymentManager.getPayment(paymentID);
 
 
-            boolean setPaid = sh.askConfirmYesNo("Vil du registrere denne betaling som betalt");
+                boolean setPaid = sh.askConfirmYesNo("Vil du registrere denne betaling som betalt");
 
-            if (setPaid) {
+                if (setPaid) {
 
-                payment.setIsPaid(true);
-                System.out.println("Betaling for " + payment.paymentString() + " er betalt");
+                    payment.setIsPaid(true);
+                    System.out.println("Betaling for " + payment.paymentString() + " er betalt");
+                }
+                registerCorrect = true;
             }
-            registerCorrect = true;
+
+
         }
 
     }
