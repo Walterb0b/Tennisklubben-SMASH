@@ -343,7 +343,7 @@ public class FileHandler {
     }
 
     public void createResultsFromCSV() {
-        ArrayList<String[]> fileContent = readFromFile(resultDatabaseFilePath);
+        ArrayList<String[]> fileContent = readFromFile("resultDatabase.csv");
 
         for (String[] parts : fileContent) {
 
@@ -377,17 +377,34 @@ public class FileHandler {
 
             // Opdater rating
             if (type == MatchType.TURNERING) {
-                ratingService.updateAfterExternalMatch(List.of(m), outcome, type);
-            } else if (type == MatchType.TRÆNING) {
-                // Interne træningskampe: m er på teamA, teamB tom
+                // Hvis interne turneringer (modstander findes i klubben)
                 List<Member> teamA = List.of(m);
-                List<Member> teamB = List.of();
-                int winningTeam = (outcome == ResultOutcome.VUNDET) ? 1 : 2;
+                List<Member> teamB = new ArrayList<>();
 
-                ratingService.updateAfterInternalMatch(teamA, teamB, winningTeam, type);
+                if (opponents != null && !opponents.isBlank()) {
+                    Member opponent = memberManager.findMemberByName(opponents);
+                    if (opponent != null) {
+                        teamB.add(opponent);
+                    } else {
+                        System.out.println("Kunne ikke finde intern modstander: " + opponents);
+                    }
+                }
+
+                if (!teamB.isEmpty()) {
+                    int winningTeam = (outcome == ResultOutcome.VUNDET) ? 1 : 2;
+                    ratingService.updateAfterInternalMatch(teamA, teamB, winningTeam, type);
+                } else {
+                    // Ekstern kamp mod ikke-klub spiller
+                    ratingService.updateAfterExternalMatch(teamA, outcome, type);
+                }
+
+            } else if (type == MatchType.TRÆNING) {
+                // Træningskampe: kun smash points
+                ratingService.updateAfterInternalMatch(List.of(m), List.of(), (outcome == ResultOutcome.VUNDET) ? 1 : 2, type);
             }
         }
-    }
+
+}
 
 
     public void createPaymentsFromCSV() {

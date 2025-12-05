@@ -3,7 +3,6 @@ package main.java.logic;
 import main.java.membership.Disciplines;
 import main.java.membership.Member;
 import main.java.membership.MembershipPayment;
-import main.java.util.FileHandler;
 import main.java.util.Formatter;
 import main.java.util.Validator;
 
@@ -88,6 +87,12 @@ public class MemberManager {
         return membersSorted;
     }
 
+    public Member findMemberByName(String name) {
+        for(Member m : getAllMembers().values()) {
+            if(m.getName().equalsIgnoreCase(name)) return m;
+        }
+        return null;
+    }
 
 }
 
