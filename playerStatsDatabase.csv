@@ -1,10 +1,10 @@
 Medlemsnavn;MedlemsID;Single vundet;Single tabt;Double vundet;Double tabt;MixDouble vundet;MixDouble tabt;eloRating;SmashPoints
-John Nielsen;1;0;0;0;1;0;0;null;0
-Rasmus Johnsen;2;0;0;0;1;0;0;null;0
+John Nielsen;1;0;0;0;1;0;0;null;1
+Rasmus Johnsen;2;0;0;0;1;0;0;null;1
 Lizzie Okdal;3;0;0;0;0;0;0;null;0
-Preben Kaas;4;0;0;1;0;0;0;null;0
+Preben Kaas;4;0;0;1;0;0;0;null;3
 Olga Findsen;5;0;0;0;0;0;0;null;0
-Søren Gregersen;6;2;0;1;0;0;0;null;0
+Søren Gregersen;6;2;2;1;0;0;0;null;3
 Henrik Poulsen;7;0;0;0;0;0;0;null;0
 Sofie Kragh;8;0;0;0;0;0;0;null;0
 Mikkel Sand;9;0;0;0;0;0;0;null;0
@@ -61,13 +61,13 @@ Jon Michelsen;59;0;0;0;0;0;0;null;0
 Grethe Sørensen;60;0;0;0;0;0;0;null;0
 Emil Frandsen;61;0;0;0;0;0;0;null;0
 Hannah Brix;62;0;0;0;0;0;0;null;0
-Daniel Juhl;63;0;1;0;0;0;0;null;0
+Daniel Juhl;63;0;1;0;0;0;0;null;1
 Mona Clausen;64;0;0;0;0;0;0;null;0
 Kennet Dyrby;65;0;0;0;0;0;0;null;0
 Eva Ringgaard;66;0;0;0;0;0;0;null;0
 Patrick Hahn;67;0;0;0;0;0;0;null;0
 Line Voss;68;0;0;0;0;0;0;null;0
-Jesper Timm;69;0;0;0;0;0;0;null;0
+Jesper Timm;69;0;1;0;0;0;0;null;0
 Sabrina Møller;70;0;0;0;0;0;0;null;0
 Kenneth Pors;71;0;0;0;0;0;0;null;0
 Tanja Mikk;72;0;0;0;0;0;0;null;0
@@ -85,7 +85,7 @@ Victor Hede;83;0;0;0;0;0;0;null;0
 Mia Gregersen;84;0;0;0;0;0;0;null;0
 Dennis Sørup;85;0;0;0;0;0;0;null;0
 Anneke Luth;86;0;0;0;0;0;0;null;0
-Nikolaj Kold;87;1;0;0;0;0;0;null;0
+Nikolaj Kold;87;1;0;0;0;0;0;null;3
 Sofie Lange;88;0;0;0;0;0;0;null;0
 Peter Falck;89;0;0;0;0;0;0;null;0
 Laura Krøyer;90;0;0;0;0;0;0;null;0
@@ -93,7 +93,7 @@ Morten Teilmann;91;0;0;0;0;0;0;null;0
 Clara Vist;92;0;0;0;0;0;0;null;0
 Søren Høeg;93;0;0;0;0;0;0;null;0
 Silje Tofte;94;0;0;0;0;0;0;null;0
-Benjamin Kok;95;0;0;0;0;0;0;null;0
+Benjamin Kok;95;3;0;0;0;0;0;null;0
 Louisa Mark;96;0;0;0;0;0;0;null;0
 Tim Ahlgren;97;0;0;0;0;0;0;null;0
 Helga Rost;98;0;0;0;0;0;0;null;0

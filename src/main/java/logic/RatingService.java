@@ -55,6 +55,7 @@ public class RatingService {
      * @param teamB Liste over spillerne på team B
      * @param winningTeam En int der bestemmer vinderholdet
      */
+
     private void updateEloAfterInternalTournament(List<Member> teamA, List<Member> teamB, int winningTeam) {
 
         List<Member> compA = filterCompetitive(teamA);
@@ -73,8 +74,8 @@ public class RatingService {
         double scoreA = (winningTeam == 1) ? 1.0 : 0.0;
         double scoreB = (winningTeam == 2) ? 1.0 : 0.0;
 
-        double deltaA = K * (scoreA - expectedA);
-        double deltaB = K * (scoreB - expectedB);
+        double deltaA = K * (scoreA - expectedA) / Math.max(1, compA.size());
+        double deltaB = K * (scoreB - expectedB) / Math.max(1, compB.size());
 
         for(Member m : compA){
             int oldRating = ensureEloInitialized(m);
@@ -107,6 +108,7 @@ public class RatingService {
             m.setEloRating(newRating);
         }
     }
+
 
     //Helpers til Elo udregning
 

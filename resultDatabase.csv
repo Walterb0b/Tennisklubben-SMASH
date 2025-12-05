@@ -10,3 +10,9 @@ KampID;Spiller;Discipline;Type;Resultat;Modstander(e);Score;Dato
 9;Søren Gregersen (ID: 6);SINGLE;TURNERING;VUNDET;Lars Rasmussen fra KB Tennis;4-1;2025/12/05
 10;Jens Krogh (ID: 27);SINGLE;TRÆNING;VUNDET;Kasper Nyborg;6-4 8-6 6-2;2025/12/05
 11;Kasper Nyborg (ID: 37);SINGLE;TRÆNING;TABT;Jens Krogh;6-4 8-6 6-2;2025/12/05
+12;Benjamin Kok (ID: 95);SINGLE;TURNERING;VUNDET;Jesper Timm;6-4 8-6 9-7;2025/12/05
+13;Jesper Timm (ID: 69);SINGLE;TURNERING;TABT;Benjamin Kok;6-4 8-6 9-7;2025/12/05
+14;Benjamin Kok (ID: 95);SINGLE;TURNERING;VUNDET;Søren Gregersen;9-7 6-4 7-5;2025/12/05
+15;Søren Gregersen (ID: 6);SINGLE;TURNERING;TABT;Benjamin Kok;9-7 6-4 7-5;2025/12/05
+16;Benjamin Kok (ID: 95);SINGLE;TURNERING;VUNDET;Søren Gregersen;4-6 4-6 4-6;2025/12/05
+17;Søren Gregersen (ID: 6);SINGLE;TURNERING;TABT;Benjamin Kok;4-6 4-6 4-6;2025/12/05

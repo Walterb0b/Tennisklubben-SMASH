@@ -347,9 +347,6 @@ public class FileHandler {
 
         for (String[] parts : fileContent) {
 
-            // Spring header over
-            if (parts[0].equalsIgnoreCase("KampID")) continue;
-
             int matchID = Integer.parseInt(parts[0]);
             int memberID = extractMemberID(parts[1]);
             Disciplines discipline = Disciplines.valueOf(parts[2]);
@@ -365,7 +362,7 @@ public class FileHandler {
                 continue;
             }
 
-            // 1️⃣ Opret PlayerResult
+            // Opret PlayerResult
             PlayerResult pr = new PlayerResult(
                     m,
                     discipline,
@@ -378,11 +375,16 @@ public class FileHandler {
 
             resultManager.getAllResults().add(pr);
 
+            // Opdater rating
             if (type == MatchType.TURNERING) {
                 ratingService.updateAfterExternalMatch(List.of(m), outcome, type);
-            }
-            else if (type == MatchType.TRÆNING) {
-                ratingService.updateAfterExternalMatch(List.of(m), outcome, type);
+            } else if (type == MatchType.TRÆNING) {
+                // Interne træningskampe: m er på teamA, teamB tom
+                List<Member> teamA = List.of(m);
+                List<Member> teamB = List.of();
+                int winningTeam = (outcome == ResultOutcome.VUNDET) ? 1 : 2;
+
+                ratingService.updateAfterInternalMatch(teamA, teamB, winningTeam, type);
             }
         }
     }
