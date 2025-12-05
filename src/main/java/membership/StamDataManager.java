@@ -65,40 +65,5 @@ public class StamDataManager {
         }
     }
 
-//    public boolean updateEmail(int memberID, String email){
-//        Member member = memberManager.getMember(memberID);
-//        if(member != null){
-//            member.setEmail(email);
-//            return true;
-//        }
-//        return false;
-//    }
-//    public boolean changeAddress(int memberID, String address){
-//        Member member = memberManager.getMember(memberID);
-//        if(member != null){
-//            member.setAddress(address);
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public boolean deactivateMembership(int memberID) {
-//        Member member = memberManager.getMember(memberID);
-//
-//        if (member != null) {
-//            member.setDeactivate(false);
-//            return true;
-//        }
-//        return false;
-//    }
-//    public boolean activateMembership(int memberID) {
-//        Member member = memberManager.getMember(memberID);
-//
-//        if (member != null) {
-//            member.setActivate(true);
-//            return true;
-//        }
-//        return false;
-//    }
 
 }

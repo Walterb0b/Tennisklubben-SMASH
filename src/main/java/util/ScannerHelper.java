@@ -6,6 +6,9 @@ import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Håndterer input fra brugeren og printer menuer
+ */
 public class ScannerHelper {
 
     private Scanner sc;
@@ -228,7 +231,11 @@ public class ScannerHelper {
         return answer;
     }
 
-    //Metode til at navigere i menuen
+    /**
+     * Bruges til at navigere i menupunkter
+     * @param intMax det højest gyldige tal som kan indtastes
+     * @return brugerens valg som integer
+     */
     public int navigateMenu(int intMax) {
         String abort = "HMENU";
         boolean numCorrect = false;

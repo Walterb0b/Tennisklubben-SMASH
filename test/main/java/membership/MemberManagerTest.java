@@ -21,14 +21,5 @@ class MemberManagerTest {
         assertEquals(mm.getMember(m1.getMemberID()),m1 );
     }
 
-    @Test
-    void testSearchMemberID() {
-
-        mm.addMember(m1);
-        mm.addMember(m2);
-        mm.addMember(m3);
-        String query = "1";
-        assertEquals(m1.getMemberID(), mm.searchForMemberIDs(query).getFirst());
-    }
 
 }

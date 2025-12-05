@@ -1,5 +1,8 @@
 package main.java.membership;
 
+/**
+ * Klasse for Aktivt Medlemsskab. Håndterer beregning af årligt pris for medlemsskab
+ */
 public class ActiveMembership implements Membership{
     @Override
     public String toString() {

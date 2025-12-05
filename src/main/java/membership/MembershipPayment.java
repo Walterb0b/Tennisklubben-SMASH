@@ -4,6 +4,9 @@ import main.java.util.Validator;
 
 import java.time.LocalDate;
 
+/**
+ * Håndterer opkrævninger og indbetalinger for medlemsskab
+ */
 public class MembershipPayment {
     private static int nextID = 1;
     private int paymentID;
@@ -85,16 +88,10 @@ public class MembershipPayment {
         return "Kvartal: " + seasonQuarter + ", Beløb: " + amount + " kr." + ", BetalingsID: " + paymentID;
     }
 
-    public String displayPaymentString() {
-        return String.format("%-30s | %-10s | %-8s | %.0f kr.",
-                member.getName(),
-                member.getMemberID(),
-                seasonQuarter,
-                amount) +
-                "\n" + "----------------------------------------------------------------";
-
-    }
-
+    /**
+     * Header til restanceliste og liste over fremtidige betalinger
+     * @return formateret liste
+     */
     public static String futurePaymentHeader() {
         return String.format(
                 "%-10s | %-30s | %-8s | %s",
@@ -104,6 +101,20 @@ public class MembershipPayment {
                 "KVARTAL"
         ) + "\n" +
                 "----------------------------------------------------------------------------------";
+    }
+
+    /**
+     * Formaterer en MembershipPayment til restanceliste og liste over fremtidige betalinger
+     * @return formateret liste
+     */
+    public String displayPaymentString() {
+        return String.format("%-30s | %-10s | %-8s | %.0f kr.",
+                member.getName(),
+                member.getMemberID(),
+                seasonQuarter,
+                amount) +
+                "\n" + "----------------------------------------------------------------";
+
     }
 
     @Override
