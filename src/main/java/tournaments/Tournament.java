@@ -62,13 +62,13 @@ public class Tournament {
 
     @Override
     public String toString() {
-        return "Tournament{" +
-                "id=" + tournamentID +
-                ", name='" + name + '\'' +
-                ", niveau='" + level + '\'' +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                '}';
+        return " Turnering: " + '\n' +
+                " id: " + tournamentID + '\n' +
+                " Navn: " + name + '\n' +
+                " niveau: " + level + '\n' +
+                " Start Dato: " + startDate + '\n' +
+                " Slut Dato: " + endDate + '\n' +
+                ' ' ;
     }
 }
 
