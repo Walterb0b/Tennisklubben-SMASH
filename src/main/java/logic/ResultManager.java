@@ -6,9 +6,6 @@ import main.java.tournaments.MatchLocation;
 import main.java.tournaments.MatchType;
 import main.java.tournaments.PlayerResult;
 import main.java.tournaments.ResultOutcome;
-import main.java.util.FileHandler;
-import main.java.util.Formatter;
-import main.java.logic.MemberManager;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

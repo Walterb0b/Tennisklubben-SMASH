@@ -2,13 +2,8 @@ package main.java.logic;
 
 import main.java.membership.Disciplines;
 import main.java.membership.Member;
-import main.java.membership.MembershipPayment;
 import main.java.tournaments.PlayerResult;
 import main.java.tournaments.ResultOutcome;
-import main.java.util.FileHandler;
-import main.java.util.Formatter;
-
-import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -47,7 +42,6 @@ public class PlayerStats {
 
     /**
      * Bruges til at lave en top 5 liste over en specifik disciplin
-     *
      * @return Liste over top 5 spillere med flest sejre i en specifik disciplin
      */
     public List<Member> getTop5ByDiscipline(Disciplines d) {
@@ -59,7 +53,6 @@ public class PlayerStats {
 
     /**
      * Bruges til at lave en top 5 liste over Elo - rating
-     *
      * @return Liste over top 5 spillere med højeste Elo - rating
      */
     public List<Member> getTop5ByElo() {

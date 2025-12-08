@@ -1,6 +1,5 @@
 package main.java.logic;
 
-import main.java.membership.MembershipPayment;
 import main.java.tournaments.MatchType;
 import main.java.tournaments.PlayerResult;
 import main.java.tournaments.Tournament;

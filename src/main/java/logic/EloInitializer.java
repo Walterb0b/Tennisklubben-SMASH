@@ -29,7 +29,7 @@ public class EloInitializer {
         //Læs CSV og grupper linjer pr. MatchID
         Map<Integer, List<String[]>> matchesByID = loadCsvGroupedByMatchID(csvPath);
 
-        //Gå alle kampe igennen i reækkefølge af MatchID
+        //Gå alle kampe igennem i reækkefølge af MatchID
         List<Integer> matchIDs = new ArrayList<>(matchesByID.keySet());
         Collections.sort(matchIDs);
 
@@ -138,6 +138,9 @@ public class EloInitializer {
         return matchesByID;
     }
 
+    /**
+     * Nulstiller Elo for alle medlemmerne
+     */
     private void resetEloForAllMembers() {
         for(Member m : memberManager.getAllMembers().values()){
             if(m.isCompetitive()){

@@ -1,7 +1,5 @@
 package main.java.util;
 
-import main.java.logic.MemberManager;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 

@@ -1,12 +1,7 @@
 package main.java.logic;
 
-import main.java.membership.Disciplines;
 import main.java.membership.Member;
-import main.java.membership.MembershipPayment;
-import main.java.util.Formatter;
 import main.java.util.Validator;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;

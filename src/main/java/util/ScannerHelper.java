@@ -1,8 +1,6 @@
 package main.java.util;
 
 import main.java.logic.MemberManager;
-
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 

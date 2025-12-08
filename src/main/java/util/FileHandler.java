@@ -8,8 +8,6 @@ import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 
-import static main.java.tournaments.MatchType.TRÆNING;
-import static main.java.tournaments.MatchType.TURNERING;
 
 public class FileHandler {
     private MemberManager memberManager;
