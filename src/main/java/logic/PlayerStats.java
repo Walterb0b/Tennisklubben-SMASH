@@ -62,7 +62,7 @@ public class PlayerStats {
 
         list.removeIf(m -> !m.isCompetitive() || m.getEloRating() == null);
 
-        Collections.sort(list, (m1, m2) -> Integer.compare(m2.getEloRating(), m1.getEloRating()));
+        list.sort((m1, m2) -> Integer.compare(m2.getEloRating(), m1.getEloRating()));
 
         int limit = Math.min(5, list.size());
 
@@ -79,7 +79,7 @@ public class PlayerStats {
 
         List<Member> list = new ArrayList<>(allMembers);
 
-        Collections.sort(list, (m1, m2) -> Integer.compare(m2.getSmashPoints(), m1.getSmashPoints()));
+        list.sort((m1, m2) -> Integer.compare(m2.getSmashPoints(), m1.getSmashPoints()));
 
         int limit = Math.min(5, list.size());
 
